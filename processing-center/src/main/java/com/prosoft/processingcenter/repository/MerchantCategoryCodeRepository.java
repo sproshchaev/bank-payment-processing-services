@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface SalesPoint extends JpaRepository<SalesPoint, Long> {
+public interface MerchantCategoryCodeRepository extends JpaRepository<MerchantCategoryCodeRepository, Long> {
 
 }

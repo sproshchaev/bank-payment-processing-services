@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface MerchantCategoryCode extends JpaRepository<MerchantCategoryCode, Long> {
+public interface CurrencyRepository extends JpaRepository<CurrencyRepository, Long> {
 
 }
