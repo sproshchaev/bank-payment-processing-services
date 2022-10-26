@@ -48,7 +48,7 @@ public class PaymentSystem {
 
     @Override
     public String toString() {
-        return "PaymentSystemRepository{" +
+        return "PaymentSystem{" +
                 "id=" + id +
                 ", paymentSystemName='" + paymentSystemName + '\'' +
                 '}';

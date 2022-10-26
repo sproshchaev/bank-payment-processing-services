@@ -70,7 +70,7 @@ public class IssuingBank {
 
     @Override
     public String toString() {
-        return "IssuingBankRepository{" +
+        return "IssuingBank{" +
                 "id=" + id +
                 ", bic='" + bic + '\'' +
                 ", bin='" + bin + '\'' +

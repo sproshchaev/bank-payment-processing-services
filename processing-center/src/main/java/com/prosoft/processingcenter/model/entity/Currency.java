@@ -70,7 +70,7 @@ public class Currency {
 
     @Override
     public String toString() {
-        return "CurrencyRepository{" +
+        return "Currency{" +
                 "id=" + id +
                 ", currencyDigitalCode='" + currencyDigitalCode + '\'' +
                 ", currencyLetterCode='" + currencyLetterCode + '\'' +

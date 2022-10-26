@@ -59,7 +59,7 @@ public class AcquiringBank {
 
     @Override
     public String toString() {
-        return "AcquiringBankRepository{" +
+        return "AcquiringBank{" +
                 "id=" + id +
                 ", bic='" + bic + '\'' +
                 ", abbreviatedName='" + abbreviatedName + '\'' +
