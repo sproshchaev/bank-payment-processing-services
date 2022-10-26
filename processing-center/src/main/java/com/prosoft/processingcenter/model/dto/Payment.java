@@ -121,4 +121,19 @@ public class Payment {
     public void setAuthorizationCode(String authorizationCode) {
         this.authorizationCode = authorizationCode;
     }
+
+    @Override
+    public String toString() {
+        return "Payment{" +
+                "id=" + id +
+                ", terminalId='" + terminalId + '\'' +
+                ", transactionDate='" + transactionDate + '\'' +
+                ", cardNumber='" + cardNumber + '\'' +
+                ", expiryDate='" + expiryDate + '\'' +
+                ", sum='" + sum + '\'' +
+                ", currencyLetterCode='" + currencyLetterCode + '\'' +
+                ", errorCode='" + errorCode + '\'' +
+                ", authorizationCode='" + authorizationCode + '\'' +
+                '}';
+    }
 }
