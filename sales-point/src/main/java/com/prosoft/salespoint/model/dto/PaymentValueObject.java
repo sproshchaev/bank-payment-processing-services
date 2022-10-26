@@ -28,6 +28,16 @@ public class PaymentValueObject {
     }
 
     public PaymentValueObject(String terminalId, String transactionDate, String cardNumber, String expiryDate,
+                              String sum, String currencyLetterCode) {
+        this.terminalId = terminalId;
+        this.transactionDate = transactionDate;
+        this.cardNumber = cardNumber;
+        this.expiryDate = expiryDate;
+        this.sum = sum;
+        this.currencyLetterCode = currencyLetterCode;
+    }
+
+    public PaymentValueObject(String terminalId, String transactionDate, String cardNumber, String expiryDate,
                               String sum, String currencyLetterCode, String errorCode, String authorizationCode) {
         this.terminalId = terminalId;
         this.transactionDate = transactionDate;
