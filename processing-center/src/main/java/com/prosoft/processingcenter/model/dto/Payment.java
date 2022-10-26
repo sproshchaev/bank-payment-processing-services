@@ -28,6 +28,16 @@ public class Payment {
     public Payment() {
     }
 
+    public Payment(String terminalId, String transactionDate, String cardNumber, String expiryDate, String sum,
+                   String currencyLetterCode) {
+        this.terminalId = terminalId;
+        this.transactionDate = transactionDate;
+        this.cardNumber = cardNumber;
+        this.expiryDate = expiryDate;
+        this.sum = sum;
+        this.currencyLetterCode = currencyLetterCode;
+    }
+
     public Payment(long id, String terminalId, String transactionDate, String cardNumber, String expiryDate, String sum, String currencyLetterCode, String errorCode, String authorizationCode) {
         this.id = id;
         this.terminalId = terminalId;
