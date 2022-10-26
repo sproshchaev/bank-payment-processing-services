@@ -6,10 +6,11 @@
 2. Зависимости:
   - spring-cloud-starter-config (Config Client SPRING CLOUD CONFIG)
   - spring-cloud-starter-bootstrap (активация загрузки из bootstrap.properties)
-  - Spring Shell
-  - Spring Web
-  - Spring Data JPA
-  - PostgreSQL
+  - spring-shell-starter (Spring Shell)
+  - spring-boot-starter-web (Spring Web) 
+  - spring-boot-starter-data-jpa (Spring Data JPA)
+  - h2 (в плане: PostgreSQL + liquibase)
+  - Дополнительно (в плане): spring-cloud-starter-actuator, 
 3. Конфигурация и настройки:
     - Консоль H2:
         - URL: http://localhost:8080/h2-console
