@@ -59,7 +59,7 @@ public class MerchantCategoryCode {
 
     @Override
     public String toString() {
-        return "MerchantCategoryCode{" +
+        return "MerchantCategoryCodeRepository{" +
                 "id=" + id +
                 ", mcc='" + mcc + '\'' +
                 ", mccName='" + mccName + '\'' +

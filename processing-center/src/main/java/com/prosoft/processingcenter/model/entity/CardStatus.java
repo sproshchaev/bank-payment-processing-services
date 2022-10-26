@@ -48,7 +48,7 @@ public class CardStatus {
 
     @Override
     public String toString() {
-        return "CardStatus{" +
+        return "CardStatusRepository{" +
                 "id=" + id +
                 ", cardStatusName='" + cardStatusName + '\'' +
                 '}';

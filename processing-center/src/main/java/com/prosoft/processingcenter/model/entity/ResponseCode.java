@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "ResponseCode")
+@Table(name = "ResponseCodeRepository")
 public class ResponseCode {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -70,7 +70,7 @@ public class ResponseCode {
 
     @Override
     public String toString() {
-        return "ResponseCode{" +
+        return "ResponseCodeRepository{" +
                 "id=" + id +
                 ", errorCode='" + errorCode + '\'' +
                 ", errorDescription='" + errorDescription + '\'' +

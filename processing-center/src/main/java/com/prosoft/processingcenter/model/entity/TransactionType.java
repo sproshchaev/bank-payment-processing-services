@@ -59,7 +59,7 @@ public class TransactionType {
 
     @Override
     public String toString() {
-        return "TransactionType{" +
+        return "TransactionTypeRepository{" +
                 "id=" + id +
                 ", transactionTypeName='" + transactionTypeName + '\'' +
                 ", operator='" + operator + '\'' +
