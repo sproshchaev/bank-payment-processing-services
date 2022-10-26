@@ -20,7 +20,7 @@ public class AuthorizationController {
     }
 
     @GetMapping(value = "/tid/{tid}/date/{date}/card/{card}/expdate/{expdate}/sum/{sum}/curr/{curr}")
-    public Payment paymentAuthorization(@PathVariable String date, @PathVariable String tid, @PathVariable String card,
+    public Payment paymentAuthorization(@PathVariable String tid, @PathVariable String date, @PathVariable String card,
                                         @PathVariable String expdate, @PathVariable String sum,
                                         @PathVariable String curr) {
         return authorizationService.paymentAuthorization(new Payment(tid, date, card, expdate, sum, curr));
