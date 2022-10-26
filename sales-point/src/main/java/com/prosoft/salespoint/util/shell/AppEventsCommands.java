@@ -14,7 +14,6 @@ import java.sql.SQLException;
 @ShellComponent
 public class AppEventsCommands {
 
-    // todo внедрить PaymentAuthorizationServiceImpl через интерфейс
     private final PaymentAuthorizationService paymentAuthorizationService;
 
     @Autowired
