@@ -10,8 +10,8 @@
   - h2 (H2) примечание: консоль доступна в версии H2 2.1.214
 3. Конфигурация и настройки:
    - Консоль H2:
-     - URL: http://localhost:8081/h2-console
-     - JDBC URL: jdbc:h2:mem:issuing-bank
+     - URL: http://localhost:8083/h2-console
+     - JDBC URL: jdbc:h2:mem:currency-converter
 
 ### Таблицы currency-converter 
   UML 

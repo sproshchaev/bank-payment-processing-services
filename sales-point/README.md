@@ -9,7 +9,7 @@
   - spring-boot-starter-web (Spring Web)
   - spring-boot-starter-thymeleaf (Thymeleaf)
   - spring-boot-starter-data-jpa (Spring Data JPA)
-  - h2 (H2)
+  - h2 (H2) примечание: консоль доступна в версии H2 2.1.214
   - spring-boot-starter-security (Spring Security)
   - spring-cloud-starter-netflix-eureka-client (Eureka Discovery Client SPRING CLOUD DISCOVERY)
 3. Конфигурация и настройки:

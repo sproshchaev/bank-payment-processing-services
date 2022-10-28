@@ -1,13 +1,17 @@
 [![Java](https://img.shields.io/badge/Java-E43222??style=for-the-badge&logo=Java&logoColor=FFFFFF)](https://java.com/)
+[![Apache Maven](https://img.shields.io/badge/Apache_Maven-F7F7F7??style=for-the-badge&logo=Apache&logoColor=C85D38)](https://maven.apache.org/)
 [![Spring Boot](https://img.shields.io/badge/Spring_Boot-FFFFFF??style=for-the-badge&logo=Spring)](https://spring.io/projects/spring-boot/)
 [![Spring Shell](https://img.shields.io/badge/Spring_Shell-FFFFFF??style=for-the-badge&logo=Spring)](https://spring.io/projects/spring-shell/)
 [![Spring Cloud Config](https://img.shields.io/badge/Spring_Cloud_Config-FFFFFF??style=for-the-badge&logo=Spring)](https://spring.io/projects/spring-cloud-config/)
+[![Spring Cloud Discovery](https://img.shields.io/badge/Spring_Cloud_Discovery-FFFFFF??style=for-the-badge&logo=Spring)](https://spring.io/guides/gs/service-registration-and-discovery/)
 [![Spring Cloud OpenFeign](https://img.shields.io/badge/Spring_Cloud_OpenFeign-FFFFFF??style=for-the-badge&logo=Spring)](https://spring.io/projects/spring-cloud-openfeign)
 [![Spring Web](https://img.shields.io/badge/Spring_Web-FFFFFF??style=for-the-badge&logo=Spring)](https://spring.io/guides/gs/serving-web-content/)
 [![Thymeleaf](https://img.shields.io/badge/Thymeleaf-FFFFFF??style=for-the-badge&logo=Thymeleaf&logoColor=025B10)](https://www.thymeleaf.org/)
 [![Spring Security](https://img.shields.io/badge/Spring_Security-FFFFFF??style=for-the-badge&logo=Spring)](https://spring.io/projects/spring-security/)
 [![Spring Data JPA](https://img.shields.io/badge/Spring_Data_JPA-FFFFFF??style=for-the-badge&logo=Spring)](https://spring.io/projects/spring-data-jpa)
+[![Docker](https://img.shields.io/badge/Docker-0E2B62??style=for-the-badge&logo=Docker&logoColor=FFFFFF)](https://www.docker.com/)
 [![H2](https://img.shields.io/badge/H2-0618D5??style=for-the-badge&logo=H2&logoColor=FFFFFF)](https://www.h2database.com/)
+[![RabbitMQ](https://img.shields.io/badge/RabbitMQ-FFFFFF??style=for-the-badge&logo=rabbitmq)](https://www.rabbitmq.com/)
 
 ### "Модуль авторизации банковского платежного процессинга на микросервисной архитектуре" bank-payment-processing-services
 Bank payment processing on microservice architecture (processing-center, issuing-bank, sales-point)
@@ -36,8 +40,13 @@ Bank payment processing on microservice architecture (processing-center, issuing
 
 ### Microservice 5: "Сервисный регистратор" eureka-discovery-server
 1. Основной функционал: service registry (аналоги Consul, Zookeeper)
-2. Зависимости:
-  - spring-cloud-starter-netflix-eureka-server (Eureka Server SPRING CLOUD DISCOVERY)
+
+### Microservice 6: "Конвертер курсов валют" currency-converter
+1. Основной функционал: выполнение конверсионных операций из одной валюты в другую по курсам, публикуемым на сайте ЦБ РФ
+
+### Docker
+  - Настройки image в docker-compose.yaml
+  - Запуск RabbitMQ: docker-compose up
 
 ### Заметки
 Для включения Feign в микросервисах: (36 - 1:14:49)

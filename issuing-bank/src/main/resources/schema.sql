@@ -1,7 +1,7 @@
 drop table if exists bank_setting;
 create table bank_setting
 (
-    id            smallint auto_increment primary key,
+    id            bigint auto_increment primary key,
     setting       varchar(100),
     current_value varchar(255),
     description   varchar(255)

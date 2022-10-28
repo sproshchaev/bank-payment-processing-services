@@ -9,7 +9,7 @@
   - spring-shell-starter (Spring Shell)
   - spring-boot-starter-web (Spring Web) 
   - spring-boot-starter-data-jpa (Spring Data JPA)
-  - h2 (в плане: PostgreSQL + liquibase)
+  - h2 (H2) примечание: консоль доступна в версии H2 2.1.214
   - Дополнительно (в плане): spring-cloud-starter-actuator, 
 3. Конфигурация и настройки:
     - Консоль H2:

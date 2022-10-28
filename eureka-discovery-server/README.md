@@ -12,3 +12,4 @@
 
 ### Статьи по теме
 1. Service Registration and Discovery https://spring.io/guides/gs/service-registration-and-discovery/
+2. Spring Cloud и Spring Boot. Часть 1: использование Eureka Server https://habr.com/ru/company/otus/blog/539348/
