@@ -1,0 +1,7 @@
+version: '3'
+services:
+  rabbitmq:
+    image: rabbitmq:management # на 3.11.2 не работает http://localhost:15672/
+    ports:
+      - "5672:5672"
+      - "15672:15672"

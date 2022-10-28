@@ -1,5 +1,9 @@
 package com.prosoft.processingcenter.config;
 
+import org.springframework.amqp.core.Binding;
+import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.TopicExchange;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -33,6 +37,16 @@ public class ConfigApp {
                 .handle("serviceA", "doServiceA")
                 .handle("serviceB", "doServiceB")
                 .channel("outputChannel").get();
+    }
+
+    @Bean
+    public Queue newCardQueue() {
+        return new Queue("newCardQueue", false);
+    }
+
+    @Bean
+    public Queue transactionQueue() {
+        return new Queue("transactionQueue", false);
     }
 
 }

@@ -17,6 +17,11 @@ public class TransactionType {
     public TransactionType() {
     }
 
+    public TransactionType(long id, String transactionTypeName) {
+        this.id = id;
+        this.transactionTypeName = transactionTypeName;
+    }
+
     public long getId() {
         return id;
     }
