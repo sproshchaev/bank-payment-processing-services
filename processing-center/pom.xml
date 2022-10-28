@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.prosoft</groupId>
 	<artifactId>processing-center</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0</version>
 	<name>processing-center</name>
 	<description>Project for Spring Boot, Spring Cloud Config (Config Client), Spring Shell, Spring Web, Spring Data JPA, H2 Database</description>
 	<properties>
@@ -36,16 +36,27 @@
 			<artifactId>spring-cloud-starter-config</artifactId>
 		</dependency>
 
+		<!--
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
-		</dependency>
+		</dependency> -->
 
 		<!-- Spring Integration -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-integration</artifactId>
+		</dependency>
+		<!-- RabbitMQ -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-amqp</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.amqp</groupId>
+			<artifactId>spring-rabbit-test</artifactId>
+			<scope>test</scope>
 		</dependency>
 		<!-- postgresql & liquibase
 		<dependency>
@@ -67,7 +78,8 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-        <dependency>
+
+		<dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <version>2.1.214</version>
