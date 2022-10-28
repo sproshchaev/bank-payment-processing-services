@@ -5,11 +5,12 @@
 2. Зависимости:
   - spring-cloud-starter-config (Config Client SPRING CLOUD CONFIG)
   - spring-cloud-starter-bootstrap (активация загрузки из bootstrap.properties)
-  - Spring Shell
-  - Spring Web (Spring RestTemplate)
-  - Thymeleaf
-  - Spring Data JPA
-  - H2
+  - spring-shell-starter (Spring Shell)
+  - spring-boot-starter-web (Spring Web)
+  - spring-boot-starter-thymeleaf (Thymeleaf)
+  - spring-boot-starter-data-jpa (Spring Data JPA)
+  - h2 (H2)
+  - spring-boot-starter-amqp (Spring for RabbitMQ MESSAGING)
 3. Конфигурация и настройки:
    - Консоль H2:
      - URL: http://localhost:8081/h2-console
@@ -27,3 +28,7 @@
 6. Валюты стран мира на английском языке - полный список https://bit.ly/3sbOvsX
 7. H2 Data Types http://www.h2database.com/html/datatypes.html
 8. Тестовые карты (testcards) https://docs.assist.ru/pages/viewpage.action?pageId=5767473
+9. Messaging with Spring AMQP https://www.baeldung.com/spring-amqp
+10. Tutorial: one-spring-amqp https://www.rabbitmq.com/tutorials/tutorial-one-spring-amqp.html
+11. RabbitMQ Spring tutorial (rus) https://habr.com/ru/post/262069/
+12. RabbitMQ. Часть 1. Introduction. Erlang, AMQP https://habr.com/ru/post/488654/

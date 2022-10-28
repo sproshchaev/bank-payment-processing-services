@@ -23,3 +23,9 @@
 1. Справочник MCC кодов https://mcc-codes.ru/
 2. Коды ошибок Visa/MasterCard/МИР https://wiki.mandarin.io/pages/viewpage.action?pageId=5014410
 3. Коды ответов Visa и MasterCard https://how-helper.ru/kody-otvetov-visa-mastercard/
+4. Банк России. Технические ресурсы https://www.cbr.ru/development/
+5. Получение ежедневных курсов валют (как DataSet) https://www.cbr.ru/DailyInfoWebServ/DailyInfo.asmx?op=GetLatestDateTime
+6. Messaging with Spring AMQP https://www.baeldung.com/spring-amqp
+7. Tutorial: one-spring-amqp https://www.rabbitmq.com/tutorials/tutorial-one-spring-amqp.html
+8. RabbitMQ Spring tutorial (rus) https://habr.com/ru/post/262069/
+9. RabbitMQ. Часть 1. Introduction. Erlang, AMQP https://habr.com/ru/post/488654/
