@@ -12,7 +12,7 @@
 	<artifactId>processing-center</artifactId>
 	<version>1.0</version>
 	<name>processing-center</name>
-	<description>Project for Spring Boot, Spring Cloud Config (Config Client), Spring Shell, Spring Web, Spring Data JPA, H2 Database</description>
+	<description>bank-payment-processing-services</description>
 	<properties>
 		<java.version>11</java.version>
 		<spring-cloud.version>2021.0.4</spring-cloud.version>
@@ -35,7 +35,11 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-config</artifactId>
 		</dependency>
-
+		<!-- Eureka Discovery Client SPRING CLOUD DISCOVERY -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+		</dependency>
 		<!--
 		<dependency>
 			<groupId>com.h2database</groupId>

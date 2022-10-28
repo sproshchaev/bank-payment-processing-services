@@ -1,9 +1,7 @@
 package com.prosoft.processingcenter.config;
 
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.core.TopicExchange;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -15,7 +13,10 @@ import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.dsl.IntegrationFlows;
 import org.springframework.integration.dsl.MessageChannels;
 
+// todo @EnableEurekaClient + в pom.xml добавить spring-cloud-starter-netflix-eureka-client + в application.properties добавить
+// todo @EnableFeignClient(basePackages="...") + в pom.xml добавить
 
+@EnableEurekaClient
 @EnableIntegration
 @IntegrationComponentScan
 @EnableJpaRepositories

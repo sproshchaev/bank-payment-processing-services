@@ -39,6 +39,7 @@ Bank payment processing on microservice architecture (processing-center, issuing
 2. Зависимости:
   - spring-cloud-starter-netflix-eureka-server (Eureka Server SPRING CLOUD DISCOVERY)
 
+### Заметки
 Для включения Feign в микросервисах: (36 - 1:14:49)
   - spring-cloud-starter-openfeign (OpenFeign SPRING CLOUD ROUTING)
   - @EnableFeignClient

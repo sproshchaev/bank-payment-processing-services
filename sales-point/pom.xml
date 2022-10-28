@@ -12,7 +12,7 @@
 	<artifactId>sales-point</artifactId>
 	<version>1.0</version>
 	<name>sales-point</name>
-	<description>Project for Spring Boot, Spring Cloud Config (Config Client), Spring Shell, Spring Web, Thymeleaf, Spring Data JPA, H2 Database, Spring Security</description>
+	<description>bank-payment-processing-services</description>
 	<properties>
 		<java.version>11</java.version>
 		<spring-cloud.version>2021.0.4</spring-cloud.version>
@@ -39,6 +39,11 @@
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-config</artifactId>
+		</dependency>
+		<!-- Eureka Discovery Client SPRING CLOUD DISCOVERY -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.shell</groupId>

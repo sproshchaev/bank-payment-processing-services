@@ -11,6 +11,7 @@
   - spring-boot-starter-data-jpa (Spring Data JPA)
   - h2 (H2)
   - spring-boot-starter-security (Spring Security)
+  - spring-cloud-starter-netflix-eureka-client (Eureka Discovery Client SPRING CLOUD DISCOVERY)
 3. Конфигурация и настройки:
    - Консоль H2:
      - URL: http://localhost:8082/h2-console

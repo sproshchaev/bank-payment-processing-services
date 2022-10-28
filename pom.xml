@@ -12,6 +12,7 @@
 
     <modules>
         <module>configuration-server</module>
+        <module>eureka-discovery-server</module>
         <module>processing-center</module>
         <module>issuing-bank</module>
         <module>sales-point</module>
