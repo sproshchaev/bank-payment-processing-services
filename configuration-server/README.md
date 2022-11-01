@@ -6,5 +6,11 @@
   - Main: @EnableConfigServer
   - bootstrap.properties
 
+### Secret
+  - application.properties: encrypt.key, spring.security.user.name, spring.security.user.password, spring.cloud.config.server.encrypt.enabled=false(!)  
+  - encrypt Postman: POST, localhost:5000/encrypt, Authorization=Basic Auth, Body raw = "value" -> "cryptValue" 
+  - decrypt Postman: POST, localhost:5000/decrypt, Authorization=Basic Auth, Body raw = "cryptValue" -> "value" 
+  - Application: (GitHub) application.properties -> {cipher}"cryptValue"
+
 ### Статьи по теме
 
