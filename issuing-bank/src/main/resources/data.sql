@@ -63,12 +63,14 @@ values ('Иванов', 'Иван', 'Иванович', '1980-01-30', '1234 1234
 insert into account (account_number, balance, currency_id, account_type_id, client_id, account_opening_date, suspending_operations)
 values ('40817810123456789012', 649.7, 1, 2, 1, '2022-10-21', false),
        ('40817810234567890123', 48702.07, 1, 2, 1, '2022-04-05', false),
-       ('40817810345678901234', 715000.01, 1, 2, 1, '2022-10-20', false);
+       ('40817810345678901234', 715000.01, 1, 2, 1, '2022-10-20', false),
+       ('40817840456789012345', 10000.0, 3, 2, 1, '2022-10-21', false);
 
 insert into card (card_number, expiration_date, holder_name, card_status_id, payment_system_id, account_id, client_id)
 values ('4123450101654724', '2025-12-31', 'IVAN I. IVANOV', 1, 1, 1, 1),
        ('5123459858074128', '2025-12-31', 'SEMION E. PETROV', 2, 2, 2, 2),
-       ('3123451333300000', '2025-10-31', 'DMITRY S. SIDOROV', 1, 3, 3, 3);
+       ('3123451333300000', '2025-10-31', 'DMITRY S. SIDOROV', 1, 3, 3, 3),
+       ('4750657776370372', '2025-12-31', 'IVAN I. IVANOV', 1, 1, 4, 1);
 
 insert into transaction (transaction_date, sum, transaction_name, transaction_type_id, account_id)
 values ('2022-10-22', 1000.11, 'Cash deposit', 1, 1),
@@ -76,4 +78,5 @@ values ('2022-10-22', 1000.11, 'Cash deposit', 1, 1),
        ('2022-10-21', 750000.12, 'Cash deposit', 1, 3),
        ('2022-10-23', 350.41, 'Money transfer', 2, 1),
        ('2022-06-23', 1298.85, 'Commission', 2, 2),
-       ('2022-10-22', 35000.11, 'Payment of the invoice', 2, 3);
+       ('2022-10-22', 35000.11, 'Payment of the invoice', 2, 3),
+       ('2022-10-22', 10000.0, 'Cash deposit', 1, 4);

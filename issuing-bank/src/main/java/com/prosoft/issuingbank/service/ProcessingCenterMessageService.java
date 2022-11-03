@@ -38,7 +38,7 @@ public class ProcessingCenterMessageService {
                     new TransactionType(1, "Credit"),
                     "4123450101654724"));
         }
-        rabbitTemplate.convertAndSend("transactionQueue",objectMapper.writeValueAsString(transactionList));
+        rabbitTemplate.convertAndSend("transactionQueue", objectMapper.writeValueAsString(transactionList));
     }
 
 }
