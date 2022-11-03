@@ -1,6 +1,7 @@
 package com.prosoft.salespoint.service;
 
 import com.prosoft.salespoint.model.dto.PaymentValueObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -13,8 +14,14 @@ public class PaymentAuthorizationServiceImpl implements PaymentAuthorizationServ
 
     private final static String AUTHORIZATION_URL = "http://localhost:8080/authorization/tid/{tid}/date/{date}/card/{card}/expdate/{expdate}/sum/{sum}/curr/{curr}";
 
+    private final RestTemplate restTemplate;
+
+    @Autowired
+    public PaymentAuthorizationServiceImpl(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
+
     public PaymentValueObject makeAuthorization(PaymentValueObject requestPaymentValueObject) {
-        RestTemplate restTemplate = new RestTemplate();
         Map<String, String> urlPathVariables = new HashMap<>();
         urlPathVariables.put("tid", requestPaymentValueObject.getTerminalId());
         urlPathVariables.put("date", requestPaymentValueObject.getTransactionDate());
