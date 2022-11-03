@@ -25,3 +25,7 @@
 1. Обзор сервисов для получения актуальных курсов валют https://habr.com/ru/post/537784/
 2. Как управлять вашими секретами с git-crypt https://habr.com/ru/company/nixys/blog/570306/
 3. Как правильно работать с сѝкретами в проекте https://medium.com/maddevs-io/secrets-513d41eaaf43
+4. gRPC — альтернатива REST API от Google https://www.youtube.com/watch?v=SMy4CaxizbA
+5. Скалярные типы данных Protobuf https://learn.microsoft.com/ru-ru/dotnet/architecture/grpc-for-wcf-developers/protobuf-data-types
+6. Пример Сервера на Spring Boot c аннотацией @GrpcService - Spring Boot gRPC Example (2022) https://www.techgeeknext.com/spring-boot/spring-boot-grpc-example
+7. Spring Boot With H2 Database https://www.baeldung.com/spring-boot-h2-database

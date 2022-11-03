@@ -12,12 +12,23 @@
   - h2 (H2) примечание: консоль доступна в версии H2 2.1.214
   - Дополнительно (в плане): spring-cloud-starter-actuator, 
 3. Конфигурация и настройки:
+    - Настройки приложения: http://localhost:5000/processing-center/default
     - Консоль H2:
         - URL: http://localhost:8080/h2-console
         - JDBC URL: jdbc:h2:mem:processing-center
 
 ### Таблицы processing-center
   UML https://dbdiagram.io/d/635616c6fa2755667d572886
+
+### Тестирование
+1. Отключить Spring Shell в application.yml: spring.shell.interactive.enabled=false
+2. Добавить для тестирования Spring Shell в application.yml: spring.main.allow-circular-references=true
+3. В ресурсы тестов необходимо скопировать только: application.yml и data.sql. (файл schema.sql в ресурсы тестов переносить нельзя иначе тесты будут тестировать не то, что находится в базе!)
+
+### Тестирование
+1. Отключить Spring Shell в application.yml: spring.shell.interactive.enabled=false
+2. Добавить для тестирования Spring Shell в application.yml: spring.main.allow-circular-references=true
+3. В ресурсы тестов необходимо скопировать только: application.yml и data.sql. (файл schema.sql в ресурсы тестов переносить нельзя иначе тесты будут тестировать не то, что находится в базе!)
 
 ### Статьи по теме
 1. Справочник MCC кодов https://mcc-codes.ru/
@@ -29,3 +40,5 @@
 7. Tutorial: one-spring-amqp https://www.rabbitmq.com/tutorials/tutorial-one-spring-amqp.html
 8. RabbitMQ Spring tutorial (rus) https://habr.com/ru/post/262069/
 9. RabbitMQ. Часть 1. Introduction. Erlang, AMQP https://habr.com/ru/post/488654/
+10. gRPC — альтернатива REST API от Google https://www.youtube.com/watch?v=SMy4CaxizbA
+11. Spring Boot With H2 Database https://www.baeldung.com/spring-boot-h2-database

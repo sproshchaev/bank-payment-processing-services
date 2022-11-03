@@ -2,7 +2,9 @@ package com.prosoft.processingcenter.util.shell;
 
 import com.prosoft.processingcenter.model.dto.Payment;
 import com.prosoft.processingcenter.service.AuthorizationService;
+import com.prosoft.processingcenter.service.CurrencyService;
 import org.h2.tools.Console;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
@@ -15,8 +17,12 @@ public class AppEventsCommands {
 
     private final AuthorizationService authorizationService;
 
-    public AppEventsCommands(AuthorizationService authorizationService) {
+    private final CurrencyService currencyService;
+
+    @Autowired
+    public AppEventsCommands(AuthorizationService authorizationService, CurrencyService currencyService) {
         this.authorizationService = authorizationService;
+        this.currencyService = currencyService;
     }
 
     @ShellMethod(value = "Start console H2", key = {"c", "console"})
@@ -37,6 +43,12 @@ public class AppEventsCommands {
                                               @ShellOption(defaultValue = "RUB") String curr) {
         return authorizationService.paymentAuthorization(new Payment(tid, date, card, expdate, sum,
                 curr)).toString();
+    }
+
+    @ShellMethod(value = "Get a course", key = {"gc", "getcourse"})
+    public String paymentAuthorizationService(@ShellOption(defaultValue = "USD") String currencyLetterCodeFrom,
+                                              @ShellOption(defaultValue = "RUB") String currencyLetterCodeTo) {
+        return currencyService.getCourse(currencyLetterCodeFrom, currencyLetterCodeTo).toString();
     }
 
 

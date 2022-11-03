@@ -32,7 +32,8 @@ public class AppEventsCommands {
     @ShellMethod(value = "Get a course", key = {"gc", "getcourse"})
     public String paymentAuthorizationService(@ShellOption(defaultValue = "USD") String currencyLetterCodeFrom,
                                               @ShellOption(defaultValue = "RUB") String currencyLetterCodeTo) {
-        return currencyExchangeRateService.getCurrencyExchangeRate(currencyLetterCodeFrom, currencyLetterCodeTo).toString();
+        return currencyExchangeRateService.getCurrencyExchangeRateExt(currencyLetterCodeFrom, currencyLetterCodeTo)
+                .toString();
     }
 
 }
