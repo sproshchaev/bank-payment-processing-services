@@ -33,3 +33,4 @@
 3. Introduction to Spring Cloud OpenFeign https://www.baeldung.com/spring-cloud-openfeign
 4. Наглядный пример различия DTO, POJO и Value Object - Stack Overflow на русском https://bit.ly/3pFYvtg
 5. Spring Boot With H2 Database https://www.baeldung.com/spring-boot-h2-database
+6. @RequestMapping annotation not allowed on @FeignClient interfaces https://bit.ly/3fx3Wcs

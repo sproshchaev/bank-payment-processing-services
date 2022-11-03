@@ -1,7 +1,7 @@
 package com.prosoft.salespoint.model.dto;
 
 /**
- * // todo del
+ * todo del
  * make authorization - провести авторизацию новой покупки по банковской карте:
  * - terminal_id
  * - дата операции
