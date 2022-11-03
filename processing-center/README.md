@@ -3,27 +3,26 @@
    для совершения операций, авторизация покупок по банковским картам VISA, MasterCard, Мир в торговых точках (один
    процессинг на несколько торговых точек). Обмен информацией об эмиссии и транзакциях с банками-эмитентами (один процессинг
    на несколько банков-эмитентов)
-2. Зависимости:
+2. Диаграмма развертывания: https://bit.ly/bpps-diagram
+3. ERD-диаграмма отношений сущностей: https://bit.ly/bpps-erd-pc
+4. Зависимости:
   - spring-cloud-starter-config (Config Client SPRING CLOUD CONFIG)
   - spring-cloud-starter-bootstrap (активация загрузки из bootstrap.properties)
   - spring-shell-starter (Spring Shell)
+  - spring-boot-starter-integration (Spring Integration)
   - spring-boot-starter-web (Spring Web) 
   - spring-boot-starter-data-jpa (Spring Data JPA)
   - h2 (H2) примечание: консоль доступна в версии H2 2.1.214
-  - Дополнительно (в плане): spring-cloud-starter-actuator, 
-3. Конфигурация и настройки:
+  - grpc-netty-shaded, grpc-protobuf, grpc-stub, javax.annotation-api, os-maven-plugin
+5. Конфигурация и настройки:
     - Настройки приложения: http://localhost:5000/processing-center/default
     - Консоль H2:
         - URL: http://localhost:8080/h2-console
         - JDBC URL: jdbc:h2:mem:processing-center
 
-### Таблицы processing-center
-  UML https://dbdiagram.io/d/635616c6fa2755667d572886
-
 ### Тестирование
-1. Отключить Spring Shell в application.yml: spring.shell.interactive.enabled=false
-2. Добавить для тестирования Spring Shell в application.yml: spring.main.allow-circular-references=true
-3. В ресурсы тестов необходимо скопировать только: application.yml и data.sql. (файл schema.sql в ресурсы тестов переносить нельзя иначе тесты будут тестировать не то, что находится в базе!)
+1. Отключить Spring Shell в тестах в test\java\resources\application.properties: spring.shell.interactive.enabled=false, spring.main.allow-circular-references=true
+2. В test\java\resources\ скопировать только data.sql (файл schema.sql в ресурсы тестов переносить нельзя иначе тесты будут тестировать не то, что находится в базе!)
 
 ### Тестирование
 1. Отключить Spring Shell в application.yml: spring.shell.interactive.enabled=false

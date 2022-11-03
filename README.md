@@ -12,12 +12,14 @@
 [![Docker](https://img.shields.io/badge/Docker-0E2B62??style=for-the-badge&logo=Docker&logoColor=FFFFFF)](https://www.docker.com/)
 [![H2](https://img.shields.io/badge/H2-0618D5??style=for-the-badge&logo=H2&logoColor=FFFFFF)](https://www.h2database.com/)
 [![RabbitMQ](https://img.shields.io/badge/RabbitMQ-FFFFFF??style=for-the-badge&logo=rabbitmq)](https://www.rabbitmq.com/)
+[![Jasypt](https://img.shields.io/badge/Jasypt-FFFFFF??style=for-the-badge&logo=Jasypt&logoColor=2E64A4)](http://www.jasypt.org/)
 
 ### "Модуль авторизации банковского платежного процессинга на микросервисной архитектуре" bank-payment-processing-services
 Bank payment processing on microservice architecture (processing-center, issuing-bank, sales-point)
 Репозитории:
 1. Проект https://bit.ly/bpps-ms
 2. Конфигурация https://bit.ly/bpps-config
+3. Диаграмма развертывания https://bit.ly/bpps-diagram
 
 ### Microservice 1: "Конфигурационный сервер" configuration-server
 Основной функционал: управление файлами application.properties микросервисов на Github https://bit.ly/bpps-config
@@ -42,7 +44,7 @@ Bank payment processing on microservice architecture (processing-center, issuing
 1. Основной функционал: service registry (аналоги Consul, Zookeeper)
 
 ### Microservice 6: "Конвертер курсов валют" currency-converter
-1. Основной функционал: выполнение конверсионных операций из одной валюты в другую по курсам, публикуемым на сайте ЦБ РФ
+1. Основной функционал: выполнение конверсионных операций из одной валюты в другую по актуальному курсу
 
 ### Docker
   - Настройки image в docker-compose.yaml
@@ -54,4 +56,4 @@ Bank payment processing on microservice architecture (processing-center, issuing
   - @EnableFeignClient
 
 ### Статьи по теме:
-1. Spring Boot With H2 Database https://www.baeldung.com/spring-boot-h2-database
+1. 5 диаграмм, необходимых для документирования архитектуры решений https://habr.com/ru/company/epam_systems/blog/538018/

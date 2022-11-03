@@ -1,9 +1,10 @@
 ### Microservice 1: "Конфигурационный сервер" configuration-server
 1. Основной функционал: управление файлами application.properties микросервисов на Github https://bit.ly/bpps-config
-2. Зависимости:
+2. Диаграмма развертывания: https://bit.ly/bpps-diagram
+3. Зависимости:
   - Config Server (SPRING CLOUD CONFIG): spring-cloud-config-server
   - jasypt-spring-boot-starter, jasypt-maven-plugin
-3. Конфигурация и настройки:
+4. Конфигурация и настройки:
   - Настройки приложения: http://localhost:5000/configuration-server/default
   - Main: @EnableConfigServer
   - bootstrap.properties
