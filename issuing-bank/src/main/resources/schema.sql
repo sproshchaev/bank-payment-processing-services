@@ -54,7 +54,8 @@ create table client
     birth_date  date,
     document    varchar(255),
     address     varchar(255),
-    phone       varchar(20)
+    phone       varchar(20),
+    email     varchar(255)
 );
 
 drop table if exists account;
