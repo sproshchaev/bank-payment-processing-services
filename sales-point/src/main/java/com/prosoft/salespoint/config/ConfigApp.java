@@ -8,13 +8,14 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.web.client.RestTemplate;
 
 
-@EnableEurekaClient
-@EnableJpaRepositories
-@EnableFeignClients(basePackages = "com.prosoft.salespoint.feign")
 @Configuration
+@EnableEurekaClient
+@EnableFeignClients(basePackages = "com.prosoft.salespoint.feign")
+@EnableJpaRepositories
 public class ConfigApp {
 
   @Bean
+  // @LoadBalanced - если используется feign (@EnableFeignClients), то аннотацию @LoadBalanced не включаем, так как: feign использует ribbon и eureka
   public RestTemplate getRestTemplate() {
       return new RestTemplate();
   }
