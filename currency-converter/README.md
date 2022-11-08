@@ -21,6 +21,9 @@
 1. Fixer https://apilayer.com/marketplace/fixer-api?live_demo=show
 2. Currency Data API https://apilayer.com/marketplace/currency_data-api?txn=free&live_demo=show
 
+### Shell commands
+  - Get a course: gc
+
 ### Тестирование
 1. Отключить Spring Shell в тестах в test\java\resources\application.properties: spring.shell.interactive.enabled=false, spring.main.allow-circular-references=true
 2. В test\java\resources\ скопировать только data.sql (файл schema.sql в ресурсы тестов переносить нельзя иначе тесты будут тестировать не то, что находится в базе!)

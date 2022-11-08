@@ -1,6 +1,6 @@
 package com.prosoft.salespoint.util.shell;
 
-import com.prosoft.salespoint.model.dto.PaymentValueObject;
+import com.prosoft.salespoint.model.vo.PaymentValueObject;
 import com.prosoft.salespoint.service.PaymentAuthorizationService;
 import org.h2.tools.Console;
 import org.springframework.beans.factory.annotation.Autowired;

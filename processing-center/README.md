@@ -20,14 +20,12 @@
         - URL: http://localhost:8080/h2-console
         - JDBC URL: jdbc:h2:mem:processing-center
 
+### Shell commands
+  - Get a course: gc
+
 ### Тестирование
 1. Отключить Spring Shell в тестах в test\java\resources\application.properties: spring.shell.interactive.enabled=false, spring.main.allow-circular-references=true
 2. В test\java\resources\ скопировать только data.sql (файл schema.sql в ресурсы тестов переносить нельзя иначе тесты будут тестировать не то, что находится в базе!)
-
-### Тестирование
-1. Отключить Spring Shell в application.yml: spring.shell.interactive.enabled=false
-2. Добавить для тестирования Spring Shell в application.yml: spring.main.allow-circular-references=true
-3. В ресурсы тестов необходимо скопировать только: application.yml и data.sql. (файл schema.sql в ресурсы тестов переносить нельзя иначе тесты будут тестировать не то, что находится в базе!)
 
 ### Статьи по теме
 1. Справочник MCC кодов https://mcc-codes.ru/

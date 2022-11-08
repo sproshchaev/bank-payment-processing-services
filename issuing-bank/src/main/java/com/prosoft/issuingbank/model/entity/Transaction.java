@@ -1,6 +1,7 @@
 package com.prosoft.issuingbank.model.entity;
 
 import javax.persistence.*;
+import java.sql.Date;
 
 @Entity
 @Table(name = "transaction")
@@ -9,6 +10,9 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
+
+    @Column(name = "transaction_date")
+    private Date transactionDate;
 
     @Column(name = "sum")
     private double sum;
@@ -33,6 +37,14 @@ public class Transaction {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public Date getTransactionDate() {
+        return transactionDate;
+    }
+
+    public void setTransactionDate(Date transactionDate) {
+        this.transactionDate = transactionDate;
     }
 
     public double getSum() {

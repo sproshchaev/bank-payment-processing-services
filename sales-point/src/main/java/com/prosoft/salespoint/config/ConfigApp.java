@@ -15,7 +15,6 @@ import org.springframework.web.client.RestTemplate;
 public class ConfigApp {
 
   @Bean
-  // @LoadBalanced - если используется feign (@EnableFeignClients), то аннотацию @LoadBalanced не включаем, так как: feign использует ribbon и eureka
   public RestTemplate getRestTemplate() {
       return new RestTemplate();
   }

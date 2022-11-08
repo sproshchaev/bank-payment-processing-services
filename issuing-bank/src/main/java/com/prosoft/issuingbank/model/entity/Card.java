@@ -32,7 +32,18 @@ public class Card {
     @JoinColumn(name = "account_id")
     private Account account;
 
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @JoinColumn(name = "client_id")
+    private Client client;
+
     public Card() {
+    }
+
+    public Card(CardStatus cardStatus, PaymentSystem paymentSystem, Account account, Client client) {
+        this.cardStatus = cardStatus;
+        this.paymentSystem = paymentSystem;
+        this.account = account;
+        this.client = client;
     }
 
     public long getId() {
@@ -89,5 +100,13 @@ public class Card {
 
     public void setAccount(Account account) {
         this.account = account;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 }

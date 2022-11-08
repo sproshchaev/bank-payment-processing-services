@@ -13,6 +13,7 @@
 [![H2](https://img.shields.io/badge/H2-0618D5??style=for-the-badge&logo=H2&logoColor=FFFFFF)](https://www.h2database.com/)
 [![RabbitMQ](https://img.shields.io/badge/RabbitMQ-FFFFFF??style=for-the-badge&logo=rabbitmq)](https://www.rabbitmq.com/)
 [![Jasypt](https://img.shields.io/badge/Jasypt-FFFFFF??style=for-the-badge&logo=Jasypt&logoColor=2E64A4)](http://www.jasypt.org/)
+[![gRPC](https://img.shields.io/badge/gRPC-FFFFFF??style=for-the-badge&logo=gRPC&logoColor=2E64A4)](https://grpc.io/)
 
 ### "Модуль авторизации банковского платежного процессинга на микросервисной архитектуре" bank-payment-processing-services
 Bank payment processing on microservice architecture (processing-center, issuing-bank, sales-point)

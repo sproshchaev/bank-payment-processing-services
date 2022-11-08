@@ -19,6 +19,18 @@
      - URL: http://localhost:8081/h2-console
      - JDBC URL: jdbc:h2:mem:issuing-bank
 
+### Shell commands
+  - Вывести все команды: help
+  - Справка по выбранной команде: help сс 
+  - Create a new client: сс --lastname <last_name> --firstname <first_name> --middlename <middle_name> --birthdate <birth_date> --document <document> --address <address> --phone <phone>   
+  - Create an account: ca --clientId <client_id> --currencyLetterCode <currency_letter_code>
+  - Create a bank card: cbc --clientId <client_id> --accountId <account_id> --paymentSystemId <payment_system_id> 
+  - Get account balance: gb --accountId <account_id>
+  - Get all client's accounts: gaa --clientId <client_id> 
+  - Get all transactions on the account: gat --accountId <account_id>
+
+  - Send cards: sc
+
 ### Тестирование
 1. Отключить Spring Shell в тестах в test\java\resources\application.properties: spring.shell.interactive.enabled=false, spring.main.allow-circular-references=true
 2. В test\java\resources\ скопировать только data.sql (файл schema.sql в ресурсы тестов переносить нельзя иначе тесты будут тестировать не то, что находится в базе!)
@@ -37,3 +49,6 @@
 11. RabbitMQ Spring tutorial (rus) https://habr.com/ru/post/262069/
 12. RabbitMQ. Часть 1. Introduction. Erlang, AMQP https://habr.com/ru/post/488654/
 13. Spring Boot With H2 Database https://www.baeldung.com/spring-boot-h2-database
+14. Большой гайд по Optional в Java https://struchkov.dev/blog/optional-in-java/
+15. Hibernate could not initialize proxy – no Session https://www.baeldung.com/hibernate-initialize-proxy-exception
+16. Spring Data JPA and Named Entity Graphs https://www.baeldung.com/spring-data-jpa-named-entity-graphs

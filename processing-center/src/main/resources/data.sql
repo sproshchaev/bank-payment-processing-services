@@ -1,8 +1,10 @@
 insert into card_status (card_status_name)
-values ('Card is valid'),
+values ('Card is not active'),
+       ('Card is valid'),
        ('Card is temporarily blocked'),
        ('Card is lost'),
        ('Card is compromised');
+
 
 insert into payment_system (payment_system_name)
 values ('VISA International Service Association'),
@@ -68,9 +70,9 @@ values ('Пополнение счета', '+'),
        ('Списание со счета', '-');
 
 insert into card (card_number, expiration_date, holder_name, card_status_id, payment_system_id, account_id)
-values ('4123450101654724', '2025-12-31', 'IVAN I. IVANOV', 1, 1, 1),
-       ('5123459858074128', '2025-12-31', 'SEMION E. PETROV', 2, 2, 2),
-       ('3123451333300000', '2025-10-31', 'DMITRY S. SIDOROV', 1, 3, 3);
+values ('4123450101654724', '2025-12-31', 'IVAN I. IVANOV', 2, 1, 1),
+       ('5123459858074128', '2025-12-31', 'SEMION E. PETROV', 3, 2, 2),
+       ('3123451333300000', '2025-10-31', 'DMITRY S. SIDOROV', 2, 3, 3);
 
 insert into transaction (transaction_date, sum, transaction_name, transaction_type_id, card_id, terminal_id, response_code_id, authorization_code)
 values ('2022-10-22', 1000.11, 'Cash deposit', 1, 1, null, null, ''),

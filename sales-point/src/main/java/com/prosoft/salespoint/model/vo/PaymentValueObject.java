@@ -1,4 +1,4 @@
-package com.prosoft.salespoint.model.dto;
+package com.prosoft.salespoint.model.vo;
 
 /**
  * todo del

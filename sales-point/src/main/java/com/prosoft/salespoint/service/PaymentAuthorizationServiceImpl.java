@@ -1,8 +1,9 @@
 package com.prosoft.salespoint.service;
 
 import com.prosoft.salespoint.feign.AuthorizationServiceProxy;
-import com.prosoft.salespoint.model.dto.PaymentValueObject;
+import com.prosoft.salespoint.model.vo.PaymentValueObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -17,16 +18,29 @@ public class PaymentAuthorizationServiceImpl implements PaymentAuthorizationServ
 
     private final RestTemplate restTemplate;
 
-    @Autowired // todo fein через конструктор
-    private AuthorizationServiceProxy authorizationServiceProxy;
+    private final AuthorizationServiceProxy authorizationServiceProxy;
+
+    private final boolean useFeign;
 
     @Autowired
-    public PaymentAuthorizationServiceImpl(RestTemplate restTemplate) {
+    public PaymentAuthorizationServiceImpl(RestTemplate restTemplate, AuthorizationServiceProxy authorizationServiceProxy,
+                                           @Value("${pos.request.feign}") boolean useFeign) {
         this.restTemplate = restTemplate;
+        this.authorizationServiceProxy = authorizationServiceProxy;
+        this.useFeign = useFeign;
     }
 
     public PaymentValueObject makeAuthorization(PaymentValueObject requestPaymentValueObject) {
-        if (false) {
+        if (useFeign) {
+            PaymentValueObject responsePaymentValueObject = authorizationServiceProxy.paymentAuthorization(
+                    requestPaymentValueObject.getTerminalId(),
+                    requestPaymentValueObject.getTransactionDate(),
+                    requestPaymentValueObject.getCardNumber(),
+                    requestPaymentValueObject.getExpiryDate(),
+                    requestPaymentValueObject.getSum(),
+                    requestPaymentValueObject.getCurrencyLetterCode());
+            return responsePaymentValueObject;
+        } else {
             Map<String, String> urlPathVariables = new HashMap<>();
             urlPathVariables.put("tid", requestPaymentValueObject.getTerminalId());
             urlPathVariables.put("date", requestPaymentValueObject.getTransactionDate());
@@ -38,17 +52,6 @@ public class PaymentAuthorizationServiceImpl implements PaymentAuthorizationServ
                     AUTHORIZATION_URL,
                     PaymentValueObject.class, urlPathVariables);
             PaymentValueObject responsePaymentValueObject = responseEntity.getBody();
-            return responsePaymentValueObject;
-        } else {
-            // feign
-            PaymentValueObject responsePaymentValueObject = authorizationServiceProxy.paymentAuthorization(
-                    requestPaymentValueObject.getTerminalId(),
-                    requestPaymentValueObject.getTransactionDate(),
-                    requestPaymentValueObject.getCardNumber(),
-                    requestPaymentValueObject.getExpiryDate(),
-                    requestPaymentValueObject.getSum(),
-                    requestPaymentValueObject.getCurrencyLetterCode()
-                    );
             return responsePaymentValueObject;
         }
     }

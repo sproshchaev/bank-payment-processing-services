@@ -33,7 +33,22 @@ public class Client {
     @Column(name = "phone")
     private String phone;
 
+    @Column(name = "email")
+    private String email;
+
     public Client() {
+    }
+
+    public Client(String lastName, String firstName, String middleName, Date birthDate, String document, String address,
+                  String phone, String email) {
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.birthDate = birthDate;
+        this.document = document;
+        this.address = address;
+        this.phone = phone;
+        this.email = email;
     }
 
     public long getId() {
@@ -100,17 +115,25 @@ public class Client {
         this.phone = phone;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Client client = (Client) o;
-        return id == client.id && lastName.equals(client.lastName) && firstName.equals(client.firstName) && middleName.equals(client.middleName) && birthDate.equals(client.birthDate) && document.equals(client.document) && address.equals(client.address) && phone.equals(client.phone);
+        return id == client.id && lastName.equals(client.lastName) && firstName.equals(client.firstName) && middleName.equals(client.middleName) && birthDate.equals(client.birthDate) && document.equals(client.document) && Objects.equals(address, client.address) && Objects.equals(phone, client.phone) && Objects.equals(email, client.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, lastName, firstName, middleName, birthDate, document, address, phone);
+        return Objects.hash(id, lastName, firstName, middleName, birthDate, document, address, phone, email);
     }
 
     @Override
@@ -124,6 +147,7 @@ public class Client {
                 ", document='" + document + '\'' +
                 ", address='" + address + '\'' +
                 ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
                 '}';
     }
 }
