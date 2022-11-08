@@ -1,0 +1,47 @@
+package com.prosoft.issuingbank.service;
+
+import com.prosoft.issuingbank.model.entity.*;
+import com.prosoft.issuingbank.repository.CardRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
+
+@Service
+public class CardServiceImpl implements CardService {
+    private final ClientService clientService;
+    private final AccountService accountService;
+    private final PaymentSystemService paymentSystemService;
+    private final CardStatusService cardStatusService;
+    private final CardRepository cardRepository;
+    private final CardNumGeneratorService cardNumGeneratorService;
+
+    @Autowired
+    public CardServiceImpl(ClientService clientService, AccountService accountService,
+                           PaymentSystemService paymentSystemService, CardStatusService cardStatusService, CardRepository cardRepository,
+                           CardNumGeneratorService cardNumGeneratorService) {
+        this.clientService = clientService;
+        this.accountService = accountService;
+        this.paymentSystemService = paymentSystemService;
+        this.cardStatusService = cardStatusService;
+        this.cardRepository = cardRepository;
+        this.cardNumGeneratorService = cardNumGeneratorService;
+    }
+
+    @Override
+    @Transactional
+    public Card createCard(long clientId, long accountId, long paymentSystemId) {
+        Optional<Client> client = clientService.getClientById(clientId);
+        Optional<Account> account = accountService.getAccountById(accountId);
+        Optional<PaymentSystem> paymentSystem = paymentSystemService.getPaymentSystemById(paymentSystemId);
+        Optional<CardStatus> cardStatus = cardStatusService.getCardStatusByCardStatusName("Card is not active");
+        if (client.isPresent() && account.isPresent() && paymentSystem.isPresent()) {
+            Card cardCreated = cardRepository.save(new Card(cardStatus.get(), paymentSystem.get(), account.get(), client.get()));
+            cardCreated.setCardNumber(cardNumGeneratorService.getCardNumber(paymentSystem.get()));
+            return cardRepository.save(cardCreated);
+        } else {
+            return null;
+        }
+    }
+}
