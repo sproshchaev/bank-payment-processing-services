@@ -22,6 +22,7 @@
 ### Shell commands
   - Вывести все команды: help
   - Справка по выбранной команде: help сс 
+
   - Create a new client: сс --lastname <last_name> --firstname <first_name> --middlename <middle_name> --birthdate <birth_date> --document <document> --address <address> --phone <phone>   
   - Create an account: ca --clientId <client_id> --currencyLetterCode <currency_letter_code>
   - Create a bank card: cbc --clientId <client_id> --accountId <account_id> --paymentSystemId <payment_system_id> 
@@ -54,3 +55,4 @@
 14. Большой гайд по Optional в Java https://struchkov.dev/blog/optional-in-java/
 15. Hibernate could not initialize proxy – no Session https://www.baeldung.com/hibernate-initialize-proxy-exception
 16. Spring Data JPA and Named Entity Graphs https://www.baeldung.com/spring-data-jpa-named-entity-graphs
+17. Транслитерация имени и фамилии для загранпаспорта http://translit-online.ru/pasport.html

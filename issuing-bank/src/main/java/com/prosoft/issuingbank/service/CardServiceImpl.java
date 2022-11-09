@@ -17,17 +17,21 @@ public class CardServiceImpl implements CardService {
     private final CardStatusService cardStatusService;
     private final CardRepository cardRepository;
     private final CardNumGeneratorService cardNumGeneratorService;
+    private final TransliterationService transliterationService;
+    private final CardValidityService cardValidityService;
 
     @Autowired
     public CardServiceImpl(ClientService clientService, AccountService accountService,
                            PaymentSystemService paymentSystemService, CardStatusService cardStatusService, CardRepository cardRepository,
-                           CardNumGeneratorService cardNumGeneratorService) {
+                           CardNumGeneratorService cardNumGeneratorService, TransliterationService transliterationService, CardValidityService cardValidityService) {
         this.clientService = clientService;
         this.accountService = accountService;
         this.paymentSystemService = paymentSystemService;
         this.cardStatusService = cardStatusService;
         this.cardRepository = cardRepository;
         this.cardNumGeneratorService = cardNumGeneratorService;
+        this.transliterationService = transliterationService;
+        this.cardValidityService = cardValidityService;
     }
 
     @Override
@@ -38,8 +42,11 @@ public class CardServiceImpl implements CardService {
         Optional<PaymentSystem> paymentSystem = paymentSystemService.getPaymentSystemById(paymentSystemId);
         Optional<CardStatus> cardStatus = cardStatusService.getCardStatusByCardStatusName("Card is not active");
         if (client.isPresent() && account.isPresent() && paymentSystem.isPresent()) {
-            Card cardCreated = cardRepository.save(new Card(cardStatus.get(), paymentSystem.get(), account.get(), client.get()));
+            Card cardCreated = cardRepository.save(new Card(cardStatus.get(), paymentSystem.get(), account.get(),
+                    client.get()));
             cardCreated.setCardNumber(cardNumGeneratorService.getCardNumber(paymentSystem.get()));
+            cardCreated.setHolderName(transliterationService.getTransliterationName(client.get()));
+            cardCreated.setExpirationDate(cardValidityService.getCardExpirationDate());
             return cardRepository.save(cardCreated);
         } else {
             return null;
@@ -52,4 +59,5 @@ public class CardServiceImpl implements CardService {
         Optional<Client> client = clientService.getClientById(clientId);
         return client.map(cardRepository::getAllByClient).orElse(null);
     }
+
 }
