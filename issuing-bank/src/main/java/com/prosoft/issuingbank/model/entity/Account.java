@@ -17,7 +17,7 @@ public class Account {
     @Column(name = "balance")
     private double balance;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER) // тянем для транзакции (n+1)
     @JoinColumn(name = "currency_id")
     private Currency currency;
 

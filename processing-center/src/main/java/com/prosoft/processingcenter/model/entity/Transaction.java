@@ -15,7 +15,7 @@ public class Transaction {
     private Date transactionDate;
 
     @Column(name = "sum")
-    private Double sum;
+    private Double sum; // todo Double -> double
 
     @Column(name = "transaction_name")
     private String transactionName;

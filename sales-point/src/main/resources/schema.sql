@@ -86,7 +86,7 @@ create table transaction
 (
     id                  bigint auto_increment primary key,
     transaction_date    date,
-    sum                 numeric,
+    sum                 double,
     transaction_type_id tinyint,
     card_id             bigint,
     terminal_id         bigint,

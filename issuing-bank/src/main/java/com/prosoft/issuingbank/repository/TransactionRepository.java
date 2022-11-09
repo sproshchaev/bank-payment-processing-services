@@ -12,6 +12,6 @@ import java.util.List;
 @Repository
 public interface TransactionRepository extends JpaRepository<Transaction, Long> {
 
-    @EntityGraph(attributePaths = {"account"})
+    @EntityGraph(attributePaths = {"account", "transactionType"})
     List<Transaction> getAllByAccount(Account account);
 }

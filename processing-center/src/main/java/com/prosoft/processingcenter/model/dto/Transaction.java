@@ -4,7 +4,7 @@ import com.prosoft.processingcenter.model.entity.TransactionType;
 
 public class Transaction {
     private String transaction_date;
-    private Double sum;
+    private Double sum; // todo Double -> double
     private String transactionName;
     private TransactionType transactionType;
     private String cardNumber;

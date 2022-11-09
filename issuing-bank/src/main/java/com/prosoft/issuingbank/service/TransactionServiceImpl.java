@@ -29,11 +29,7 @@ public class TransactionServiceImpl implements TransactionService {
     @Transactional(readOnly = true)
     public List<Transaction> getAllTransactionsByAccountId(long accountId) {
         Optional<Account> account = accountService.getAccountById(accountId);
-        if (account.isPresent()) {
-            return transactionRepository.getAllByAccount(account.get());
-        } else {
-            return null;
-        }
+        return account.map(transactionRepository::getAllByAccount).orElse(null);
     }
 
     @Override
@@ -43,12 +39,23 @@ public class TransactionServiceImpl implements TransactionService {
         Optional<Account> account = accountService.getAccountById(accountId);
         Optional<TransactionType> transactionType = transactionTypeService.getTransactionTypeById(transactionTypeId);
         if (account.isPresent() && transactionType.isPresent()) {
-            return transactionRepository.save(new Transaction(
-                    new Date(new java.util.Date().getTime()),
-                    sum,
-                    transactionName,
-                    transactionType.get(),
-                    account.get()));
+            Transaction transactionCreated =
+                    transactionRepository.save(new Transaction(new Date(new java.util.Date().getTime()), sum,
+                            transactionName, transactionType.get(), account.get()));
+
+            List<Transaction> transactionList = getAllTransactionsByAccountId(account.get().getId());
+            double newBalance = 0;
+            if (transactionList != null) {
+                for (Transaction transaction: transactionList) {
+                    if (transaction.getTransactionType().getTransactionTypeName().equals("Debit")) {
+                        newBalance = newBalance - transaction.getSum();
+                    } else {
+                        newBalance = newBalance + transaction.getSum();
+                    }
+                }
+            }
+            accountService.updateBalanceFromTransactions(account.get(), newBalance);
+            return transactionCreated;
         } else {
             return null;
         }

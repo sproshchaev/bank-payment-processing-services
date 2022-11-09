@@ -15,4 +15,6 @@ public interface AccountService {
 
     List<Account> getAllAccountByClientId(long clientId);
 
+    void updateBalanceFromTransactions(Account account, double balance);
+
 }

@@ -74,10 +74,10 @@ values ('4123450101654724', '2025-12-31', 'IVAN I. IVANOV', 2, 1, 1, 1),
        ('4750657776370372', '2025-12-31', 'IVAN I. IVANOV', 2, 1, 4, 1);
 
 insert into transaction (transaction_date, sum, transaction_name, transaction_type_id, account_id)
-values ('2022-10-22', 1000.11, 'Cash deposit', 1, 1),
-       ('2022-04-06', 50000.92, 'Cash deposit', 1, 2),
-       ('2022-10-21', 750000.12, 'Cash deposit', 1, 3),
-       ('2022-10-23', 350.41, 'Money transfer', 2, 1),
-       ('2022-06-23', 1298.85, 'Commission', 2, 2),
-       ('2022-10-22', 35000.11, 'Payment of the invoice', 2, 3),
-       ('2022-10-22', 10000.0, 'Cash deposit', 1, 4);
+values ('2022-10-22', 1000.11, 'Cash deposit', 2, 1),
+       ('2022-04-06', 50000.92, 'Cash deposit', 2, 2),
+       ('2022-10-21', 750000.12, 'Cash deposit', 2, 3),
+       ('2022-10-23', 350.41, 'Money transfer', 1, 1),
+       ('2022-06-23', 1298.85, 'Commission', 1, 2),
+       ('2022-10-22', 35000.11, 'Payment of the invoice', 1, 3),
+       ('2022-10-22', 10000.0, 'Cash deposit', 2, 4);

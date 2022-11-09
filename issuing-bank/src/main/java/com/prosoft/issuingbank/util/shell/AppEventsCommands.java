@@ -126,23 +126,22 @@ public class AppEventsCommands {
         }
     }
 
-    // todo Внести на счет карты (наличными) create a transaction
-    // todo Списать со счета карты средства
-    @ShellMethod(value = "Create a transaction on the account", key = {"ct", "createtransaction"})
+    @ShellMethod(value = "Create a transaction (Debit/Credit) on the account", key = {"ct", "createtransaction"})
     public String createTransaction(@ShellOption(defaultValue = "1", help = "Account's id") long accountId,
                                     @ShellOption(defaultValue = "2",
-                                            help = "Transaction type's id: 1 - Debit, 2 - Credit") long transactionTypeId,
+                                            help = "Transaction type's id: 1 - Debit, 2 - Credit")
+                                    long transactionTypeId,
                                     @ShellOption(defaultValue = "100.28", help = "Account's id") double sum,
                                     @ShellOption(defaultValue = "Пополнение счета", help = "Transaction Comment")
-                                        String transactionName) {
+                                    String transactionName) {
         Transaction transaction = transactionService.createTransactionByAccountId(accountId,
                 transactionTypeId, sum, transactionName);
         if (transaction == null) {
             return "Транзакция не создана - проверьте параметры!";
         } else {
-            return "Транзакция создана: "
-                    + transaction.getTransactionDate() + " " + transaction.getAccount().getAccountNumber() + " "
-                    + transaction.getSum() + " " + transaction.getAccount().getCurrency().getCurrencyLetterCode() + " "
+            return "Транзакция создана: " + transaction.getTransactionDate() + " "
+                    + transaction.getAccount().getAccountNumber() + " " + transaction.getSum() + " "
+                    + transaction.getAccount().getCurrency().getCurrencyLetterCode() + " "
                     + transaction.getTransactionName();
         }
     }
@@ -152,7 +151,5 @@ public class AppEventsCommands {
     public void sendNewCard() throws JsonProcessingException {
         processingCenterMessageService.sendMessage();
     }
-
-    // todo Получить почту из ПЦ? / Либо ПЦ отправляет инфо об операциях?
 
 }

@@ -15,7 +15,7 @@ public class Transaction {
     private Date transactionDate;
 
     @Column(name = "sum")
-    private Double sum;
+    private Double sum; // todo Double -> double
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     @JoinColumn(name = "transaction_type_id")

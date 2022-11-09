@@ -23,7 +23,7 @@ public class ExchangeRate {
     private Currency currencyTo;
 
     @Column(name = "rate")
-    private Double rate;
+    private Double rate; // todo Double -> double
 
     public ExchangeRate() {
     }

@@ -90,7 +90,7 @@ create table account
 (
     id              bigint auto_increment primary key,
     account_number  varchar(50),
-    balance         numeric,
+    balance         double,
     currency_id     bigint,
     issuing_bank_id bigint,
     foreign key (currency_id) references currency (id),
@@ -117,7 +117,7 @@ create table transaction
 (
     id                  bigint auto_increment primary key,
     transaction_date    date,
-    sum                 numeric,
+    sum                 double,
     transaction_name    varchar(255),
     transaction_type_id bigint,
     card_id             bigint,

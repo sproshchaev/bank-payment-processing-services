@@ -1,11 +1,10 @@
 package com.prosoft.issuingbank.model.dto;
 
-import com.prosoft.issuingbank.model.entity.Card;
 import com.prosoft.issuingbank.model.entity.TransactionType;
 
 public class Transaction {
     private String transaction_date;
-    private Double sum;
+    private Double sum; // todo Double -> double
     private String transactionName;
     private TransactionType transactionType;
     private String cardNumber;
