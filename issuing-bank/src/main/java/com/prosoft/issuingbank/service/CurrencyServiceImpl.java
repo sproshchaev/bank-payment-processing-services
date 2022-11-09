@@ -4,6 +4,7 @@ import com.prosoft.issuingbank.model.entity.Currency;
 import com.prosoft.issuingbank.repository.CurrencyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -18,11 +19,13 @@ public class CurrencyServiceImpl implements CurrencyService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Optional<Currency> getCurrencyById(long currencyId) {
         return currencyRepository.findById(currencyId);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Optional<Currency> getCurrencyByCurrencyLetterCode(String currencyLetterCode) {
         return currencyRepository.findCurrencyByCurrencyLetterCode(currencyLetterCode);
     }

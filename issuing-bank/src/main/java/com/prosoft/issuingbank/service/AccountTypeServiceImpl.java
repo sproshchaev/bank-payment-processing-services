@@ -4,6 +4,7 @@ import com.prosoft.issuingbank.model.entity.AccountType;
 import com.prosoft.issuingbank.repository.AccountTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AccountTypeServiceImpl implements AccountTypeService {
@@ -16,6 +17,7 @@ public class AccountTypeServiceImpl implements AccountTypeService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public AccountType getAccountTypeByName(String accountTypeName) {
         return accountTypeRepository.findByAccountTypeName(accountTypeName).get();
     }

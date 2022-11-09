@@ -47,6 +47,7 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Card> getAllCardsByClientId(long clientId) {
         Optional<Client> client = clientService.getClientById(clientId);
         return client.map(cardRepository::getAllByClient).orElse(null);

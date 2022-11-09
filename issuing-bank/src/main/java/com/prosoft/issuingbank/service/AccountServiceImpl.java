@@ -3,7 +3,6 @@ package com.prosoft.issuingbank.service;
 import com.prosoft.issuingbank.model.entity.Account;
 import com.prosoft.issuingbank.model.entity.Client;
 import com.prosoft.issuingbank.model.entity.Currency;
-import com.prosoft.issuingbank.model.entity.Transaction;
 import com.prosoft.issuingbank.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

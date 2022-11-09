@@ -95,7 +95,7 @@ public class AppEventsCommands {
     }
 
     // todo n+1 ?
-    @ShellMethod(value = "Get all transactions on the account", key = {"gt", "gettransactions"})
+    @ShellMethod(value = "Get all transactions on the account", key = {"gat", "gettransactions"})
     public String getTransactionsByAccountId(@ShellOption(defaultValue = "1", help = "Account's id") long accountId) {
         List<Transaction> transactionList = transactionService.getAllTransactionsByAccountId(accountId);
         if (transactionList == null) {

@@ -25,6 +25,7 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Client> getClient(Client client) {
         return clientRepository.getClientByPersonalData(client.getLastName(),
                 client.getFirstName(), client.getMiddleName(), client.getBirthDate(), client.getDocument());
@@ -40,11 +41,5 @@ public class ClientServiceImpl implements ClientService {
         } else {
             return clientList.get(0);
         }
-/*
-            return "Client has been created id=" + clientCreated.getId();
-        } else {
-            return "Client already exists id=" + clientList.get(0).getId();
-        }
-*/
     }
 }
