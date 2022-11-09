@@ -56,3 +56,6 @@
 15. Hibernate could not initialize proxy – no Session https://www.baeldung.com/hibernate-initialize-proxy-exception
 16. Spring Data JPA and Named Entity Graphs https://www.baeldung.com/spring-data-jpa-named-entity-graphs
 17. Транслитерация имени и фамилии для загранпаспорта http://translit-online.ru/pasport.html
+18. Как по номеру карты определить платежную систему https://www.banki.ru/blog/BAY/8991.php
+19. BIN банковской карты https://pikabu.ru/story/bin_bankovskoy_kartyi_4961206
+20. Сервис определения банка по номеру карты https://psm7.com/bin-card

@@ -18,7 +18,8 @@ drop table if exists payment_system;
 create table payment_system
 (
     id                  bigint auto_increment primary key,
-    payment_system_name varchar(50)
+    payment_system_name varchar(50),
+    first_digit_bin varchar(1)
 );
 
 drop table if exists account_type;

@@ -31,13 +31,22 @@ values ('Card is not active'),
        ('Card is lost'),
        ('Card is compromised');
 
-insert into payment_system (payment_system_name)
-values ('VISA International Service Association'),
-       ('Mastercard'),
-       ('JCB'),
-       ('American Express'),
-       ('Diners Club International'),
-       ('China UnionPay');
+American Express – 3;
+
+
+Maestro  – 3, 5, 6;
+
+
+China UnionPay  – 6;
+
+
+insert into payment_system (payment_system_name, first_digit_bin)
+values ('VISA International Service Association', '4'),
+       ('Mastercard', '5'),
+       ('JCB', '3'),
+       ('American Express', '3'),
+       ('Diners Club International', '3'),
+       ('China UnionPay', '6');
 
 insert into account_type (account_type_name)
 values ('Active account'),

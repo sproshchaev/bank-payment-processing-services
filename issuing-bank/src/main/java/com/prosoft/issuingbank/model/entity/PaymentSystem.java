@@ -14,6 +14,9 @@ public class PaymentSystem {
     @Column(name = "payment_system_name")
     private String paymentSystemName;
 
+    @Column(name = "first_digit_bin")
+    private String firstDigitBin;
+
     public PaymentSystem() {
     }
 
@@ -33,17 +36,25 @@ public class PaymentSystem {
         this.paymentSystemName = paymentSystemName;
     }
 
+    public String getFirstDigitBin() {
+        return firstDigitBin;
+    }
+
+    public void setFirstDigitBin(String firstDigitBin) {
+        this.firstDigitBin = firstDigitBin;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PaymentSystem that = (PaymentSystem) o;
-        return id == that.id && paymentSystemName.equals(that.paymentSystemName);
+        return id == that.id && paymentSystemName.equals(that.paymentSystemName) && firstDigitBin.equals(that.firstDigitBin);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, paymentSystemName);
+        return Objects.hash(id, paymentSystemName, firstDigitBin);
     }
 
     @Override
@@ -51,6 +62,7 @@ public class PaymentSystem {
         return "PaymentSystem{" +
                 "id=" + id +
                 ", paymentSystemName='" + paymentSystemName + '\'' +
+                ", firstDigitBin='" + firstDigitBin + '\'' +
                 '}';
     }
 }
