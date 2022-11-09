@@ -31,6 +31,15 @@ public class Transaction {
     public Transaction() {
     }
 
+    public Transaction(Date transactionDate, double sum, String transactionName, TransactionType transactionType,
+                       Account account) {
+        this.transactionDate = transactionDate;
+        this.sum = sum;
+        this.transactionName = transactionName;
+        this.transactionType = transactionType;
+        this.account = account;
+    }
+
     public long getId() {
         return id;
     }

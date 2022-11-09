@@ -28,6 +28,8 @@
   - Get account balance: gb --accountId <account_id>
   - Get all client's accounts: gaa --clientId <client_id> 
   - Get all transactions on the account: gat --accountId <account_id>
+  - Get all client's cards: gac --clientId <client_id>
+  - Create a transaction: ct --accountId <account_id> --transactionTypeId <transaction_type_id> --sum <sum> --transactionName <transaction_name> 
 
   - Send cards: sc
 

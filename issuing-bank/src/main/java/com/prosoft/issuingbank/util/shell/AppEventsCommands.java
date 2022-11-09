@@ -2,6 +2,7 @@ package com.prosoft.issuingbank.util.shell;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.prosoft.issuingbank.model.entity.Account;
+import com.prosoft.issuingbank.model.entity.Card;
 import com.prosoft.issuingbank.model.entity.Client;
 import com.prosoft.issuingbank.model.entity.Transaction;
 import com.prosoft.issuingbank.service.*;
@@ -16,6 +17,7 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @ShellComponent
@@ -99,6 +101,7 @@ public class AppEventsCommands {
         if (transactionList == null) {
             return "Транзакции не найдены!";
         } else {
+            // todo перевести на stream как в getAllCards
             String transactions = "";
             for (int i = 0; i < transactionList.size(); i++) {
                 transactions = transactions
@@ -112,11 +115,37 @@ public class AppEventsCommands {
         }
     }
 
-    // todo Получить все карты клиента
+    @ShellMethod(value = "Get all client's cards", key = {"gac", "getallcards"})
+    public String getAllCards(@ShellOption(defaultValue = "1", help = "Client's id") long clientId) {
+        List<Card> cardList = cardService.getAllCardsByClientId(clientId);
+        if (cardList == null) {
+            return "Карты не найдены";
+        } else {
+            return "Карты клиента: \n" + cardList.stream().map((s) -> s.getId() + ") " + s.getCardNumber())
+                    .collect(Collectors.joining(", \n")) + ".";
+        }
+    }
 
-    // todo Внести на счет карты (наличными)
-
+    // todo Внести на счет карты (наличными) create a transaction
     // todo Списать со счета карты средства
+    @ShellMethod(value = "Create a transaction on the account", key = {"ct", "createtransaction"})
+    public String createTransaction(@ShellOption(defaultValue = "1", help = "Account's id") long accountId,
+                                    @ShellOption(defaultValue = "2",
+                                            help = "Transaction type's id: 1 - Debit, 2 - Credit") long transactionTypeId,
+                                    @ShellOption(defaultValue = "100.28", help = "Account's id") double sum,
+                                    @ShellOption(defaultValue = "Пополнение счета", help = "Transaction Comment")
+                                        String transactionName) {
+        Transaction transaction = transactionService.createTransactionByAccountId(accountId,
+                transactionTypeId, sum, transactionName);
+        if (transaction == null) {
+            return "Транзакция не создана - проверьте параметры!";
+        } else {
+            return "Транзакция создана: "
+                    + transaction.getTransactionDate() + " " + transaction.getAccount().getAccountNumber() + " "
+                    + transaction.getSum() + " " + transaction.getAccount().getCurrency().getCurrencyLetterCode() + " "
+                    + transaction.getTransactionName();
+        }
+    }
 
     // todo Отправить почту в ПЦ
     @ShellMethod(value = "Send new cards to processing-center", key = {"sc", "sendcard"})
