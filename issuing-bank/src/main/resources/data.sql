@@ -31,15 +31,6 @@ values ('Card is not active'),
        ('Card is lost'),
        ('Card is compromised');
 
-American Express – 3;
-
-
-Maestro  – 3, 5, 6;
-
-
-China UnionPay  – 6;
-
-
 insert into payment_system (payment_system_name, first_digit_bin)
 values ('VISA International Service Association', '4'),
        ('Mastercard', '5'),
