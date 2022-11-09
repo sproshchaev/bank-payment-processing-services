@@ -44,7 +44,7 @@ public class CardServiceImpl implements CardService {
         if (client.isPresent() && account.isPresent() && paymentSystem.isPresent()) {
             Card cardCreated = cardRepository.save(new Card(cardStatus.get(), paymentSystem.get(), account.get(),
                     client.get()));
-            cardCreated.setCardNumber(cardNumGeneratorService.getCardNumber(paymentSystem.get()));
+            cardCreated.setCardNumber(cardNumGeneratorService.getCardNumber(cardCreated.getId(), paymentSystem.get()));
             cardCreated.setHolderName(transliterationService.getTransliterationName(client.get()));
             cardCreated.setExpirationDate(cardValidityService.getCardExpirationDate());
             return cardRepository.save(cardCreated);

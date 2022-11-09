@@ -6,8 +6,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class CardNumGeneratorServiceImpl implements CardNumGeneratorService {
 
+    private final static int CARD_NUMBER_LENGTH = 16;
+    private final static String FILLING_CARD_NUMBER = "1234567890123456";
+
     @Override
-    public String getCardNumber(PaymentSystem paymentSystem) {
-        return "1234567890123456";
+    public String getCardNumber(long cardId, PaymentSystem paymentSystem) {
+        int remainderNumber = CARD_NUMBER_LENGTH - paymentSystem.getFirstDigitBin().length()
+                - String.valueOf(cardId).length();
+        return paymentSystem.getFirstDigitBin() + FILLING_CARD_NUMBER.substring(0, remainderNumber) + cardId;
     }
 }
