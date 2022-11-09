@@ -48,6 +48,7 @@ Bank payment processing on microservice architecture (processing-center, issuing
 1. Основной функционал: выполнение конверсионных операций из одной валюты в другую по актуальному курсу
 
 ### Docker
+  - docker pull rabbitmq:management 
   - Настройки image в docker-compose.yaml
   - Запуск RabbitMQ: docker-compose up
 
@@ -55,6 +56,31 @@ Bank payment processing on microservice architecture (processing-center, issuing
 Для включения Feign в микросервисах: (36 - 1:14:49)
   - spring-cloud-starter-openfeign (OpenFeign SPRING CLOUD ROUTING)
   - @EnableFeignClient
+
+### Запуск проекта
+1. Terminal: docker-compose up
+2. configuration-server
+3. eureka-discovery-server (Edit Configuration - Active profiles: standalone)
+4. currency-converter
+5. processing-center
+6. issuing-bank
+7. sales-point
+
+### Тестирование функционала
+1. Мониторинг:
+  - eureka-discovery-server http://localhost:8001/
+  - RabbitMQ Management http://localhost:15672/ (guest/guest)
+  - http://localhost:8081/h2-console (JDBC URL: jdbc:h2:mem:issuing-bank)
+2. issuing-bank:
+  - shell: сс, ca, cbc, gb, gaa, gat, gac, ct
+  - shell: sc
+3. currency-converter:
+  - shell: gc
+4. processing-center: 
+  - shell: gc
+  - Проведение авторизации: http://localhost:8080/authorization/tid/000000001/date/2022-10-26/card/4123450101654724/expdate/1225/sum/500.55/curr/RUB
+5. sales-point:
+  - shell: ma
 
 ### Статьи по теме:
 1. 5 диаграмм, необходимых для документирования архитектуры решений https://habr.com/ru/company/epam_systems/blog/538018/
