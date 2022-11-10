@@ -2,6 +2,7 @@ package com.prosoft.processingcenter.model.entity;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "transaction")
@@ -40,10 +41,10 @@ public class Transaction {
     private String authorizationCode;
 
     @Column(name = "received_from_issuing_bank")
-    private Date receivedFromIssuingBank;
+    private Timestamp receivedFromIssuingBank;
 
     @Column(name = "sent_to_issuing_bank")
-    private Date sentToIssuingBank;
+    private Timestamp sentToIssuingBank;
 
     public Transaction() {
     }
@@ -120,19 +121,19 @@ public class Transaction {
         this.authorizationCode = authorizationCode;
     }
 
-    public Date getReceivedFromIssuingBank() {
+    public Timestamp getReceivedFromIssuingBank() {
         return receivedFromIssuingBank;
     }
 
-    public void setReceivedFromIssuingBank(Date receivedFromIssuingBank) {
+    public void setReceivedFromIssuingBank(Timestamp receivedFromIssuingBank) {
         this.receivedFromIssuingBank = receivedFromIssuingBank;
     }
 
-    public Date getSentToIssuingBank() {
+    public Timestamp getSentToIssuingBank() {
         return sentToIssuingBank;
     }
 
-    public void setSentToIssuingBank(Date sentToIssuingBank) {
+    public void setSentToIssuingBank(Timestamp sentToIssuingBank) {
         this.sentToIssuingBank = sentToIssuingBank;
     }
 }
