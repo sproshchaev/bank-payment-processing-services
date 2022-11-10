@@ -72,7 +72,9 @@ public class AppEventsCommands {
     public String createBankCard(@ShellOption(defaultValue = "1", help = "Client's id") long clientId,
                                  @ShellOption(defaultValue = "1", help = "Account's id") long accountId,
                                  @ShellOption(defaultValue = "1", help = "Payment system id") long paymentSystemId) {
-        return "Карта открыта " + cardService.createCard(clientId, accountId, paymentSystemId).getCardNumber();
+        Card cardCreated = cardService.createCard(clientId, accountId, paymentSystemId);
+        return "Карта открыта: " + cardCreated.getCardNumber()+ " " + cardCreated.getExpirationDate() + " "
+                + cardCreated.getHolderName();
     }
 
     @ShellMethod(value = "Get all client's accounts", key = {"gaa", "getallaccounts"})
