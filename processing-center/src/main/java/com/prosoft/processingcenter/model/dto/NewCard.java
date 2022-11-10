@@ -1,5 +1,6 @@
 package com.prosoft.processingcenter.model.dto;
 
+// todo не используется - удалить!
 public class NewCard {
     private String cardNum;
     private String holderName;

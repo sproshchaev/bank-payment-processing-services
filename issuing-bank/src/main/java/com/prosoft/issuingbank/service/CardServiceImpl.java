@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
@@ -58,6 +60,31 @@ public class CardServiceImpl implements CardService {
     public List<Card> getAllCardsByClientId(long clientId) {
         Optional<Client> client = clientService.getClientById(clientId);
         return client.map(cardRepository::getAllByClient).orElse(null);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Card> getAllCardsByStatusId(long cardStatusId) {
+        Optional<CardStatus> cardStatus = cardStatusService.getCardStatusById(cardStatusId);
+        return cardStatus.map(cardRepository::getAllByCardStatus).orElse(null);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Card> getAllCardsByDateSentToProcessingCenter(Timestamp sentToProcessingCenter) {
+        return cardRepository.getAllBySentToProcessingCenter(sentToProcessingCenter);
+    }
+
+    @Override
+    @Transactional
+    public void setDateSentToProcessingCenter(Timestamp sentToProcessingCenter, List<String> cardNumberList) {
+        for (String cardNumber : cardNumberList) {
+            Optional<Card> card = cardRepository.getByCardNumber(cardNumber);
+            if (card.isPresent()) {
+                card.get().setSentToProcessingCenter(sentToProcessingCenter);
+                cardRepository.save(card.get());
+            }
+        }
     }
 
 }

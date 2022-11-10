@@ -8,4 +8,6 @@ public interface CardStatusService {
 
     Optional<CardStatus> getCardStatusByCardStatusName(String cardStatusName);
 
+    Optional<CardStatus> getCardStatusById(long cardStatusId);
+
 }

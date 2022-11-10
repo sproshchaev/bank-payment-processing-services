@@ -2,7 +2,7 @@ package com.prosoft.processingcenter.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.prosoft.processingcenter.model.dto.Transaction;
+import com.prosoft.processingcenter.model.dto.TransactionCard;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,9 +19,9 @@ public class TransactionIssuingBankService {
 
     @RabbitListener(queues = "transactionQueue")
     public void listenTransactionQueue(String in) {
-        Transaction[] transactionArray;
+        TransactionCard[] transactionArray;
         try {
-            transactionArray = objectMapper.readValue(in, Transaction[].class);
+            transactionArray = objectMapper.readValue(in, TransactionCard[].class);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }

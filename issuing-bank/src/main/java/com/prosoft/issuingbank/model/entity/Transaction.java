@@ -2,6 +2,7 @@ package com.prosoft.issuingbank.model.entity;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "transaction")
@@ -27,6 +28,9 @@ public class Transaction {
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id")
     private Account account;
+
+    @Column(name = "sent_to_processing_center")
+    private Timestamp sentToProcessingCenter;
 
     public Transaction() {
     }
@@ -86,5 +90,13 @@ public class Transaction {
 
     public void setAccount(Account account) {
         this.account = account;
+    }
+
+    public Timestamp getSentToProcessingCenter() {
+        return sentToProcessingCenter;
+    }
+
+    public void setSentToProcessingCenter(Timestamp sentToProcessingCenter) {
+        this.sentToProcessingCenter = sentToProcessingCenter;
     }
 }

@@ -151,7 +151,7 @@ public class AppEventsCommands {
     // todo Отправить почту в ПЦ
     @ShellMethod(value = "Send new cards to processing-center", key = {"sc", "sendcard"})
     public void sendNewCard() throws JsonProcessingException {
-        processingCenterMessageService.sendMessage();
+        processingCenterMessageService.sendAllMessage();
     }
 
 }

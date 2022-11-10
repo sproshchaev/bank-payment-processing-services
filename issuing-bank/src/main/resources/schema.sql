@@ -19,7 +19,7 @@ create table payment_system
 (
     id                  bigint auto_increment primary key,
     payment_system_name varchar(50),
-    first_digit_bin varchar(1)
+    first_digit_bin     varchar(1)
 );
 
 drop table if exists account_type;
@@ -56,7 +56,7 @@ create table client
     document    varchar(255),
     address     varchar(255),
     phone       varchar(20),
-    email     varchar(255)
+    email       varchar(255)
 );
 
 drop table if exists account;
@@ -79,14 +79,15 @@ create table account
 drop table if exists card;
 create table card
 (
-    id                bigint auto_increment primary key,
-    card_number       varchar(50),
-    expiration_date   date,
-    holder_name       varchar(50),
-    card_status_id    bigint,
-    payment_system_id bigint,
-    account_id        bigint,
-    client_id         bigint,
+    id                        bigint auto_increment primary key,
+    card_number               varchar(50),
+    expiration_date           date,
+    holder_name               varchar(50),
+    card_status_id            bigint,
+    payment_system_id         bigint,
+    account_id                bigint,
+    client_id                 bigint,
+    sent_to_processing_center timestamp,
     foreign key (card_status_id) references card_status (id),
     foreign key (payment_system_id) references payment_system (id),
     foreign key (account_id) references account (id),
@@ -96,12 +97,13 @@ create table card
 drop table if exists transaction;
 create table transaction
 (
-    id                  bigint auto_increment primary key,
-    transaction_date    date,
-    sum                 double,
-    transaction_name    varchar(255),
-    transaction_type_id bigint,
-    account_id          bigint,
+    id                        bigint auto_increment primary key,
+    transaction_date          date,
+    sum                       double,
+    transaction_name          varchar(255),
+    transaction_type_id       bigint,
+    account_id                bigint,
+    sent_to_processing_center timestamp,
     foreign key (transaction_type_id) references transaction_type (id),
     foreign key (account_id) references account (id)
 );

@@ -2,6 +2,8 @@ package com.prosoft.issuingbank.service;
 
 import com.prosoft.issuingbank.model.entity.Transaction;
 
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 public interface TransactionService {
@@ -10,4 +12,7 @@ public interface TransactionService {
 
    Transaction createTransactionByAccountId(long accountId, long transactionTypeId, double sum, String transactionName);
 
+   List<Transaction> getAllTransactionsByDateSentToProcessingCenter(Timestamp sentToProcessingCenter);
+
+   void setDateSentToProcessingCenter(Timestamp sentToProcessingCenter, List<Long> transactionIdList);
 }

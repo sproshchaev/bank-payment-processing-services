@@ -1,6 +1,7 @@
 package com.prosoft.issuingbank.service;
 
 import com.prosoft.issuingbank.model.entity.Account;
+import com.prosoft.issuingbank.model.entity.Card;
 import com.prosoft.issuingbank.model.entity.Transaction;
 import com.prosoft.issuingbank.model.entity.TransactionType;
 import com.prosoft.issuingbank.repository.TransactionRepository;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
@@ -58,6 +60,24 @@ public class TransactionServiceImpl implements TransactionService {
             return transactionCreated;
         } else {
             return null;
+        }
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Transaction> getAllTransactionsByDateSentToProcessingCenter(Timestamp sentToProcessingCenter) {
+        return transactionRepository.getAllBySentToProcessingCenter(sentToProcessingCenter);
+    }
+
+    @Override
+    @Transactional
+    public void setDateSentToProcessingCenter(Timestamp sentToProcessingCenter, List<Long> transactionIdList) {
+        for (Long transactionId : transactionIdList) {
+            Optional<Transaction> transaction = transactionRepository.findById(transactionId);
+            if (transaction.isPresent()) {
+                transaction.get().setSentToProcessingCenter(sentToProcessingCenter);
+                transactionRepository.save(transaction.get());
+            }
         }
     }
 }

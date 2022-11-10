@@ -23,4 +23,9 @@ public class CardStatusServiceImpl implements CardStatusService {
     public Optional<CardStatus> getCardStatusByCardStatusName(String cardStatusName) {
         return cardStatusRepository.findByCardStatusName(cardStatusName);
     }
+
+    @Override
+    public Optional<CardStatus> getCardStatusById(long cardStatusId) {
+        return cardStatusRepository.findById(cardStatusId);
+    }
 }

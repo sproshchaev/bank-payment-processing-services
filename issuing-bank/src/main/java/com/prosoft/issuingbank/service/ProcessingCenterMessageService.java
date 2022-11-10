@@ -2,43 +2,83 @@ package com.prosoft.issuingbank.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.prosoft.issuingbank.model.dto.NewCard;
-import com.prosoft.issuingbank.model.dto.Transaction;
-import com.prosoft.issuingbank.model.entity.Card;
-import com.prosoft.issuingbank.model.entity.TransactionType;
+import com.prosoft.issuingbank.model.dto.Card;
+import com.prosoft.issuingbank.model.dto.TransactionCard;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.sql.Timestamp;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ProcessingCenterMessageService {
+    private final static long ISSUING_BANK_ID = 1;
+    private final CardService cardService;
+    private final TransactionService transactionService;
     private final RabbitTemplate rabbitTemplate;
     private final ObjectMapper objectMapper;
 
     @Autowired
-    public ProcessingCenterMessageService(RabbitTemplate rabbitTemplate, ObjectMapper objectMapper) {
+    public ProcessingCenterMessageService(CardService cardService, TransactionService transactionService,
+                                          RabbitTemplate rabbitTemplate, ObjectMapper objectMapper) {
+        this.cardService = cardService;
+        this.transactionService = transactionService;
         this.rabbitTemplate = rabbitTemplate;
         this.objectMapper = objectMapper;
     }
 
-    public void sendMessage() throws JsonProcessingException {
-        ArrayList<NewCard> newCardList = new ArrayList<>();
-        newCardList.add(new NewCard("1234567890123456", "IVAN I. IVANOV"));
-        newCardList.add(new NewCard("1234567890123457", "PETR P. PETROV"));
-        newCardList.add(new NewCard("1234567890123458", "SEMEN S. SEMYONOV"));
-
-        rabbitTemplate.convertAndSend("newCardQueue", objectMapper.writeValueAsString(newCardList));
-
-
-        ArrayList<Transaction> transactionList = new ArrayList<>();
-        for (int i = 1; i <= 3; i++) {
-            transactionList.add(new Transaction("2022-10-28", (i * 100 + 0.1 * i), "Пополнение карты",
-                    new TransactionType(1, "Credit"),
-                    "4123450101654724"));
-        }
-        rabbitTemplate.convertAndSend("transactionQueue", objectMapper.writeValueAsString(transactionList));
+    public void sendAllMessage() {
+        sendCardMessage();
+        sendTransactionMessage();
     }
 
+    public void sendCardMessage() {
+        List<Card> newCardList = cardService.getAllCardsByDateSentToProcessingCenter(null)
+                .stream().map(c -> new Card(c.getCardNumber(),
+                        c.getExpirationDate(),
+                        c.getHolderName(),
+                        c.getCardStatus().getCardStatusName(),
+                        c.getPaymentSystem().getPaymentSystemName(),
+                        c.getAccount().getAccountNumber(),
+                        c.getAccount().getBalance(),
+                        c.getAccount().getCurrency().getCurrencyLetterCode(),
+                        ISSUING_BANK_ID))
+                .collect(Collectors.toList());
+        if (!newCardList.isEmpty()) {
+            try {
+                rabbitTemplate.convertAndSend("newCardQueue", objectMapper.writeValueAsString(newCardList));
+                cardService.setDateSentToProcessingCenter(new Timestamp(System.currentTimeMillis()),
+                        newCardList.stream().map(Card::getCardNumber).collect(Collectors.toList()));
+            } catch (JsonProcessingException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    public void sendTransactionMessage() {
+        List<TransactionCard> transactionCardList = transactionService
+                .getAllTransactionsByDateSentToProcessingCenter(null)
+                .stream()
+                .map(t -> new TransactionCard(
+                        t.getTransactionDate(),
+                        t.getSum(),
+                        t.getTransactionName(),
+                        t.getTransactionType().getTransactionTypeName(),
+                        t.getAccount().getAccountNumber(),
+                        t.getId()))
+                .collect(Collectors.toList());
+        if (!transactionCardList.isEmpty()) {
+            try {
+                rabbitTemplate.convertAndSend("transactionQueue",
+                        objectMapper.writeValueAsString(transactionCardList));
+                transactionService.setDateSentToProcessingCenter(new Timestamp(System.currentTimeMillis()),
+                        transactionCardList.stream().map(TransactionCard::getIssuingBankIdTransaction)
+                                .collect(Collectors.toList()));
+            } catch (JsonProcessingException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
 }
