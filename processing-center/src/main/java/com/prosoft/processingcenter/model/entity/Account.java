@@ -29,6 +29,13 @@ public class Account {
     public Account() {
     }
 
+    public Account(String accountNumber, double balance, Currency currency, IssuingBank issuingBank) {
+        this.accountNumber = accountNumber;
+        this.balance = balance;
+        this.currency = currency;
+        this.issuingBank = issuingBank;
+    }
+
     public long getId() {
         return id;
     }

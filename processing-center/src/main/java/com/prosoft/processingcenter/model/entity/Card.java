@@ -42,6 +42,16 @@ public class Card {
     public Card() {
     }
 
+    public Card(String cardNumber, Date expirationDate, String holderName, CardStatus cardStatus, PaymentSystem paymentSystem, Account account, Timestamp receivedFromIssuingBank) {
+        this.cardNumber = cardNumber;
+        this.expirationDate = expirationDate;
+        this.holderName = holderName;
+        this.cardStatus = cardStatus;
+        this.paymentSystem = paymentSystem;
+        this.account = account;
+        this.receivedFromIssuingBank = receivedFromIssuingBank;
+    }
+
     public long getId() {
         return id;
     }

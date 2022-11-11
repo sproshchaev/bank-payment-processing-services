@@ -69,10 +69,10 @@ insert into transaction_type (transaction_type_name, operator)
 values ('Пополнение счета', '+'),
        ('Списание со счета', '-');
 
-insert into card (card_number, expiration_date, holder_name, card_status_id, payment_system_id, account_id)
-values ('4123450101654724', '2025-12-31', 'IVAN I. IVANOV', 2, 1, 1),
-       ('5123459858074128', '2025-12-31', 'SEMION E. PETROV', 3, 2, 2),
-       ('3123451333300000', '2025-10-31', 'DMITRY S. SIDOROV', 2, 3, 3);
+insert into card (card_number, expiration_date, holder_name, card_status_id, payment_system_id, account_id, received_from_issuing_bank, sent_to_issuing_bank)
+values ('4123450101654724', '2025-12-31', 'IVAN I. IVANOV', 2, 1, 1, '2022-10-21 15:26:06.175', '2022-10-21 15:27:08.271'),
+       ('5123459858074128', '2025-12-31', 'SEMION E. PETROV', 3, 2, 2, '2022-04-05 10:23:05.372', '2022-04-05 10:24:02.175'),
+       ('3123451333300000', '2025-10-31', 'DMITRY S. SIDOROV', 2, 3, 3, '2022-10-20 12:21:07.273', '2022-10-20 12:22:01.471');
 
 insert into transaction (transaction_date, sum, transaction_name, transaction_type_id, card_id, terminal_id, response_code_id, authorization_code)
 values ('2022-10-22', 1000.11, 'Cash deposit', 1, 1, null, null, ''),

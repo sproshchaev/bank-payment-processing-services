@@ -1,6 +1,5 @@
 package com.prosoft.issuingbank.util.shell;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.prosoft.issuingbank.model.entity.Account;
 import com.prosoft.issuingbank.model.entity.Card;
 import com.prosoft.issuingbank.model.entity.Client;
@@ -70,10 +69,12 @@ public class AppEventsCommands {
 
     @ShellMethod(value = "Create a bank card", key = {"cbc", "createbankcard"})
     public String createBankCard(@ShellOption(defaultValue = "1", help = "Client's id") long clientId,
-                                 @ShellOption(defaultValue = "1", help = "Account's id") long accountId,
+                                 @ShellOption(defaultValue = "RUB", help = "Currency letter code: RUB, USD, EUR, UAH")
+                                 String currencyLetterCode,
                                  @ShellOption(defaultValue = "1", help = "Payment system id") long paymentSystemId) {
-        Card cardCreated = cardService.createCard(clientId, accountId, paymentSystemId);
-        return "Карта открыта: " + cardCreated.getCardNumber()+ " " + cardCreated.getExpirationDate() + " "
+        Account account = accountService.createAccount(clientId, currencyLetterCode);
+        Card cardCreated = cardService.createCard(clientId, account.getId(), paymentSystemId);
+        return "Карта открыта: " + cardCreated.getCardNumber() + " " + cardCreated.getExpirationDate() + " "
                 + cardCreated.getHolderName();
     }
 
@@ -148,10 +149,9 @@ public class AppEventsCommands {
         }
     }
 
-    // todo Отправить почту в ПЦ
-    @ShellMethod(value = "Send new cards to processing-center", key = {"sc", "sendcard"})
-    public void sendNewCard() throws JsonProcessingException {
-        processingCenterMessageService.sendAllMessage();
+    @ShellMethod(value = "Send messages (new cards and transactions) to the processing-center", key = {"sm", "sendmessage"})
+    public String sendMessageToProcessingCenter() {
+        return processingCenterMessageService.sendAllMessage();
     }
 
 }

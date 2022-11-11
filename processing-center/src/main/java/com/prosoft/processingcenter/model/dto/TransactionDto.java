@@ -2,7 +2,7 @@ package com.prosoft.processingcenter.model.dto;
 
 import java.sql.Date;
 
-public class TransactionCard {
+public class TransactionDto {
     private Date transactionDate;
     private double sum;
     private String transactionName;
@@ -10,11 +10,11 @@ public class TransactionCard {
     private String accountNumber;
     private long issuingBankIdTransaction;
 
-    public TransactionCard() {
+    public TransactionDto() {
     }
 
-    public TransactionCard(Date transactionDate, double sum, String transactionName, String transactionTypeName,
-                           String accountNumber, long issuingBankIdTransaction) {
+    public TransactionDto(Date transactionDate, double sum, String transactionName, String transactionTypeName,
+                          String accountNumber, long issuingBankIdTransaction) {
         this.transactionDate = transactionDate;
         this.sum = sum;
         this.transactionName = transactionName;
@@ -73,7 +73,7 @@ public class TransactionCard {
 
     @Override
     public String toString() {
-        return "TransactionCard{" +
+        return "TransactionDto{" +
                 "transactionDate=" + transactionDate +
                 ", sum=" + sum +
                 ", transactionName='" + transactionName + '\'' +

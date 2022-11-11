@@ -20,12 +20,14 @@ public class Card {
 
     private String currencyLetterCode;
 
-    private long issuing_bank_id;
+    private long issuingBankId;
 
     public Card() {
     }
 
-    public Card(String cardNumber, Date expirationDate, String holderName, String cardStatusName, String paymentSystemName, String accountNumber, double balance, String currencyLetterCode, long issuing_bank_id) {
+    public Card(String cardNumber, Date expirationDate, String holderName, String cardStatusName,
+                String paymentSystemName, String accountNumber, double balance, String currencyLetterCode,
+                long issuingBankId) {
         this.cardNumber = cardNumber;
         this.expirationDate = expirationDate;
         this.holderName = holderName;
@@ -34,7 +36,7 @@ public class Card {
         this.accountNumber = accountNumber;
         this.balance = balance;
         this.currencyLetterCode = currencyLetterCode;
-        this.issuing_bank_id = issuing_bank_id;
+        this.issuingBankId = issuingBankId;
     }
 
     public String getCardNumber() {
@@ -101,12 +103,12 @@ public class Card {
         this.currencyLetterCode = currencyLetterCode;
     }
 
-    public long getIssuing_bank_id() {
-        return issuing_bank_id;
+    public long getIssuingBankId() {
+        return issuingBankId;
     }
 
-    public void setIssuing_bank_id(long issuing_bank_id) {
-        this.issuing_bank_id = issuing_bank_id;
+    public void setIssuingBankId(long issuingBankId) {
+        this.issuingBankId = issuingBankId;
     }
 
     @Override
@@ -120,7 +122,7 @@ public class Card {
                 ", accountNumber='" + accountNumber + '\'' +
                 ", balance=" + balance +
                 ", currencyLetterCode='" + currencyLetterCode + '\'' +
-                ", issuing_bank_id=" + issuing_bank_id +
+                ", issuing_bank_id=" + issuingBankId +
                 '}';
     }
 }

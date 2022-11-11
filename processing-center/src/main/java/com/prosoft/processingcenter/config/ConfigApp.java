@@ -19,7 +19,7 @@ import org.springframework.integration.dsl.MessageChannels;
 @EnableEurekaClient
 @EnableIntegration
 @IntegrationComponentScan
-@EnableJpaRepositories
+@EnableJpaRepositories(basePackages = "com.prosoft.processingcenter.repository")
 @Configuration
 public class ConfigApp {
     @Bean

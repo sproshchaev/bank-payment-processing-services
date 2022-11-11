@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 
-@EnableJpaRepositories
+@EnableJpaRepositories(basePackages = "com.prosoft.currencyconverter.repository")
 @Configuration
 public class ConfigApp {
 

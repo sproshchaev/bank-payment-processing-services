@@ -29,12 +29,13 @@ public class ProcessingCenterMessageService {
         this.objectMapper = objectMapper;
     }
 
-    public void sendAllMessage() {
-        sendCardMessage();
-        sendTransactionMessage();
+    public String sendAllMessage() {
+        return "Отправлено в ПЦ "
+                + sendCardMessage() + ", "
+                + sendTransactionMessage();
     }
 
-    public void sendCardMessage() {
+    public String sendCardMessage() {
         List<Card> newCardList = cardService.getAllCardsByDateSentToProcessingCenter(null)
                 .stream().map(c -> new Card(c.getCardNumber(),
                         c.getExpirationDate(),
@@ -55,9 +56,10 @@ public class ProcessingCenterMessageService {
                 throw new RuntimeException(e);
             }
         }
+        return "Cards: " + newCardList.size();
     }
 
-    public void sendTransactionMessage() {
+    public String sendTransactionMessage() {
         List<TransactionCard> transactionCardList = transactionService
                 .getAllTransactionsByDateSentToProcessingCenter(null)
                 .stream()
@@ -80,5 +82,6 @@ public class ProcessingCenterMessageService {
                 throw new RuntimeException(e);
             }
         }
+        return "Transactions: " + transactionCardList.size();
     }
 }

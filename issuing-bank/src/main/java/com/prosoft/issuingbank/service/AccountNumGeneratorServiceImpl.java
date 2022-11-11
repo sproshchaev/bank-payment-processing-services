@@ -8,6 +8,6 @@ public class AccountNumGeneratorServiceImpl implements AccountNumGeneratorServic
 
     @Override
     public String getAccountNumber(long clientId, Currency currency) {
-        return "12345678901234567890";
+        return "1234567890123456789" + clientId; // todo генератор номеров счетов
     }
 }
