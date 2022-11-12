@@ -1,8 +1,7 @@
 package com.prosoft.processingcenter.model.entity;
 
 import javax.persistence.*;
-import java.sql.Date;
-import java.util.Objects;
+
 
 @Entity
 @Table(name = "account")

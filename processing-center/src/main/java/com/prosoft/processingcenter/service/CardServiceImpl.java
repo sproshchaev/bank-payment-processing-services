@@ -87,6 +87,12 @@ public class CardServiceImpl implements CardService {
         });
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<Card> getCardByCardNumber(String cardNumber) {
+        return cardRepository.getCardByCardNumber(cardNumber);
+    }
+
     private boolean instanceIsPresent(Optional<PaymentSystem> paymentSystem, Optional<CardStatus> cardStatus,
                                       Optional<Currency> currency, Optional<IssuingBank> issuingBank) {
         return paymentSystem.isPresent() && cardStatus.isPresent() && currency.isPresent() && issuingBank.isPresent();
