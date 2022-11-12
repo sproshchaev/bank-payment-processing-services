@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Repository
 public interface CardRepository extends JpaRepository<Card, Long> {
-    @EntityGraph(attributePaths = {"account"})
+    @EntityGraph(attributePaths = {"account", "cardStatus"})
     Optional<Card> getCardByCardNumber(String cardNumber);
 
 }

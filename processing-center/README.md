@@ -23,7 +23,8 @@
 ### Shell commands
   - Get a course: gc
   - Make authorization: ma --tid <terminal_id> --date <date_operation> --cardNumber <card_number> --expDate <card_validity_period> --sum <transaction_amount> --currency <operation's currency>
-  - Get a bank card balance: gcb --cardNumber <card_number>
+  - Get card's balance: gcb --cardNumber <card_number>
+  - Get card's status: gcs --cardNumber <card_number>
 
 ### Тестирование
 1. Отключить Spring Shell в тестах в test\java\resources\application.properties: spring.shell.interactive.enabled=false, spring.main.allow-circular-references=true

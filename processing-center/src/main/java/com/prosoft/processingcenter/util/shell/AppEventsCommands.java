@@ -68,5 +68,12 @@ public class AppEventsCommands {
                 + c.getAccount().getCurrency().getCurrencyLetterCode()).orElse("Номер карты не найден!");
     }
 
+    @ShellMethod(value = "Get a bank card status", key = {"gcs", "getcardstatus"})
+    public String getCardStatus(@ShellOption(defaultValue = "4123450101654724", help = "Card number") String cardNumber) {
+        Optional<Card> card = cardService.getCardByCardNumber(cardNumber);
+        return card.map(c -> "Card " + cardNumber + " status: (" + c.getCardStatus().getId() + ") "
+                        + c.getCardStatus().getCardStatusName() + " ").orElse("Номер карты не найден!");
+    }
+
 
 }
