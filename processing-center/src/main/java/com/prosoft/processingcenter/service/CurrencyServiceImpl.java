@@ -21,7 +21,7 @@ public class CurrencyServiceImpl implements CurrencyService {
     }
 
     @Override
-    public String getCourse(String from, String to) {
+    public Optional<Double> getCourse(String from, String to) {
         ManagedChannel channel = ManagedChannelBuilder.forTarget("localhost:9090") // todo вынести в настройки
                 .usePlaintext().build();
 
@@ -39,12 +39,18 @@ public class CurrencyServiceImpl implements CurrencyService {
 
         channel.shutdownNow();
 
-        return response.toString();
+        return Optional.of(response.getRate());
     }
 
     @Override
     public Optional<Currency> getCurrencyByCurrencyLetterCode(String currencyLetterCode) {
         return currencyRepository.getCurrencyByCurrencyLetterCode(currencyLetterCode);
+    }
+
+    @Override
+    public Optional<Double> convertSum(double sum, String fromCurrencyLetterCode, String toCurrencyLetterCode) {
+        return Optional.ofNullable(getCourse(fromCurrencyLetterCode, toCurrencyLetterCode)
+                .map(c -> c * sum).orElse(null));
     }
 
 }

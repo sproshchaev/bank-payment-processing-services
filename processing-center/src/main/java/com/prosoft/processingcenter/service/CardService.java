@@ -9,4 +9,7 @@ public interface CardService {
     void getCardFromIssuingBank(CardDto[] cardDtoArray);
 
     Optional<Card> getCardByCardNumber(String cardNumber);
+
+    Optional<Double> getBalanceByCardNumberAndCurrency(String cardNumber, String currencyLetterCode);
+
 }

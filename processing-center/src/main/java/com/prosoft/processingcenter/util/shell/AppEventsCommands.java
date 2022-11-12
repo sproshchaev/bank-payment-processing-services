@@ -58,7 +58,9 @@ public class AppEventsCommands {
             help = "Currency from (USD, EUR, RUB)") String currencyLetterCodeFrom,
                                               @ShellOption(defaultValue = "RUB",
                                                       help = "Currency to (RUB, USD, EUR)") String currencyLetterCodeTo) {
-        return currencyService.getCourse(currencyLetterCodeFrom, currencyLetterCodeTo);
+        return "Курс " + currencyLetterCodeFrom + " " + currencyLetterCodeTo + ": "
+                + currencyService.getCourse(currencyLetterCodeFrom, currencyLetterCodeTo).map(Object::toString)
+                .orElse(" не найден!") ;
     }
 
     @ShellMethod(value = "Get a bank card balance", key = {"gcb", "getcardbalance"})
@@ -68,11 +70,21 @@ public class AppEventsCommands {
                 + c.getAccount().getCurrency().getCurrencyLetterCode()).orElse("Номер карты не найден!");
     }
 
+    @ShellMethod(value = "Get a bank card balance in currency", key = {"gcbc", "getcardbalancecurr"})
+    public String getCardBalanceInCurrency(@ShellOption(defaultValue = "4123450101654724", help = "Card number")
+                                               String cardNumber,
+                                           @ShellOption(defaultValue = "USD", help = "Currency to (RUB, USD, EUR)")
+                                           String currencyLetterCode) {
+        Optional<Double> balance = cardService.getBalanceByCardNumberAndCurrency(cardNumber, currencyLetterCode);
+        return balance.map(b -> "Card " + cardNumber + " balance: " + b + " " + currencyLetterCode)
+                .orElse("Номер карты не найден!");
+    }
+
     @ShellMethod(value = "Get a bank card status", key = {"gcs", "getcardstatus"})
     public String getCardStatus(@ShellOption(defaultValue = "4123450101654724", help = "Card number") String cardNumber) {
         Optional<Card> card = cardService.getCardByCardNumber(cardNumber);
         return card.map(c -> "Card " + cardNumber + " status: (" + c.getCardStatus().getId() + ") "
-                        + c.getCardStatus().getCardStatusName() + " ").orElse("Номер карты не найден!");
+                + c.getCardStatus().getCardStatusName() + " ").orElse("Номер карты не найден!");
     }
 
 

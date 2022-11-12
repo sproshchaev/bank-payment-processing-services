@@ -6,8 +6,10 @@ import java.util.Optional;
 
 public interface CurrencyService {
 
-    String getCourse(String from, String to);
+    Optional<Double> getCourse(String from, String to);
 
     Optional<Currency> getCurrencyByCurrencyLetterCode(String currencyLetterCode);
+
+    Optional<Double> convertSum(double sum, String fromCurrencyLetterCode, String toCurrencyLetterCode);
 
 }

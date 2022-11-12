@@ -93,6 +93,17 @@ public class CardServiceImpl implements CardService {
         return cardRepository.getCardByCardNumber(cardNumber);
     }
 
+    @Override
+    public Optional<Double> getBalanceByCardNumberAndCurrency(String cardNumber, String currencyLetterCode) {
+        return getCardByCardNumber(cardNumber)
+                .map(c -> {
+                    if (c.getAccount().getCurrency().getCurrencyLetterCode().equals(currencyLetterCode)) {
+                        return c.getAccount().getBalance();
+                    } else {
+                        return currencyService.convertSum(c.getAccount().getBalance(),
+                                        c.getAccount().getCurrency().getCurrencyLetterCode(), currencyLetterCode)
+                                .orElse(null);}});}
+
     private boolean instanceIsPresent(Optional<PaymentSystem> paymentSystem, Optional<CardStatus> cardStatus,
                                       Optional<Currency> currency, Optional<IssuingBank> issuingBank) {
         return paymentSystem.isPresent() && cardStatus.isPresent() && currency.isPresent() && issuingBank.isPresent();
