@@ -16,10 +16,14 @@ public class Transaction {
     private Date transactionDate;
 
     @Column(name = "sum")
-    private Double sum; // todo Double -> double
+    private double sum;
 
     @Column(name = "transaction_name")
     private String transactionName;
+
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @JoinColumn(name = "account_id")
+    private Account account;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     @JoinColumn(name = "transaction_type_id")
@@ -49,6 +53,16 @@ public class Transaction {
     public Transaction() {
     }
 
+    public Transaction(Date transactionDate, double sum, String transactionName, Account account,
+                       TransactionType transactionType, Timestamp receivedFromIssuingBank) {
+        this.transactionDate = transactionDate;
+        this.sum = sum;
+        this.transactionName = transactionName;
+        this.account = account;
+        this.transactionType = transactionType;
+        this.receivedFromIssuingBank = receivedFromIssuingBank;
+    }
+
     public long getId() {
         return id;
     }
@@ -65,11 +79,11 @@ public class Transaction {
         this.transactionDate = transactionDate;
     }
 
-    public Double getSum() {
+    public double getSum() {
         return sum;
     }
 
-    public void setSum(Double sum) {
+    public void setSum(double sum) {
         this.sum = sum;
     }
 
@@ -79,6 +93,14 @@ public class Transaction {
 
     public void setTransactionName(String transactionName) {
         this.transactionName = transactionName;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
     public TransactionType getTransactionType() {
