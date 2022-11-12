@@ -11,7 +11,7 @@ import org.springframework.web.client.RestTemplate;
 @Configuration
 @EnableEurekaClient
 @EnableFeignClients(basePackages = "com.prosoft.salespoint.feign")
-@EnableJpaRepositories(basePackages = "com.prosoft.salespoint.repository")
+@EnableJpaRepositories //(basePackages = "com.prosoft.salespoint.repository")
 public class ConfigApp {
 
   @Bean

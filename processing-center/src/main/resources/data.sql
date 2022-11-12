@@ -36,7 +36,8 @@ values ('041234567', 'ПАО Банк-эквайер №1'),
 insert into account (account_number, balance, currency_id, issuing_bank_id)
 values ('40817810123456789012', 649.7, 1, 1),
        ('40817810234567890123', 48702.07, 1, 1),
-       ('40817810345678901234', 715000.01, 1, 1);
+       ('40817810345678901234', 715000.01, 1, 1),
+       ('40817840456789012345', 10000.0, 3, 1);
 
 insert into merchant_category_code (mcc, mcc_name)
 values ('5309', 'Беспошлинные магазины Duty Free'),
@@ -55,7 +56,6 @@ values ('000000001', 1, 1),
        ('000000002', 2, 2),
        ('000000003', 3, 3);
 
-
 insert into response_code (error_code, error_description, error_level)
 values ('00', 'одобрено и завершено', 'Все в порядке'),
        ('01', 'авторизация отклонена, обратиться в банк-эмитент', 'не критическая'),
@@ -66,18 +66,20 @@ values ('00', 'одобрено и завершено', 'Все в порядк�
        ('55', 'неправильный PIN', 'не критическая');
 
 insert into transaction_type (transaction_type_name, operator)
-values ('Пополнение счета', '+'),
-       ('Списание со счета', '-');
+values ('Списание со счета', '-'),
+       ('Пополнение счета', '+');
 
 insert into card (card_number, expiration_date, holder_name, card_status_id, payment_system_id, account_id, received_from_issuing_bank, sent_to_issuing_bank)
 values ('4123450101654724', '2025-12-31', 'IVAN I. IVANOV', 2, 1, 1, '2022-10-21 15:26:06.175', '2022-10-21 15:27:08.271'),
        ('5123459858074128', '2025-12-31', 'SEMION E. PETROV', 3, 2, 2, '2022-04-05 10:23:05.372', '2022-04-05 10:24:02.175'),
-       ('3123451333300000', '2025-10-31', 'DMITRY S. SIDOROV', 2, 3, 3, '2022-10-20 12:21:07.273', '2022-10-20 12:22:01.471');
+       ('3123451333300000', '2025-10-31', 'DMITRY S. SIDOROV', 2, 3, 3, '2022-10-20 12:21:07.273', '2022-10-20 12:22:01.471'),
+       ('4750657776370372', '2025-12-31', 'IVAN I. IVANOV', 2, 1, 4, '2022-10-21 10:21:08.178', '2022-10-21 10:22:08.285');
 
 insert into transaction (transaction_date, sum, transaction_name, account_id, transaction_type_id, card_id, terminal_id, response_code_id, authorization_code)
-values ('2022-10-22', 1000.11, 'Cash deposit', 1, 1, 1, null, null, ''),
-       ('2022-04-06', 50000.92, 'Cash deposit', 2, 1, 2, null, null, ''),
-       ('2022-10-21', 750000.12, 'Cash deposit', 3, 1, 3, null, null, ''),
-       ('2022-10-23', 350.41, 'Money transfer', 1, 2, 1, null, null, ''),
-       ('2022-06-23', 1298.85, 'Commission', 2, 2, 2, null, null, ''),
-       ('2022-10-22', 35000.11, 'Payment of the invoice', 3, 2, 3, null, null, '');
+values ('2022-10-22', 1000.11, 'Cash deposit', 1, 2, null, null, null, ''),
+       ('2022-04-06', 50000.92, 'Cash deposit', 2, 2, null, null, null, ''),
+       ('2022-10-21', 750000.12, 'Cash deposit', 3, 2, null, null, null, ''),
+       ('2022-10-23', 350.41, 'Money transfer', 1, 1, null, null, null, ''),
+       ('2022-06-23', 1298.85, 'Commission', 2, 1, null, null, null, ''),
+       ('2022-10-22', 35000.11, 'Payment of the invoice', 3, 1, null, null, null, ''),
+       ('2022-10-22', 10000.0, 'Cash deposit', 4, 2, null, null, null, '');

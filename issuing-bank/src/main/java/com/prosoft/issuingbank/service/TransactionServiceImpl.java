@@ -44,6 +44,7 @@ public class TransactionServiceImpl implements TransactionService {
             Transaction transactionCreated =
                     transactionRepository.save(new Transaction(new Date(new java.util.Date().getTime()), sum,
                             transactionName, transactionType.get(), account.get()));
+            // todo вынести в отдельный метод
             List<Transaction> transactionList = getAllTransactionsByAccountId(account.get().getId());
             double newBalance = 0;
             if (transactionList != null) {

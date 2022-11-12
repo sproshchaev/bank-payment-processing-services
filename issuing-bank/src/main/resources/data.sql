@@ -73,11 +73,11 @@ values ('4123450101654724', '2025-12-31', 'IVAN I. IVANOV', 2, 1, 1, 1, '2022-10
        ('3123451333300000', '2025-10-31', 'DMITRY S. SIDOROV', 2, 3, 3, 3, '2022-10-20'),
        ('4750657776370372', '2025-12-31', 'IVAN I. IVANOV', 2, 1, 4, 1, '2022-10-21');
 
-insert into transaction (transaction_date, sum, transaction_name, transaction_type_id, account_id, sent_to_processing_center)
-values ('2022-10-22', 1000.11, 'Cash deposit', 2, 1, '2022-10-22'),
+insert into transaction (transaction_date, sum, transaction_name, account_id, transaction_type_id, sent_to_processing_center)
+values ('2022-10-22', 1000.11, 'Cash deposit', 1, 2, '2022-10-22'),
        ('2022-04-06', 50000.92, 'Cash deposit', 2, 2, '2022-04-06'),
-       ('2022-10-21', 750000.12, 'Cash deposit', 2, 3, '2022-10-21'),
+       ('2022-10-21', 750000.12, 'Cash deposit', 3, 2, '2022-10-21'),
        ('2022-10-23', 350.41, 'Money transfer', 1, 1, '2022-10-23'),
-       ('2022-06-23', 1298.85, 'Commission', 1, 2, '2022-06-23'),
-       ('2022-10-22', 35000.11, 'Payment of the invoice', 1, 3, '2022-10-22'),
-       ('2022-10-22', 10000.0, 'Cash deposit', 2, 4, '2022-10-22');
+       ('2022-06-23', 1298.85, 'Commission', 2, 1, '2022-06-23'),
+       ('2022-10-22', 35000.11, 'Payment of the invoice', 3, 1, '2022-10-22'),
+       ('2022-10-22', 10000.0, 'Cash deposit', 4, 2, '2022-10-22');
