@@ -56,13 +56,7 @@ public class CardServiceImpl implements CardService {
                 Optional<Currency> currency = currencyService
                         .getCurrencyByCurrencyLetterCode(c.getCurrencyLetterCode());
                 Optional<Account> account = accountService.getAccountByAccountNumber(c.getAccountNumber());
-
-                System.out.println("c.getIssuingBankId()=" + c.getIssuingBankId());
-
                 Optional<IssuingBank> issuingBank = issuingBankService.getIssuingBankById(c.getIssuingBankId());
-
-                System.out.println("issuingBank=" + issuingBank.toString());
-
                 if (instanceIsPresent(paymentSystem, cardStatus, currency, issuingBank)) {
                     cardRepository.save(new Card(c.getCardNumber(),
                             c.getExpirationDate(),
@@ -76,11 +70,9 @@ public class CardServiceImpl implements CardService {
                 } else {
                     // todo gen. exception
                     System.out.println("Reject: Ошибка в параметрах карты " + c.getCardNumber() + ": "
-                            + "  - paymentSystem=" + paymentSystem.isPresent() + "\n"
-                            + "  - cardStatus=" + cardStatus.isPresent() + "\n"
-                            + "  - currency=" + currency.isPresent() + "\n"
-                            + "  - account=" + account.isPresent() + "\n"
-                            + "  - issuingBank=" + issuingBank.isPresent() + "\n"
+                            + "  - paymentSystem=" + paymentSystem.isPresent() + "\n" + "  - cardStatus=" + cardStatus
+                            .isPresent() + "\n" + "  - currency=" + currency.isPresent() + "\n" + "  - account="
+                            + account.isPresent() + "\n" + "  - issuingBank=" + issuingBank.isPresent() + "\n"
                     );
                 }
             }
@@ -102,7 +94,10 @@ public class CardServiceImpl implements CardService {
                     } else {
                         return currencyService.convertSum(c.getAccount().getBalance(),
                                         c.getAccount().getCurrency().getCurrencyLetterCode(), currencyLetterCode)
-                                .orElse(null);}});}
+                                .orElse(null);
+                    }
+                });
+    }
 
     private boolean instanceIsPresent(Optional<PaymentSystem> paymentSystem, Optional<CardStatus> cardStatus,
                                       Optional<Currency> currency, Optional<IssuingBank> issuingBank) {

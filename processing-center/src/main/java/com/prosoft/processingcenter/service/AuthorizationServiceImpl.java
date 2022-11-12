@@ -18,16 +18,12 @@ public class AuthorizationServiceImpl implements AuthorizationService {
     @Override
     public Payment paymentAuthorization(Payment payment) {
 
+        System.out.println("Пришел запрос на авторизацию " + payment.toString());
+
         Payment resultPayment = authorizationGateway.process(payment);
 
-        // Проверяем терминал (должен быть зарегистрирован)
-        // Находим карту
-        // Проверяем срок действия
-        // Проверяем статус карты
-        // Проверяем валюту (курс валюты)
-        // Проверяем сумму на карте
-        // Генерируем код авторизации
-        // Генерируем код ответа
+        System.out.println("Фазы авторизации завершены");
+
         return resultPayment;
     }
 }

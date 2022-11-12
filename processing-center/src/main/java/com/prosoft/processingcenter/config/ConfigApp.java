@@ -35,8 +35,8 @@ public class ConfigApp {
     @Bean
     public IntegrationFlow authorizationFlow() {
         return IntegrationFlows.from("inputChannel")
-                .handle("serviceA", "doServiceA")
-                .handle("serviceB", "doServiceB")
+                .handle("acquiringAuthorizationPhase", "doServiceA")
+                .handle("issuerAuthorizationPhase", "doServiceB")
                 .channel("outputChannel").get();
     }
 
