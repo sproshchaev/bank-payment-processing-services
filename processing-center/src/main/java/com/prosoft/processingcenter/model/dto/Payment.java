@@ -8,7 +8,10 @@ public class Payment {
     private String expiryDate;
     private String sum;
     private String currencyLetterCode;
+    private String sumCardCurrency;
+    private String cardCurrencyLetterCode;
     private String errorCode;
+    private String description;
     private String authorizationCode;
 
     public Payment() {
@@ -92,12 +95,36 @@ public class Payment {
         this.currencyLetterCode = currencyLetterCode;
     }
 
+    public String getSumCardCurrency() {
+        return sumCardCurrency;
+    }
+
+    public void setSumCardCurrency(String sumCardCurrency) {
+        this.sumCardCurrency = sumCardCurrency;
+    }
+
+    public String getCardCurrencyLetterCode() {
+        return cardCurrencyLetterCode;
+    }
+
+    public void setCardCurrencyLetterCode(String cardCurrencyLetterCode) {
+        this.cardCurrencyLetterCode = cardCurrencyLetterCode;
+    }
+
     public String getErrorCode() {
         return errorCode;
     }
 
     public void setErrorCode(String errorCode) {
         this.errorCode = errorCode;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getAuthorizationCode() {
@@ -118,7 +145,10 @@ public class Payment {
                 ", expiryDate='" + expiryDate + '\'' +
                 ", sum='" + sum + '\'' +
                 ", currencyLetterCode='" + currencyLetterCode + '\'' +
+                ", sumCardCurrency='" + sumCardCurrency + '\'' +
+                ", cardCurrencyLetterCode='" + cardCurrencyLetterCode + '\'' +
                 ", errorCode='" + errorCode + '\'' +
+                ", description='" + description + '\'' +
                 ", authorizationCode='" + authorizationCode + '\'' +
                 '}';
     }

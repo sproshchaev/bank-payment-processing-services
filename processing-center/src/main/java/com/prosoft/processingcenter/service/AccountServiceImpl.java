@@ -27,6 +27,7 @@ public class AccountServiceImpl implements AccountService {
     @Transactional
     public void updateBalanceFromTransactions(Account account, double balance) {
         account.setBalance(balance);
-        accountRepository.save(account);
+        /*Account account1 = */ accountRepository.save(account);
+        //System.out.println("Баланс=" + account1.getBalance()); // todo del
     }
 }

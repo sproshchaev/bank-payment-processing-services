@@ -63,6 +63,20 @@ public class Transaction {
         this.receivedFromIssuingBank = receivedFromIssuingBank;
     }
 
+    public Transaction(Date transactionDate, double sum, String transactionName, Account account,
+                       TransactionType transactionType, Card card, Terminal terminal, ResponseCode responseCode,
+                       String authorizationCode) {
+        this.transactionDate = transactionDate;
+        this.sum = sum;
+        this.transactionName = transactionName;
+        this.account = account;
+        this.transactionType = transactionType;
+        this.card = card;
+        this.terminal = terminal;
+        this.responseCode = responseCode;
+        this.authorizationCode = authorizationCode;
+    }
+
     public long getId() {
         return id;
     }

@@ -44,3 +44,6 @@
 9. RabbitMQ. Часть 1. Introduction. Erlang, AMQP https://habr.com/ru/post/488654/
 10. gRPC — альтернатива REST API от Google https://www.youtube.com/watch?v=SMy4CaxizbA
 11. Spring Boot With H2 Database https://www.baeldung.com/spring-boot-h2-database
+12. Spring Integrations Message Routing https://docs.spring.io/spring-integration/reference/html/message-routing.html
+13. Округление чисел в Java https://javarush.ru/groups/posts/2773-okruglenie-chisel-v-java
+14. Stackoverflow.com - parseDouble in Java results to NumberFormatException http://bit.ly/3O3ScuX

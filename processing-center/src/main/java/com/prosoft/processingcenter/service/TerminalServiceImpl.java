@@ -1,0 +1,26 @@
+package com.prosoft.processingcenter.service;
+
+import com.prosoft.processingcenter.model.entity.Terminal;
+import com.prosoft.processingcenter.repository.TerminalRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
+
+@Service
+public class TerminalServiceImpl implements TerminalService {
+
+    private final TerminalRepository terminalRepository;
+
+    @Autowired
+    public TerminalServiceImpl(TerminalRepository terminalRepository) {
+        this.terminalRepository = terminalRepository;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<Terminal> getByTerminalId(String terminalId) {
+        return terminalRepository.getByTerminalId(terminalId);
+    }
+}
