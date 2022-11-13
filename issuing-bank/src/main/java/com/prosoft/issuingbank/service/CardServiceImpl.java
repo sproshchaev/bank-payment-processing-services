@@ -59,14 +59,14 @@ public class CardServiceImpl implements CardService {
     @Transactional(readOnly = true)
     public List<Card> getAllCardsByClientId(long clientId) {
         Optional<Client> client = clientService.getClientById(clientId);
-        return client.map(cardRepository::getAllByClient).orElse(null);
+        return client.map(cardRepository::getAllByClient).orElse(null); // todo Некоторым приходит в голову довольно странная конструкция: objectOptional.orElse(null), которая лишает использование Optional всякого смысла. Никогда так не делайте, и бейте по рукам тем, кто так делает
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<Card> getAllCardsByStatusId(long cardStatusId) {
         Optional<CardStatus> cardStatus = cardStatusService.getCardStatusById(cardStatusId);
-        return cardStatus.map(cardRepository::getAllByCardStatus).orElse(null);
+        return cardStatus.map(cardRepository::getAllByCardStatus).orElse(null); // todo Некоторым приходит в голову довольно странная конструкция: objectOptional.orElse(null), которая лишает использование Optional всякого смысла. Никогда так не делайте, и бейте по рукам тем, кто так делает
     }
 
     @Override
