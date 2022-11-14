@@ -26,7 +26,15 @@
   - Get card's balance: gcb --cardNumber <card_number>
   - Get card's balance in currency: gcbc --cardNumber <card_number> --currency <currency_letter_code> 
   - Get card's status: gcs --cardNumber <card_number>
-   
+
+### Используемые коды ответов (errorCode) (https://wiki.mandarin.io/pages/viewpage.action?pageId=5014410)
+1. "00" - "Approved (Успешная транзакция)"
+2. "14" - "Invalid card (no such number) (Эмитент указывает, что эта карта недействительна)"
+3. "51" - "Not sufficient funds (Недостаточно средств на карте)"
+4. "54" - "Expired card (Срок действия карты истек)"
+5. "56" - "No card record (Нет такой карты)"
+6. "76" - "Invalid 'to' account (Неверный счет. Дебетового счета не существует"
+7. "96" - "System malfunction  (Произошла системная ошибка)"
 
 ### Тестирование
 1. Отключить Spring Shell в тестах в test\java\resources\application.properties: spring.shell.interactive.enabled=false, spring.main.allow-circular-references=true
@@ -47,3 +55,5 @@
 12. Spring Integrations Message Routing https://docs.spring.io/spring-integration/reference/html/message-routing.html
 13. Округление чисел в Java https://javarush.ru/groups/posts/2773-okruglenie-chisel-v-java
 14. Stackoverflow.com - parseDouble in Java results to NumberFormatException http://bit.ly/3O3ScuX
+15. Учимся избегать null-значений в современном Java. Часть 2 http://bit.ly/3Adiyoj
+

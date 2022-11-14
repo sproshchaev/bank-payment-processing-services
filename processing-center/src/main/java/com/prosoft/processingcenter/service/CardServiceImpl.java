@@ -1,12 +1,14 @@
 package com.prosoft.processingcenter.service;
 
 import com.prosoft.processingcenter.model.dto.CardDto;
+import com.prosoft.processingcenter.model.dto.Payment;
 import com.prosoft.processingcenter.model.entity.*;
 import com.prosoft.processingcenter.repository.CardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.List;
@@ -106,6 +108,42 @@ public class CardServiceImpl implements CardService {
 
     private boolean isNewCardStatusName(String cardStatusName) {
         return cardStatusName.equals(NEWCARD_CARD_STATUS_NAME);
+    }
+
+    public boolean cardNumberVerified(String cardNumber) {
+        return cardNumber.length() == 16;
+    }
+
+    public boolean cardExpired(Card card) {
+        Date dateNow = new Date(new java.util.Date().getTime());
+        Date dateExp = card.getExpirationDate();
+        return dateExp.compareTo(dateNow) < 0;
+    }
+
+    public boolean statusIsValid(Card card) {
+        return card.getCardStatus().getCardStatusName().contains("Card is valid");
+    }
+
+    @Override
+    public String getCardCurrencyLetterCode(Card card) {
+        return card.getAccount().getCurrency().getCurrencyLetterCode();
+    }
+
+    @Override
+    public double getSumCardCurrency(Card card, Payment payment) {
+        if (card.getAccount().getCurrency().getCurrencyLetterCode().equals(payment.getCurrencyLetterCode())) {
+            return Double.parseDouble(payment.getSum());
+        } else {
+            return currencyService.convertSum(Double.parseDouble(payment.getSum()),
+                    payment.getCurrencyLetterCode(),
+                    card.getAccount().getCurrency().getCurrencyLetterCode()).get();
+        }
+    }
+
+    @Override
+    public boolean cardBalanceIsSufficient (Card card, Payment payment){
+        return card.getAccount().getBalance() >= Double.parseDouble(payment.getSumCardCurrency());
+
     }
 
 }

@@ -10,4 +10,6 @@ public interface AccountService {
 
     void updateBalanceFromTransactions(Account account, double balance);
 
+    boolean accountVerified(Account account);
+
 }

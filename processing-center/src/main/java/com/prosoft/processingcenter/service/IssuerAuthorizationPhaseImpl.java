@@ -7,77 +7,79 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Optional;
 
 // todo IssuerAuthorizationPhaseImpl https://wiki.mandarin.io/pages/viewpage.action?pageId=5014410
 @Service
 public class IssuerAuthorizationPhaseImpl implements IssuerAuthorizationPhase {
+    private final static String  ERROR_CODE_00 = "00;Approved (Успешная транзакция)";
+    private final static String  ERROR_CODE_14 = "14;Invalid card (no such number) (Эмитент указывает, что эта карта недействительна)";
+    private final static String  ERROR_CODE_51 = "51;Not sufficient funds (Недостаточно средств на карте)";
+    private final static String  ERROR_CODE_54 = "54;Expired card (Срок действия карты истек)";
+    private final static String  ERROR_CODE_56 = "56;No card record (Нет такой карты)";
+    private final static String  ERROR_CODE_76 = "76;Invalid \"to\" account (Неверный счет. Дебетового счета не существует";
+    private final static String  ERROR_CODE_96 = "96;System malfunction  (Произошла системная ошибка)";
     private final CardService cardService;
-    private final CurrencyService currencyService;
     private final TransactionService transactionService;
     private final AccountService accountService;
 
     @Autowired
-    public IssuerAuthorizationPhaseImpl(CardService cardService, CurrencyService currencyService, TransactionService transactionService, AccountService accountService) {
+    public IssuerAuthorizationPhaseImpl(CardService cardService, TransactionService transactionService,
+                                        AccountService accountService) {
         this.cardService = cardService;
-        this.currencyService = currencyService;
         this.transactionService = transactionService;
         this.accountService = accountService;
     }
 
     @Override
-    @Transactional//(readOnly = true)
+    @Transactional //(readOnly = true) (!)
     public Payment checkCardParameters(Payment payment) {
         if (errCodeIsNull(payment)) {
             System.out.println("run IssuerAuthorizationPhaseImpl");
-            Optional<Card> card = cardService.getCardByCardNumber(payment.getCardNumber());
-            // Проверка номера карты
-            if (card.isEmpty()) {
-                payment.setErrorCode("56");
-                payment.setDescription("No card record (Нет такой карты)");
+            var card = new Card();
+            // todo Проверка номера карты "по луне"
+            if (!cardService.cardNumberVerified(payment.getCardNumber())) {
+                paymentSetErrorCode(payment, ERROR_CODE_14);
             }
-            // Проверка счета
+            // Проверка наличия номера карты в БД
             if (errCodeIsNull(payment)) {
-                if (accountExist(card)) {
-                    payment.setCardCurrencyLetterCode(card.get().getAccount().getCurrency().getCurrencyLetterCode());
+                Optional<Card> cardOptional = cardService.getCardByCardNumber(payment.getCardNumber());
+                if (cardOptional.isPresent()) {
+                    card = cardOptional.get();
                 } else {
-                    payment.setErrorCode("76");
-                    payment.setDescription("Invalid \"to\" account (Неверный счет. Дебетового счета не существует");
+                    paymentSetErrorCode(payment, ERROR_CODE_56);
                 }
             }
             // Проверяем срок действия
-            if (errCodeIsNull(payment) && cardExpired(card)) {
-                payment.setErrorCode("54");
-                payment.setDescription("Expired card (Срок действия карты истек)");
+            if (errCodeIsNull(payment) && cardService.cardExpired(card)) {
+                paymentSetErrorCode(payment, ERROR_CODE_54);
             }
             // Проверяем статус карты
-            if (errCodeIsNull(payment) && !statusIsValid(card)) {
-                payment.setErrorCode(getErrorCodeForStatusCard(card)[0]);
-                payment.setDescription(getErrorCodeForStatusCard(card)[1]);
+            if (errCodeIsNull(payment) && !cardService.statusIsValid(card)) {
+                paymentSetErrorCode(payment,String.join(";", getErrorCodeForStatusCard(card)));
             }
-            // Конвертируем сумму покупки в валюту карты
+            // Проверка счета:
             if (errCodeIsNull(payment)) {
-                if (payment.getCurrencyLetterCode().equals(payment.getCardCurrencyLetterCode())) {
-                    payment.setSumCardCurrency(payment.getSum());
+                if (accountService.accountVerified(card.getAccount())) {
+                    setCardSumAndCardCurrencyInPayment(card, payment);
                 } else {
-                        payment.setSumCardCurrency(String.valueOf(currencyService.convertSum(Double.parseDouble(payment
-                                        .getSum()), payment.getCurrencyLetterCode(),
-                                payment.getCardCurrencyLetterCode()).get()));
+                    paymentSetErrorCode(payment, ERROR_CODE_76);
                 }
             }
             // Проверка баланса
             if (errCodeIsNull(payment)) {
-                if (cardBalanceIsSufficient(card, payment)) {
-                    Optional<Transaction> transaction = transactionService.createTransaction(card.get(), payment,
+                if (cardService.cardBalanceIsSufficient(card, payment)) {
+                    Optional<Transaction> transactionOptional = transactionService.createTransaction(card, payment,
                             genAuthorizationCode());
-                    payment.setErrorCode("00");
-                    payment.setDescription("Approved (Успешная транзакция)");
-                    payment.setAuthorizationCode(transaction.get().getAuthorizationCode());
+                    if (transactionOptional.isPresent()) {
+                        paymentSetErrorCode(payment, ERROR_CODE_00);
+                        payment.setAuthorizationCode(transactionOptional.get().getAuthorizationCode());
+                    } else {
+                        paymentSetErrorCode(payment, ERROR_CODE_96);
+                    }
                 } else {
-                    payment.setErrorCode("51");
-                    payment.setDescription("Not sufficient funds (Недостаточно средств на карте)");
+                    paymentSetErrorCode(payment, ERROR_CODE_51);
                 }
             }
         }
@@ -88,22 +90,8 @@ public class IssuerAuthorizationPhaseImpl implements IssuerAuthorizationPhase {
         return payment.getErrorCode() == null;
     }
 
-    private boolean accountExist(Optional<Card> card) {
-        return card.get().getAccount() != null;
-    }
-
-    private boolean cardExpired(Optional<Card> card) {
-        Date dateNow = new Date(new java.util.Date().getTime());
-        Date dateExp = card.get().getExpirationDate();
-        return dateExp.compareTo(dateNow) < 0;
-    }
-
-    private boolean statusIsValid(Optional<Card> card) {
-        return card.get().getCardStatus().getCardStatusName().contains("Card is valid");
-    }
-
-    private String[] getErrorCodeForStatusCard(Optional<Card> card) {
-        switch (card.get().getCardStatus().getCardStatusName()) {
+    private String[] getErrorCodeForStatusCard(Card card) {
+        switch (card.getCardStatus().getCardStatusName()) {
             case "Card is temporarily blocked":
                 return new String[]{"62", "Restricted card (Карта заблокирована)"};
             case "Card is lost":
@@ -115,12 +103,20 @@ public class IssuerAuthorizationPhaseImpl implements IssuerAuthorizationPhase {
         }
     }
 
-    private boolean cardBalanceIsSufficient(Optional<Card> card, Payment payment) {
-        return card.get().getAccount().getBalance() >= Double.parseDouble(payment.getSumCardCurrency());
-    }
-
     private String genAuthorizationCode() {
         return new SimpleDateFormat("SSSssSSS").format(new java.util.Date()).substring(0, 5)
                 + (int) (Math.random() * 10);
     }
+
+    private void paymentSetErrorCode(Payment payment, String errorCode) {
+        String[] errorCodeArray = errorCode.split(";");
+        payment.setErrorCode(errorCodeArray[0]);
+        payment.setDescription(errorCodeArray[1]);
+    }
+
+    private void setCardSumAndCardCurrencyInPayment(Card card, Payment payment) {
+        payment.setCardCurrencyLetterCode(cardService.getCardCurrencyLetterCode(card));
+        payment.setSumCardCurrency(String.valueOf(cardService.getSumCardCurrency(card, payment)));
+    }
+
 }

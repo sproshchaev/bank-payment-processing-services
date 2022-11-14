@@ -76,26 +76,8 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public double getBalanceFromTransactions(Account account) {
-/*
-        double result = getAllTransactionsByAccountId(account).stream()
-                .mapToDouble(t -> {
-                    return t.getSum() * (t.getTransactionType().getOperator().equals("-") ? -1 : 1);
-                })
-                .sum();
-        NumberFormat nf = NumberFormat.getInstance();
-        try {
-            result = nf.parse(String.format("%.2f", result)).doubleValue();
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
-        return result;
-    }
-*/
-
         return roundDouble(getAllTransactionsByAccountId(account).stream()
-                .mapToDouble(t -> {
-                    return t.getSum() * (t.getTransactionType().getOperator().equals("-") ? -1 : 1);
-                })
+                .mapToDouble(t -> {return t.getSum() * (t.getTransactionType().getOperator().equals("-") ? -1 : 1);})
                 .sum(), 2);
     }
 
