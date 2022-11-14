@@ -30,8 +30,8 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     @Transactional(readOnly = true)
     public List<Transaction> getAllTransactionsByAccountId(long accountId) {
-        Optional<Account> account = accountService.getAccountById(accountId);
-        return account.map(transactionRepository::getAllByAccount).orElse(null); // todo Некоторым приходит в голову довольно странная конструкция: objectOptional.orElse(null), которая лишает использование Optional всякого смысла. Никогда так не делайте, и бейте по рукам тем, кто так делает
+        Optional<Account> accountOptional = accountService.getAccountById(accountId);
+        return accountOptional.map(transactionRepository::getAllByAccount).get();
     }
 
     @Override

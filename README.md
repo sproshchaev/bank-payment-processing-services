@@ -82,5 +82,13 @@ Bank payment processing on microservice architecture (processing-center, issuing
 5. sales-point:
   - shell: ma
 
+### Демонстрация проекта:
+1. issuing-bank: cbc - создать новую карту у клиента, ct - создать транзакцию пополнения счета карты, sm - отправить в процессинг новые карты и пополнения счетов
+2. sales-point: ma - покупка по карте
+3. REST:
+   а) успешная авторизация по карте (валюта покупки = валюте карты) http://localhost:8080/authorization/tid/000000001/date/2022-10-26/card/4123450101654724/expdate/1225/sum/500.55/curr/RUB
+   б) неудачаная авторизация, карта заблокирована: http://localhost:8080/authorization/tid/000000001/date/2022-10-26/card/5123459858074128/expdate/1225/sum/14/curr/RUB
+   в) авторизация с запросом курса валюты (валюта покупки отличается от валюты карты): http://localhost:8080/authorization/tid/000000001/date/2022-10-26/card/4750657776370372/expdate/1225/sum/14/curr/RUB
+
 ### Статьи по теме:
 1. 5 диаграмм, необходимых для документирования архитектуры решений https://habr.com/ru/company/epam_systems/blog/538018/

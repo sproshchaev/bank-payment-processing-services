@@ -30,15 +30,6 @@ public class AppEventsCommands {
         }
     }
 
-    /**
-     * make authorization - провести авторизацию новой покупки по банковской карте:
-     * - номер карты '4123450101654724'
-     * - срок действия '2025-12-31'
-     * - сумма операции '500.55'
-     * - валюта операции 'RUB'
-     *
-     * @return: "операция одобрена, код авторизации: 123456"
-     */
     @ShellMethod(value = "Make authorization", key = {"ma", "makeauthorization"})
     public String paymentAuthorizationService(@ShellOption(defaultValue = "000000001") String tid,
                                                           @ShellOption(defaultValue = "2022-10-26") String date,
@@ -50,7 +41,7 @@ public class AppEventsCommands {
                 curr)).toString();
     }
 
-    /**
+    /** todo - фича
      *  list of operations - получить список всех операций (за дату - по умолчанию за сегодня)
      *  @return: "1) 4123***4724 500.55 RUB к.а.: 123456
      *            2) 3123***0000 155.95 RUB к.а.: 123457

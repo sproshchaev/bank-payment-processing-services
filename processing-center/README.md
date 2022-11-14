@@ -56,4 +56,5 @@
 13. Округление чисел в Java https://javarush.ru/groups/posts/2773-okruglenie-chisel-v-java
 14. Stackoverflow.com - parseDouble in Java results to NumberFormatException http://bit.ly/3O3ScuX
 15. Учимся избегать null-значений в современном Java. Часть 2 http://bit.ly/3Adiyoj
+16. Hibernate Tip: Create an EntityGraph with multiple SubGraphs https://thorben-janssen.com/hibernate-tip-entitygraph-multiple-subgraphs/
 

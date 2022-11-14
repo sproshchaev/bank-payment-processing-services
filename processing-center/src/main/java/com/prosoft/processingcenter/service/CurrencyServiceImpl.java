@@ -50,7 +50,7 @@ public class CurrencyServiceImpl implements CurrencyService {
     @Override
     public Optional<Double> convertSum(double sum, String fromCurrencyLetterCode, String toCurrencyLetterCode) {
         return Optional.ofNullable(getCourse(fromCurrencyLetterCode, toCurrencyLetterCode)
-                .map(c -> c * sum).orElse(null));
+                .map(c -> c * sum).get());
     }
 
 }

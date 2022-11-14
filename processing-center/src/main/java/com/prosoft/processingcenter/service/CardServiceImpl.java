@@ -95,8 +95,7 @@ public class CardServiceImpl implements CardService {
                         return c.getAccount().getBalance();
                     } else {
                         return currencyService.convertSum(c.getAccount().getBalance(),
-                                        c.getAccount().getCurrency().getCurrencyLetterCode(), currencyLetterCode)
-                                .orElse(null); // // todo Некоторым приходит в голову довольно странная конструкция: objectOptional.orElse(null), которая лишает использование Optional всякого смысла. Никогда так не делайте, и бейте по рукам тем, кто так делает
+                                        c.getAccount().getCurrency().getCurrencyLetterCode(), currencyLetterCode).get();
                     }
                 });
     }
