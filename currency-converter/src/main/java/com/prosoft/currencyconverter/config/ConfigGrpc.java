@@ -7,16 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 
-@EnableJpaRepositories(basePackages = "com.prosoft.currencyconverter.repository")
 @Configuration
-public class ConfigApp {
-
-/*
+public class ConfigGrpc {
     @Autowired
     private ApplicationContext context;
 
@@ -38,6 +34,5 @@ public class ConfigApp {
         }
         return server;
     }
-*/
 
 }
