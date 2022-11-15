@@ -13,11 +13,13 @@
   - spring-boot-starter-data-jpa (Spring Data JPA)
   - h2 (H2) примечание: консоль доступна в версии H2 2.1.214
   - spring-boot-starter-amqp (Spring for RabbitMQ MESSAGING)
+  - spring-boot-starter-actuator
 5. Конфигурация и настройки:
-   - Настройки приложения: http://localhost:5000/issuing-bank/default
-   - Консоль H2:
-     - URL: http://localhost:8081/h2-console
-     - JDBC URL: jdbc:h2:mem:issuing-bank
+  - Actuator: http://localhost:8081/actuator
+  - Настройки приложения: http://localhost:5000/issuing-bank/default
+  - Консоль H2:
+    - URL: http://localhost:8081/h2-console
+    - JDBC URL: jdbc:h2:mem:issuing-bank
 
 ### Shell commands
   - Вывести все команды: help

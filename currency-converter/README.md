@@ -11,11 +11,13 @@
   - spring-boot-starter-data-jpa (Spring Data JPA)
   - h2 (H2) примечание: консоль доступна в версии H2 2.1.214
   - grpc-netty-shaded, grpc-protobuf, grpc-stub, javax.annotation-api, os-maven-plugin
+  - spring-boot-starter-actuator
 5. Конфигурация и настройки:
-   - Настройки приложения: http://localhost:5000/currency-converter/default
-   - Консоль H2:
-     - URL: http://localhost:8083/h2-console
-     - JDBC URL: jdbc:h2:mem:currency-converter
+  - Actuator: http://localhost:8083/actuator
+  - Настройки приложения: http://localhost:5000/currency-converter/default
+  - Консоль H2:
+    - URL: http://localhost:8083/h2-console
+    - JDBC URL: jdbc:h2:mem:currency-converter
 
 ### Сервисы актуальных курсов валют
 1. Fixer https://apilayer.com/marketplace/fixer-api?live_demo=show

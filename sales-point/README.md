@@ -14,11 +14,13 @@
   - h2 (H2) примечание: консоль доступна в версии H2 2.1.214
   - spring-boot-starter-security (Spring Security)
   - spring-cloud-starter-netflix-eureka-client (Eureka Discovery Client SPRING CLOUD DISCOVERY)
+  - spring-boot-starter-actuator
 5. Конфигурация и настройки:
-   - Настройки приложения: http://localhost:5000/sales-point/default
-   - Консоль H2:
-     - URL: http://localhost:8082/h2-console
-     - JDBC URL: jdbc:h2:mem:sales-point
+  - Actuator: http://localhost:8082/actuator
+  - Настройки приложения: http://localhost:5000/sales-point/default
+  - Консоль H2:
+    - URL: http://localhost:8082/h2-console
+    - JDBC URL: jdbc:h2:mem:sales-point
 
 ### Shell commands
   - Make authorization: ma --tid <tid> --date <date> --card <card> --expdate <expdate> --sum <sum> --curr <curr>

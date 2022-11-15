@@ -76,9 +76,11 @@ Bank payment processing on microservice architecture (processing-center, issuing
   - shell: sc
 3. currency-converter:
   - shell: gc
+  - http://localhost:8083/actuator
 4. processing-center: 
   - shell: gc
   - Проведение авторизации: http://localhost:8080/authorization/tid/000000001/date/2022-10-26/card/4123450101654724/expdate/1225/sum/500.55/curr/RUB
+  - http://localhost:8080/actuator
 5. sales-point:
   - shell: ma
 

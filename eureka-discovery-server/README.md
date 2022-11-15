@@ -3,13 +3,16 @@
 2. Диаграмма развертывания: https://bit.ly/bpps-diagram
 3. Зависимости:
   - spring-cloud-starter-netflix-eureka-server (Eureka Server SPRING CLOUD DISCOVERY)
+  - spring-boot-starter-actuator
 4. Аннотоации:
   - @EnableEurekaServer - работает только в main-классе (!)  
 5. Запуск сервиса:
   - Edit Configuration (Shift+F4): 
     - Active profiles: standalone
 
-6. Мониторинг сервера: http://localhost:8001/
+6. Мониторинг сервера: 
+  - Actuator http://localhost:8001/actuator
+  - http://localhost:8001/
 7. Настройки приложения: http://localhost:5000/eureka-discovery-server/default
 
 ### Статьи по теме

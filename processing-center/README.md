@@ -14,7 +14,9 @@
   - spring-boot-starter-data-jpa (Spring Data JPA)
   - h2 (H2) примечание: консоль доступна в версии H2 2.1.214
   - grpc-netty-shaded, grpc-protobuf, grpc-stub, javax.annotation-api, os-maven-plugin
+  - spring-boot-starter-actuator
 5. Конфигурация и настройки:
+    - Actuator: http://localhost:8080/actuator
     - Настройки приложения: http://localhost:5000/processing-center/default
     - Консоль H2:
         - URL: http://localhost:8080/h2-console
@@ -57,4 +59,4 @@
 14. Stackoverflow.com - parseDouble in Java results to NumberFormatException http://bit.ly/3O3ScuX
 15. Учимся избегать null-значений в современном Java. Часть 2 http://bit.ly/3Adiyoj
 16. Hibernate Tip: Create an EntityGraph with multiple SubGraphs https://thorben-janssen.com/hibernate-tip-entitygraph-multiple-subgraphs/
-
+17. Введение в Spring Boot Actuator https://habr.com/ru/company/otus/blog/452624/
