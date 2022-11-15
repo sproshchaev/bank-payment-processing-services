@@ -21,11 +21,14 @@ public class CardServiceImpl implements CardService {
     private final TransliterationService transliterationService;
     private final CardValidityService cardValidityService;
 
+    private final BankSettingService bankSettingService;
+
+
     @Autowired
     public CardServiceImpl(ClientService clientService, AccountService accountService,
                            PaymentSystemService paymentSystemService, CardStatusService cardStatusService,
                            CardRepository cardRepository, CardNumGeneratorService cardNumGeneratorService,
-                           TransliterationService transliterationService, CardValidityService cardValidityService) {
+                           TransliterationService transliterationService, CardValidityService cardValidityService, BankSettingService bankSettingService) {
         this.clientService = clientService;
         this.accountService = accountService;
         this.paymentSystemService = paymentSystemService;
@@ -34,6 +37,7 @@ public class CardServiceImpl implements CardService {
         this.cardNumGeneratorService = cardNumGeneratorService;
         this.transliterationService = transliterationService;
         this.cardValidityService = cardValidityService;
+        this.bankSettingService = bankSettingService;
     }
 
     @Override
@@ -46,7 +50,8 @@ public class CardServiceImpl implements CardService {
         if (client.isPresent() && account.isPresent() && paymentSystem.isPresent()) {
             Card cardCreated = cardRepository.save(new Card(cardStatus.get(), paymentSystem.get(), account.get(),
                     client.get()));
-            cardCreated.setCardNumber(cardNumGeneratorService.getCardNumber(cardCreated.getId(), paymentSystem.get()));
+            cardCreated.setCardNumber(cardNumGeneratorService.getCardNumber(cardCreated.getId(), paymentSystem.get(),
+                    bankSettingService.getBySetting("bin").get().getCurrentValue()));
             cardCreated.setHolderName(transliterationService.getTransliterationName(client.get()));
             cardCreated.setExpirationDate(cardValidityService.getCardExpirationDate());
             return cardRepository.save(cardCreated);
