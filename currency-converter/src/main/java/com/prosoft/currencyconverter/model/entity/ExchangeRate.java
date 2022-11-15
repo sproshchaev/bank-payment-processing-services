@@ -2,6 +2,7 @@ package com.prosoft.currencyconverter.model.entity;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "exchange_rate")
@@ -12,7 +13,7 @@ public class ExchangeRate {
     private long id;
 
     @Column(name = "response_date")
-    private Date responseDate;
+    private Timestamp responseDate;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     @JoinColumn(name = "currency_id_from")
@@ -23,9 +24,16 @@ public class ExchangeRate {
     private Currency currencyTo;
 
     @Column(name = "rate")
-    private Double rate; // todo Double -> double
+    private double rate;
 
     public ExchangeRate() {
+    }
+
+    public ExchangeRate(Timestamp responseDate, Currency currencyFrom, Currency currencyTo, double rate) {
+        this.responseDate = responseDate;
+        this.currencyFrom = currencyFrom;
+        this.currencyTo = currencyTo;
+        this.rate = rate;
     }
 
     public long getId() {
@@ -36,11 +44,11 @@ public class ExchangeRate {
         this.id = id;
     }
 
-    public Date getResponseDate() {
+    public Timestamp getResponseDate() {
         return responseDate;
     }
 
-    public void setResponseDate(Date responseDate) {
+    public void setResponseDate(Timestamp responseDate) {
         this.responseDate = responseDate;
     }
 
@@ -60,11 +68,22 @@ public class ExchangeRate {
         this.currencyTo = currencyTo;
     }
 
-    public Double getRate() {
+    public double getRate() {
         return rate;
     }
 
-    public void setRate(Double rate) {
+    public void setRate(double rate) {
         this.rate = rate;
+    }
+
+    @Override
+    public String toString() {
+        return "ExchangeRate{" +
+                "id=" + id +
+                ", responseDate=" + responseDate +
+                ", currencyFrom=" + currencyFrom +
+                ", currencyTo=" + currencyTo +
+                ", rate=" + rate +
+                '}';
     }
 }

@@ -8,6 +8,5 @@ values ('643', 'RUB', 'Russian Ruble'),
        ('826', 'GBP', 'Pound Sterling');
 
 insert into exchange_rate (response_date, currency_id_from, currency_id_to, rate)
-values ('2022-11-01 14:28:50', 3, 1, 64.1824);
-
-
+values ('2022-11-15 16:05:25.007', 3, 1, 60.215015),
+       ('2022-11-15 16:09:18.542', 1, 3, 0.016607);
