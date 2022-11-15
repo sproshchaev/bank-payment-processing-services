@@ -110,6 +110,7 @@ public class CardServiceImpl implements CardService {
     }
 
     public boolean cardNumberVerified(String cardNumber) {
+        // todo включить проверку контрольной цифры карты getLuhnDigit
         return cardNumber.length() == 16;
     }
 
@@ -143,6 +144,28 @@ public class CardServiceImpl implements CardService {
     public boolean cardBalanceIsSufficient (Card card, Payment payment){
         return card.getAccount().getBalance() >= Double.parseDouble(payment.getSumCardCurrency());
 
+    }
+
+    private int getLuhnDigit(String number) {
+        int sum = 0;
+        int digit;
+        for (int i = 0; i < number.length(); i++) {
+            digit = Integer.parseInt(number.substring(i, i + 1));
+            if (number.length() % 2 != 0) {
+                if (i % 2 == 0) {
+                    sum = (digit * 2 > 9) ? sum + (digit * 2 - 9) : sum + digit * 2;
+                } else {
+                    sum = sum + digit;
+                }
+            } else {
+                if (i % 2 != 0) {
+                    sum = (digit * 2 > 9) ? sum + (digit * 2 - 9) : sum + digit * 2;
+                } else {
+                    sum = sum + digit;
+                }
+            }
+        }
+        return 10 - sum % 10;
     }
 
 }
