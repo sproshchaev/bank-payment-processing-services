@@ -6,6 +6,7 @@
 [![Spring Cloud Discovery](https://img.shields.io/badge/Spring_Cloud_Discovery-FFFFFF??style=for-the-badge&logo=Spring)](https://spring.io/guides/gs/service-registration-and-discovery/)
 [![Spring Cloud OpenFeign](https://img.shields.io/badge/Spring_Cloud_OpenFeign-FFFFFF??style=for-the-badge&logo=Spring)](https://spring.io/projects/spring-cloud-openfeign)
 [![Spring Web](https://img.shields.io/badge/Spring_Web-FFFFFF??style=for-the-badge&logo=Spring)](https://spring.io/guides/gs/serving-web-content/)
+[![Resilience4j](https://img.shields.io/badge/Resilience4j-FFFFFF??style=for-the-badge&logo=Resilience4j&logoColor=2E64A4)](https://resilience4j.readme.io/)
 [![Thymeleaf](https://img.shields.io/badge/Thymeleaf-FFFFFF??style=for-the-badge&logo=Thymeleaf&logoColor=025B10)](https://www.thymeleaf.org/)
 [![Spring Security](https://img.shields.io/badge/Spring_Security-FFFFFF??style=for-the-badge&logo=Spring)](https://spring.io/projects/spring-security/)
 [![Spring Data JPA](https://img.shields.io/badge/Spring_Data_JPA-FFFFFF??style=for-the-badge&logo=Spring)](https://spring.io/projects/spring-data-jpa)

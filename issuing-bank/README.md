@@ -55,10 +55,11 @@
 12. RabbitMQ. Часть 1. Introduction. Erlang, AMQP https://habr.com/ru/post/488654/
 13. Spring Boot With H2 Database https://www.baeldung.com/spring-boot-h2-database
 14. Большой гайд по Optional в Java https://struchkov.dev/blog/optional-in-java/
-15. Hibernate could not initialize proxy – no Session https://www.baeldung.com/hibernate-initialize-proxy-exception
-16. Spring Data JPA and Named Entity Graphs https://www.baeldung.com/spring-data-jpa-named-entity-graphs
-17. Транслитерация имени и фамилии для загранпаспорта http://translit-online.ru/pasport.html
-18. Как по номеру карты определить платежную систему https://www.banki.ru/blog/BAY/8991.php
-19. BIN банковской карты https://pikabu.ru/story/bin_bankovskoy_kartyi_4961206
-20. Сервис определения банка по номеру карты https://psm7.com/bin-card
-21. Алгоритм ключевания расчетного счета http://bit.ly/3A8SHOC
+15. Обзор работы с опционалами (Optional Java) https://hashnets.com/optional-java-overview/
+16. Hibernate could not initialize proxy – no Session https://www.baeldung.com/hibernate-initialize-proxy-exception
+17. Spring Data JPA and Named Entity Graphs https://www.baeldung.com/spring-data-jpa-named-entity-graphs
+18. Транслитерация имени и фамилии для загранпаспорта http://translit-online.ru/pasport.html
+19. Как по номеру карты определить платежную систему https://www.banki.ru/blog/BAY/8991.php
+20. BIN банковской карты https://pikabu.ru/story/bin_bankovskoy_kartyi_4961206
+21. Сервис определения банка по номеру карты https://psm7.com/bin-card
+22. Алгоритм ключевания расчетного счета http://bit.ly/3A8SHOC
