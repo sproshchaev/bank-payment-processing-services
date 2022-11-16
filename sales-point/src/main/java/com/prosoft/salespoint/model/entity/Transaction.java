@@ -2,6 +2,7 @@ package com.prosoft.salespoint.model.entity;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "transaction")
@@ -15,7 +16,7 @@ public class Transaction {
     private Date transactionDate;
 
     @Column(name = "sum")
-    private Double sum; // todo Double -> double
+    private double sum;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     @JoinColumn(name = "transaction_type_id")
@@ -39,6 +40,17 @@ public class Transaction {
     public Transaction() {
     }
 
+    public Transaction(Date transactionDate, double sum, TransactionType transactionType, Card card, Terminal terminal,
+                       ResponseCode responseCode, String authorizationCode) {
+        this.transactionDate = transactionDate;
+        this.sum = sum;
+        this.transactionType = transactionType;
+        this.card = card;
+        this.terminal = terminal;
+        this.responseCode = responseCode;
+        this.authorizationCode = authorizationCode;
+    }
+
     public long getId() {
         return id;
     }
@@ -55,11 +67,11 @@ public class Transaction {
         this.transactionDate = transactionDate;
     }
 
-    public Double getSum() {
+    public double getSum() {
         return sum;
     }
 
-    public void setSum(Double sum) {
+    public void setSum(double sum) {
         this.sum = sum;
     }
 

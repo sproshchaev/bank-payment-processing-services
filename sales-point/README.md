@@ -36,3 +36,4 @@
 4. Наглядный пример различия DTO, POJO и Value Object - Stack Overflow на русском https://bit.ly/3pFYvtg
 5. Spring Boot With H2 Database https://www.baeldung.com/spring-boot-h2-database
 6. @RequestMapping annotation not allowed on @FeignClient interfaces https://bit.ly/3fx3Wcs
+7. Обзор работы с опционалами (Optional Java) https://hashnets.com/optional-java-overview/

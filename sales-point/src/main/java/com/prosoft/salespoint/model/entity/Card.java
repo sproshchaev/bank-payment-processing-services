@@ -27,6 +27,10 @@ public class Card {
     public Card() {
     }
 
+    public Card(String cardNumber) {
+        this.cardNumber = cardNumber;
+    }
+
     public long getId() {
         return id;
     }
