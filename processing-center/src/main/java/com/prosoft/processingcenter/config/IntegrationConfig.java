@@ -12,7 +12,7 @@ import org.springframework.integration.dsl.MessageChannels;
 
 @Configuration
 @IntegrationComponentScan
-public class ConfigIntegration {
+public class IntegrationConfig {
     @Bean
     public QueueChannel inputChannel() {
         return MessageChannels.queue(10).get();

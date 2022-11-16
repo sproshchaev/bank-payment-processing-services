@@ -17,12 +17,10 @@ import java.util.Optional;
 
 @ShellComponent
 public class AppEventsCommands {
-
     private final AuthorizationService authorizationService;
 
     private final CurrencyService currencyService;
     private final CardService cardService;
-
 
     @Autowired
     public AppEventsCommands(AuthorizationService authorizationService, CurrencyService currencyService, CardService cardService) {

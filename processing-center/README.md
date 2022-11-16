@@ -31,12 +31,13 @@
 
 ### Используемые коды ответов (errorCode) (https://wiki.mandarin.io/pages/viewpage.action?pageId=5014410)
 1. "00" - "Approved (Успешная транзакция)"
-2. "14" - "Invalid card (no such number) (Эмитент указывает, что эта карта недействительна)"
-3. "51" - "Not sufficient funds (Недостаточно средств на карте)"
-4. "54" - "Expired card (Срок действия карты истек)"
-5. "56" - "No card record (Нет такой карты)"
-6. "76" - "Invalid 'to' account (Неверный счет. Дебетового счета не существует"
-7. "96" - "System malfunction  (Произошла системная ошибка)"
+2. "03" - "Invalid merchant or service provider (Недействительный идентификатор продавца)" 
+3. "14" - "Invalid card (no such number) (Эмитент указывает, что эта карта недействительна)"
+4. "51" - "Not sufficient funds (Недостаточно средств на карте)"
+5. "54" - "Expired card (Срок действия карты истек)"
+6. "56" - "No card record (Нет такой карты)"
+7. "76" - "Invalid 'to' account (Неверный счет. Дебетового счета не существует"
+8. "96" - "System malfunction  (Произошла системная ошибка)"
 
 ### Тестирование
 1. Отключить Spring Shell в тестах в test\java\resources\application.properties: spring.shell.interactive.enabled=false, spring.main.allow-circular-references=true
@@ -60,3 +61,5 @@
 15. Учимся избегать null-значений в современном Java. Часть 2 http://bit.ly/3Adiyoj
 16. Hibernate Tip: Create an EntityGraph with multiple SubGraphs https://thorben-janssen.com/hibernate-tip-entitygraph-multiple-subgraphs/
 17. Введение в Spring Boot Actuator https://habr.com/ru/company/otus/blog/452624/
+18. Обзор работы с опционалами (Optional Java) https://hashnets.com/optional-java-overview/
+

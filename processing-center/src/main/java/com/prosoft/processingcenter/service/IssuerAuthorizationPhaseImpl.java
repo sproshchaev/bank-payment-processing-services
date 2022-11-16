@@ -1,5 +1,6 @@
 package com.prosoft.processingcenter.service;
 
+import com.prosoft.processingcenter.logging.LogThis;
 import com.prosoft.processingcenter.model.dto.Payment;
 import com.prosoft.processingcenter.model.entity.Card;
 import com.prosoft.processingcenter.model.entity.Transaction;
@@ -32,11 +33,11 @@ public class IssuerAuthorizationPhaseImpl implements IssuerAuthorizationPhase {
         this.accountService = accountService;
     }
 
+    @LogThis
     @Override
     @Transactional //(readOnly = true) (!)
     public Payment checkCardParameters(Payment payment) {
         if (errCodeIsNull(payment)) {
-            System.out.println("run IssuerAuthorizationPhaseImpl");
             var card = new Card();
             // todo Проверка номера карты "по луне"
             if (!cardService.cardNumberVerified(payment.getCardNumber())) {
