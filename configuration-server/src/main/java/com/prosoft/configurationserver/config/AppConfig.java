@@ -6,6 +6,6 @@ import org.springframework.context.annotation.Configuration;
 
 @EnableConfigServer
 @Configuration
-public class ConfigApp {
+public class AppConfig {
 
 }

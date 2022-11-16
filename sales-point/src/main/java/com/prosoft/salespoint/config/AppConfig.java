@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
 @EnableEurekaClient
 @EnableFeignClients(basePackages = "com.prosoft.salespoint.feign")
 @EnableJpaRepositories(basePackages = "com.prosoft.salespoint.repository")
-public class ConfigApp {
+public class AppConfig {
 
   @Bean
   public RestTemplate getRestTemplate() {

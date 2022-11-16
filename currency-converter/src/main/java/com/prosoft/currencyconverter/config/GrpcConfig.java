@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
 import java.io.IOException;
 
 @Configuration
-public class ConfigGrpc {
+public class GrpcConfig {
     @Autowired
     private ApplicationContext context;
 
