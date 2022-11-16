@@ -1,11 +1,13 @@
 package com.prosoft.currencyconverter.service;
 
 import com.prosoft.currencyconverter.model.dto.CurrencyExchangeRate;
+import com.prosoft.currencyconverter.model.entity.ExchangeRate;
 import com.prosoft.grpc.CurrencyConverterService;
 import com.prosoft.grpc.CurrencyExchangeRateServiceGrpc;
 import io.grpc.stub.StreamObserver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -16,23 +18,32 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
-public class CurrencyExchangeRateServiceImpl extends CurrencyExchangeRateServiceGrpc.CurrencyExchangeRateServiceImplBase
-        implements CurrencyExchangeRateService {
+public class CurrencyExchangeRateServiceImpl extends CurrencyExchangeRateServiceGrpc.CurrencyExchangeRateServiceImplBase implements CurrencyExchangeRateService {
     private final String apiKey;
     private final RestTemplate restTemplate;
     private final ExchangeRateService exchangeRateService;
+    private final CircuitBreakerFactory circuitBreakerFactory;
 
     @Autowired
-    public CurrencyExchangeRateServiceImpl(@Value("${currency.rate.api-key}") String apiKey, RestTemplate restTemplate, ExchangeRateService exchangeRateService) {
+    public CurrencyExchangeRateServiceImpl(@Value("${currency.rate.api-key}") String apiKey, RestTemplate restTemplate,
+                                           ExchangeRateService exchangeRateService,
+                                           CircuitBreakerFactory circuitBreakerFactory) {
         this.apiKey = apiKey;
         this.restTemplate = restTemplate;
         this.exchangeRateService = exchangeRateService;
+        this.circuitBreakerFactory = circuitBreakerFactory;
     }
 
-    @Override
     public CurrencyExchangeRate getCurrencyExchangeRateExt(String currencyLetterCodeFrom, String currencyLetterCodeTo) {
+        return circuitBreakerFactory.create("currencyExchangeRate").run(
+                () -> mainRequest(currencyLetterCodeFrom, currencyLetterCodeTo),
+                throwable -> fallBackRequest(currencyLetterCodeFrom, currencyLetterCodeTo));
+    }
+
+    private CurrencyExchangeRate mainRequest(String currencyLetterCodeFrom, String currencyLetterCodeTo) {
         HttpHeaders headers = new HttpHeaders();
         headers.set("apikey", apiKey);
         HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
@@ -59,6 +70,19 @@ public class CurrencyExchangeRateServiceImpl extends CurrencyExchangeRateService
                 ((Map) responseMap.get("query")).get("from").toString(),
                 ((Map) responseMap.get("query")).get("to").toString(),
                 (double) responseMap.get("result"));
+    }
+
+    private CurrencyExchangeRate fallBackRequest(String currencyLetterCodeFrom, String currencyLetterCodeTo) {
+        Optional<ExchangeRate> currencyExchangeRateOptional = exchangeRateService
+                .getCurrencyExchangeRateInt(currencyLetterCodeFrom, currencyLetterCodeTo);
+        if (currencyExchangeRateOptional.isPresent()) {
+            return new CurrencyExchangeRate(currencyExchangeRateOptional.get().getResponseDate().toString(),
+                    currencyExchangeRateOptional.get().getCurrencyFrom().getCurrencyLetterCode(),
+                    currencyExchangeRateOptional.get().getCurrencyTo().getCurrencyLetterCode(),
+                    currencyExchangeRateOptional.get().getRate());
+        } else {
+            return new CurrencyExchangeRate("2022-11-15", currencyLetterCodeFrom, currencyLetterCodeTo, 1.0);
+        }
     }
 
     @Override

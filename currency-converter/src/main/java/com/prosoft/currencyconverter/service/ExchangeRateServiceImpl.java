@@ -34,4 +34,14 @@ public class ExchangeRateServiceImpl implements ExchangeRateService {
                     result));
         }
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<ExchangeRate> getCurrencyExchangeRateInt(String currencyLetterCodeFrom, String currencyLetterCodeTo) {
+        Optional<Currency> currencyFromOptional = currencyService.getCurrencyByCurrencyLetterCode(currencyLetterCodeFrom);
+        Optional<Currency> currencyToOptional = currencyService.getCurrencyByCurrencyLetterCode(currencyLetterCodeTo);
+        return exchangeRateRepository.findTopByCurrencyFromAndCurrencyToOrderByIdDesc(currencyFromOptional.get(),
+                currencyToOptional.get());
+    }
+
 }

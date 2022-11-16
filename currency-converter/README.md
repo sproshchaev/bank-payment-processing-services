@@ -38,3 +38,5 @@
 5. Скалярные типы данных Protobuf https://learn.microsoft.com/ru-ru/dotnet/architecture/grpc-for-wcf-developers/protobuf-data-types
 6. Пример Сервера на Spring Boot c аннотацией @GrpcService - Spring Boot gRPC Example (2022) https://www.techgeeknext.com/spring-boot/spring-boot-grpc-example
 7. Spring Boot With H2 Database https://www.baeldung.com/spring-boot-h2-database
+8. Обзор работы с опционалами (Optional Java) https://hashnets.com/optional-java-overview/
+9. Отказоустойчивость микросервисов: шаблон Circuit Breaker (Resilience4j) https://sysout.ru/otkazoustojchivost-mikroservisov-shablon-circuit-breaker/
