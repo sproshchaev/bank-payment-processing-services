@@ -98,13 +98,14 @@ create table card
 drop table if exists transaction;
 create table transaction
 (
-    id                        bigint auto_increment primary key,
-    transaction_date          date,
-    sum                       double,
-    transaction_name          varchar(255),
-    transaction_type_id       bigint,
-    account_id                bigint,
-    sent_to_processing_center timestamp,
+    id                              bigint auto_increment primary key,
+    transaction_date                date,
+    sum                             double,
+    transaction_name                varchar(255),
+    transaction_type_id             bigint,
+    account_id                      bigint,
+    sent_to_processing_center       timestamp,
+    received_from_processing_center timestamp,
     foreign key (transaction_type_id) references transaction_type (id),
     foreign key (account_id) references account (id)
 );

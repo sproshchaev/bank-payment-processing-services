@@ -23,7 +23,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class TransactionServiceImpl implements TransactionService {
-
     private final AccountService accountService;
     private final TransactionTypeService transactionTypeService;
     private final TransactionRepository transactionRepository;
@@ -97,7 +96,7 @@ public class TransactionServiceImpl implements TransactionService {
         TransactionType transactionTypeDebet = transactionTypeService.getByTransactionTypeName("Списание со счета").get();
         Transaction transaction = transactionRepository.save(new Transaction(Date.valueOf(paymentDto.getTransactionDate()),
                 Double.parseDouble(paymentDto.getSumCardCurrency()),
-                "Purchase paymentDto TID " + paymentDto.getTerminalId(),
+                "Purchase payment TID " + paymentDto.getTerminalId(),
                 card.getAccount(),
                 transactionTypeDebet,
                 card,
@@ -108,4 +107,24 @@ public class TransactionServiceImpl implements TransactionService {
                 getBalanceFromTransactions(card.getAccount()));
         return Optional.of(transaction);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Transaction> getAllTransactionsByDateSentToIssuingBank(Timestamp sentToIssuingBank) {
+        return transactionRepository.getAllByReceivedFromIssuingBankAndSentToIssuingBank(null, sentToIssuingBank);
+    }
+
+    @Override
+    @Transactional
+    public void setDateSentToIssuingBank(Timestamp sentToProcessingCenter, List<Long> transactionIdList) {
+        for (Long transactionId : transactionIdList) {
+            Optional<Transaction> transaction = transactionRepository.findById(transactionId);
+            if (transaction.isPresent()) {
+                transaction.get().setSentToIssuingBank(sentToProcessingCenter);
+                transactionRepository.save(transaction.get());
+            }
+        }
+    }
+
+
 }

@@ -7,7 +7,6 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-// todo Получение прогруженных в ПЦ новых карт для изменения статуса в Банке-эмитенте
 @Service
 public class CardProcessingCenterServiceImpl implements CardProcessingCenterService {
     private final CardService cardService;

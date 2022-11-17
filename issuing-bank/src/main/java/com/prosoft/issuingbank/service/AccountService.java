@@ -17,4 +17,6 @@ public interface AccountService {
 
     void updateBalanceFromTransactions(Account account, double balance);
 
+    Optional<Account> getAccountByAccountNumber(String accountNumber);
+
 }

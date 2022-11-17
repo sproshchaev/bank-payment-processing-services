@@ -3,7 +3,7 @@ package com.prosoft.issuingbank.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.prosoft.issuingbank.model.dto.CardDto;
-import com.prosoft.issuingbank.model.dto.TransactionCard;
+import com.prosoft.issuingbank.model.dto.TransactionDto;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -62,10 +62,10 @@ public class ProcessingCenterMessageService {
     }
 
     public String sendTransactionMessage() {
-        List<TransactionCard> transactionCardList = transactionService
+        List<TransactionDto> transactionDtoList = transactionService
                 .getAllTransactionsByDateSentToProcessingCenter(null)
                 .stream()
-                .map(t -> new TransactionCard(
+                .map(t -> new TransactionDto(
                         t.getTransactionDate(),
                         t.getSum(),
                         t.getTransactionName(),
@@ -73,18 +73,18 @@ public class ProcessingCenterMessageService {
                         t.getAccount().getAccountNumber(),
                         t.getId()))
                 .collect(Collectors.toList());
-        if (!transactionCardList.isEmpty()) {
+        if (!transactionDtoList.isEmpty()) {
             try {
                 rabbitTemplate.convertAndSend("transactionQueue",
-                        objectMapper.writeValueAsString(transactionCardList));
+                        objectMapper.writeValueAsString(transactionDtoList));
                 transactionService.setDateSentToProcessingCenter(new Timestamp(System.currentTimeMillis()),
-                        transactionCardList.stream().map(TransactionCard::getIssuingBankIdTransaction)
+                        transactionDtoList.stream().map(TransactionDto::getIssuingBankIdTransaction)
                                 .collect(Collectors.toList()));
             } catch (JsonProcessingException e) {
                 throw new RuntimeException(e);
             }
         }
-        return "Transactions: " + transactionCardList.size();
+        return "Transactions: " + transactionDtoList.size();
     }
 
 

@@ -71,8 +71,15 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @Transactional
     public void updateBalanceFromTransactions(Account account, double balance) {
         account.setBalance(balance);
         accountRepository.save(account);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<Account> getAccountByAccountNumber(String accountNumber) {
+        return accountRepository.getAccountByAccountNumber(accountNumber);
     }
 }

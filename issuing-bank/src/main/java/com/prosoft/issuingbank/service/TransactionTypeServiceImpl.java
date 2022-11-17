@@ -22,4 +22,9 @@ public class TransactionTypeServiceImpl implements TransactionTypeService {
     public Optional<TransactionType> getTransactionTypeById(long transactionTypeId) {
         return transactionTypeRepository.findById(transactionTypeId);
     }
+
+    @Override
+    public Optional<TransactionType> getByTransactionTypeName(String transactionTypeName) {
+        return transactionTypeRepository.findByTransactionTypeName(transactionTypeName);
+    }
 }

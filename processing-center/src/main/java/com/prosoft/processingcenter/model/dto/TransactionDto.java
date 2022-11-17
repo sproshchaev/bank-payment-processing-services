@@ -8,7 +8,7 @@ public class TransactionDto {
     private String transactionName;
     private String transactionTypeName;
     private String accountNumber;
-    private long issuingBankIdTransaction;
+    private long issuingBankIdTransaction; // todo rename to IdTransaction (чтобы можно было использовать и для ПЦ)
 
     public TransactionDto() {
     }

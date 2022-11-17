@@ -1,7 +1,7 @@
 package com.prosoft.issuingbank.service;
 
+import com.prosoft.issuingbank.model.dto.TransactionDto;
 import com.prosoft.issuingbank.model.entity.Account;
-import com.prosoft.issuingbank.model.entity.Card;
 import com.prosoft.issuingbank.model.entity.Transaction;
 import com.prosoft.issuingbank.model.entity.TransactionType;
 import com.prosoft.issuingbank.repository.TransactionRepository;
@@ -11,8 +11,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class TransactionServiceImpl implements TransactionService {
@@ -44,19 +48,7 @@ public class TransactionServiceImpl implements TransactionService {
             Transaction transactionCreated =
                     transactionRepository.save(new Transaction(new Date(new java.util.Date().getTime()), sum,
                             transactionName, transactionType.get(), account.get()));
-            // todo вынести в отдельный метод
-            List<Transaction> transactionList = getAllTransactionsByAccountId(account.get().getId());
-            double newBalance = 0;
-            if (transactionList != null) {
-                for (Transaction transaction: transactionList) {
-                    if (transaction.getTransactionType().getTransactionTypeName().equals("Debit")) {
-                        newBalance = newBalance - transaction.getSum();
-                    } else {
-                        newBalance = newBalance + transaction.getSum();
-                    }
-                }
-            }
-            accountService.updateBalanceFromTransactions(account.get(), newBalance);
+            accountService.updateBalanceFromTransactions(account.get(), getBalanceFromTransactions(account.get()));
             return transactionCreated;
         } else {
             return null;
@@ -80,4 +72,60 @@ public class TransactionServiceImpl implements TransactionService {
             }
         }
     }
+
+    @Override
+    @Transactional
+    public void getTransactionFromProcessingCenter(TransactionDto[] transactionDtoArray) {
+        System.out.println("\nMessage read from transactionQueue2: \n" + Arrays.stream(transactionDtoArray)
+                .map(TransactionDto::toString).collect(Collectors.joining(", \n")));
+        Timestamp receivedFromProcessingCenter = new Timestamp(System.currentTimeMillis());
+        TransactionType transactionTypeDebet = transactionTypeService.getByTransactionTypeName("Debit").get();
+        TransactionType transactionTypeCredit = transactionTypeService.getByTransactionTypeName("Credit").get();
+        List<TransactionDto> transactionDtoList = Arrays.stream(transactionDtoArray).collect(Collectors.toList());
+        transactionDtoList.forEach(t -> {
+            Optional<Account> account = accountService.getAccountByAccountNumber(t.getAccountNumber());
+            if (account.isPresent()) {
+                transactionRepository.save(new Transaction(
+                        t.getTransactionDate(),
+                        t.getSum(),
+                        t.getTransactionName(),
+                        t.getTransactionTypeName().contains("Пополнение счета") ? transactionTypeCredit : transactionTypeDebet,
+                        account.get(),
+                        receivedFromProcessingCenter));
+                accountService.updateBalanceFromTransactions(account.get(), getBalanceFromTransactions(account.get()));
+            } else {
+                // todo gen. exception
+                System.out.println("Reject: Ошибка в параметрах транзакции id=" + t.getIssuingBankIdTransaction() + ": "
+                        + "  - transaction=" + account.isPresent() + "\n");
+            }
+        });
+    }
+
+    @Override
+    public double getBalanceFromTransactions(Account account) {
+        List<Transaction> transactionList = getAllTransactionsByAccountId(account.getId());
+        double newBalance = 0;
+        if (transactionList != null) {
+            for (Transaction transaction : transactionList) {
+                if (transaction.getTransactionType().getTransactionTypeName().equals("Debit")) {
+                    newBalance = newBalance - transaction.getSum();
+                } else {
+                    newBalance = newBalance + transaction.getSum();
+                }
+            }
+        }
+        return roundDouble(newBalance, 2);
+    }
+
+    private double roundDouble(double sum, int digit) {
+        double result = sum;
+        NumberFormat nf = NumberFormat.getInstance();
+        try {
+            result = nf.parse(String.format("%." + digit + "f", sum)).doubleValue();
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+
 }

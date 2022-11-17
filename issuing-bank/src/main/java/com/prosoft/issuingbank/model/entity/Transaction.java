@@ -32,6 +32,9 @@ public class Transaction {
     @Column(name = "sent_to_processing_center")
     private Timestamp sentToProcessingCenter;
 
+    @Column(name = "received_from_processing_center")
+    private Timestamp received_from_processing_center;
+
     public Transaction() {
     }
 
@@ -42,6 +45,16 @@ public class Transaction {
         this.transactionName = transactionName;
         this.transactionType = transactionType;
         this.account = account;
+    }
+
+    public Transaction(Date transactionDate, double sum, String transactionName, TransactionType transactionType,
+                       Account account, Timestamp received_from_processing_center) {
+        this.transactionDate = transactionDate;
+        this.sum = sum;
+        this.transactionName = transactionName;
+        this.transactionType = transactionType;
+        this.account = account;
+        this.received_from_processing_center = received_from_processing_center;
     }
 
     public long getId() {
@@ -98,5 +111,13 @@ public class Transaction {
 
     public void setSentToProcessingCenter(Timestamp sentToProcessingCenter) {
         this.sentToProcessingCenter = sentToProcessingCenter;
+    }
+
+    public Timestamp getReceived_from_processing_center() {
+        return received_from_processing_center;
+    }
+
+    public void setReceived_from_processing_center(Timestamp received_from_processing_center) {
+        this.received_from_processing_center = received_from_processing_center;
     }
 }
