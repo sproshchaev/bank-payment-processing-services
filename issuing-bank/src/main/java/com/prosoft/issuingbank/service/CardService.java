@@ -1,5 +1,6 @@
 package com.prosoft.issuingbank.service;
 
+import com.prosoft.issuingbank.model.dto.CardDto;
 import com.prosoft.issuingbank.model.entity.Card;
 
 import java.sql.Timestamp;
@@ -16,4 +17,7 @@ public interface CardService {
     List<Card> getAllCardsByDateSentToProcessingCenter(Timestamp sentToProcessingCenter);
 
     void setDateSentToProcessingCenter(Timestamp sentToProcessingCenter, List<String> cardNumberList);
+
+    void getCardFromProcessingCenter(CardDto[] cardDtoArray);
+
 }

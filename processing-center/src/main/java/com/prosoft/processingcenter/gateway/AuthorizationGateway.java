@@ -1,6 +1,6 @@
 package com.prosoft.processingcenter.gateway;
 
-import com.prosoft.processingcenter.model.dto.Payment;
+import com.prosoft.processingcenter.model.dto.PaymentDto;
 import org.springframework.integration.annotation.Gateway;
 import org.springframework.integration.annotation.MessagingGateway;
 import org.springframework.stereotype.Component;
@@ -9,5 +9,5 @@ import org.springframework.stereotype.Component;
 @MessagingGateway
 public interface AuthorizationGateway {
     @Gateway(requestChannel = "inputChannel", replyChannel = "outputChannel")
-    Payment process(Payment payment);
+    PaymentDto process(PaymentDto paymentDto);
 }

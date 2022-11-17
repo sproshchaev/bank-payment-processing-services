@@ -1,7 +1,7 @@
 package com.prosoft.processingcenter.service;
 
 import com.prosoft.processingcenter.logging.LogThis;
-import com.prosoft.processingcenter.model.dto.Payment;
+import com.prosoft.processingcenter.model.dto.PaymentDto;
 import com.prosoft.processingcenter.model.entity.Card;
 import com.prosoft.processingcenter.model.entity.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,59 +36,59 @@ public class IssuerAuthorizationPhaseImpl implements IssuerAuthorizationPhase {
     @LogThis
     @Override
     @Transactional //(readOnly = true) (!)
-    public Payment checkCardParameters(Payment payment) {
-        if (errCodeIsNull(payment)) {
+    public PaymentDto checkCardParameters(PaymentDto paymentDto) {
+        if (errCodeIsNull(paymentDto)) {
             var card = new Card();
             // todo Проверка номера карты "по луне"
-            if (!cardService.cardNumberVerified(payment.getCardNumber())) {
-                paymentSetErrorCode(payment, ERROR_CODE_14);
+            if (!cardService.cardNumberVerified(paymentDto.getCardNumber())) {
+                paymentSetErrorCode(paymentDto, ERROR_CODE_14);
             }
             // Проверка наличия номера карты в БД
-            if (errCodeIsNull(payment)) {
-                Optional<Card> cardOptional = cardService.getCardByCardNumber(payment.getCardNumber());
+            if (errCodeIsNull(paymentDto)) {
+                Optional<Card> cardOptional = cardService.getCardByCardNumber(paymentDto.getCardNumber());
                 if (cardOptional.isPresent()) {
                     card = cardOptional.get();
                 } else {
-                    paymentSetErrorCode(payment, ERROR_CODE_56);
+                    paymentSetErrorCode(paymentDto, ERROR_CODE_56);
                 }
             }
             // Проверяем срок действия
-            if (errCodeIsNull(payment) && cardService.cardExpired(card)) {
-                paymentSetErrorCode(payment, ERROR_CODE_54);
+            if (errCodeIsNull(paymentDto) && cardService.cardExpired(card)) {
+                paymentSetErrorCode(paymentDto, ERROR_CODE_54);
             }
             // Проверяем статус карты
-            if (errCodeIsNull(payment) && !cardService.statusIsValid(card)) {
-                paymentSetErrorCode(payment,String.join(";", getErrorCodeForStatusCard(card)));
+            if (errCodeIsNull(paymentDto) && !cardService.statusIsValid(card)) {
+                paymentSetErrorCode(paymentDto,String.join(";", getErrorCodeForStatusCard(card)));
             }
             // Проверка счета:
-            if (errCodeIsNull(payment)) {
+            if (errCodeIsNull(paymentDto)) {
                 if (accountService.accountVerified(card.getAccount())) {
-                    setCardSumAndCardCurrencyInPayment(card, payment);
+                    setCardSumAndCardCurrencyInPayment(card, paymentDto);
                 } else {
-                    paymentSetErrorCode(payment, ERROR_CODE_76);
+                    paymentSetErrorCode(paymentDto, ERROR_CODE_76);
                 }
             }
             // Проверка баланса
-            if (errCodeIsNull(payment)) {
-                if (cardService.cardBalanceIsSufficient(card, payment)) {
-                    Optional<Transaction> transactionOptional = transactionService.createTransaction(card, payment,
+            if (errCodeIsNull(paymentDto)) {
+                if (cardService.cardBalanceIsSufficient(card, paymentDto)) {
+                    Optional<Transaction> transactionOptional = transactionService.createTransaction(card, paymentDto,
                             genAuthorizationCode());
                     if (transactionOptional.isPresent()) {
-                        paymentSetErrorCode(payment, ERROR_CODE_00);
-                        payment.setAuthorizationCode(transactionOptional.get().getAuthorizationCode());
+                        paymentSetErrorCode(paymentDto, ERROR_CODE_00);
+                        paymentDto.setAuthorizationCode(transactionOptional.get().getAuthorizationCode());
                     } else {
-                        paymentSetErrorCode(payment, ERROR_CODE_96);
+                        paymentSetErrorCode(paymentDto, ERROR_CODE_96);
                     }
                 } else {
-                    paymentSetErrorCode(payment, ERROR_CODE_51);
+                    paymentSetErrorCode(paymentDto, ERROR_CODE_51);
                 }
             }
         }
-        return payment;
+        return paymentDto;
     }
 
-    private boolean errCodeIsNull(Payment payment) {
-        return payment.getErrorCode() == null;
+    private boolean errCodeIsNull(PaymentDto paymentDto) {
+        return paymentDto.getErrorCode() == null;
     }
 
     private String[] getErrorCodeForStatusCard(Card card) {
@@ -109,15 +109,15 @@ public class IssuerAuthorizationPhaseImpl implements IssuerAuthorizationPhase {
                 + (int) (Math.random() * 10);
     }
 
-    private void paymentSetErrorCode(Payment payment, String errorCode) {
+    private void paymentSetErrorCode(PaymentDto paymentDto, String errorCode) {
         String[] errorCodeArray = errorCode.split(";");
-        payment.setErrorCode(errorCodeArray[0]);
-        payment.setDescription(errorCodeArray[1]);
+        paymentDto.setErrorCode(errorCodeArray[0]);
+        paymentDto.setDescription(errorCodeArray[1]);
     }
 
-    private void setCardSumAndCardCurrencyInPayment(Card card, Payment payment) {
-        payment.setCardCurrencyLetterCode(cardService.getCardCurrencyLetterCode(card));
-        payment.setSumCardCurrency(String.valueOf(cardService.getSumCardCurrency(card, payment)));
+    private void setCardSumAndCardCurrencyInPayment(Card card, PaymentDto paymentDto) {
+        paymentDto.setCardCurrencyLetterCode(cardService.getCardCurrencyLetterCode(card));
+        paymentDto.setSumCardCurrency(String.valueOf(cardService.getSumCardCurrency(card, paymentDto)));
     }
 
 }

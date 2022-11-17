@@ -67,11 +67,11 @@ values ('40817810123456789012', 649.7, 1, 2, 1, '2022-10-21', false),
        ('40817810345678901234', 715000.01, 1, 2, 3, '2022-10-20', false),
        ('40817840456789012345', 10000.0, 3, 2, 1, '2022-10-21', false);
 
-insert into card (card_number, expiration_date, holder_name, card_status_id, payment_system_id, account_id, client_id, sent_to_processing_center)
-values ('4123450101654724', '2025-12-31', 'IVAN I. IVANOV', 2, 1, 1, 1, '2022-10-21'),
-       ('5123459858074128', '2025-12-31', 'SEMION E. PETROV', 3, 2, 2, 2, '2022-04-05'),
-       ('3123451333300000', '2025-10-31', 'DMITRY S. SIDOROV', 2, 3, 3, 3, '2022-10-20'),
-       ('4750657776370372', '2025-12-31', 'IVAN I. IVANOV', 2, 1, 4, 1, '2022-10-21');
+insert into card (card_number, expiration_date, holder_name, card_status_id, payment_system_id, account_id, client_id, sent_to_processing_center, received_from_processing_center)
+values ('4123450101654724', '2025-12-31', 'IVAN I. IVANOV', 2, 1, 1, 1, '2022-10-21 12:10:33.695', '2022-10-21 13:12:12.159'),
+       ('5123459858074128', '2025-12-31', 'SEMION E. PETROV', 3, 2, 2, 2, '2022-04-05 11:58:45.690', '2022-04-05 12:59:54.199'),
+       ('3123451333300000', '2025-10-31', 'DMITRY S. SIDOROV', 2, 3, 3, 3, '2022-10-20 12:22:32.234', '2022-10-20 13:42:22.143'),
+       ('4750657776370372', '2025-12-31', 'IVAN I. IVANOV', 2, 1, 4, 1, '2022-10-21 12:19:19.143', '2022-10-21 13:24:39.648');
 
 insert into transaction (transaction_date, sum, transaction_name, account_id, transaction_type_id, sent_to_processing_center)
 values ('2022-10-22', 1000.11, 'Cash deposit', 1, 2, '2022-10-22'),

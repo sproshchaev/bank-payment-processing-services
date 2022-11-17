@@ -40,6 +40,9 @@ public class Card {
     @Column(name = "sent_to_processing_center")
     private Timestamp sentToProcessingCenter;
 
+    @Column(name = "received_from_processing_center")
+    private Timestamp receivedFromProcessingCenter;
+
     public Card() {
     }
 
@@ -122,4 +125,11 @@ public class Card {
         this.sentToProcessingCenter = sentToProcessingCenter;
     }
 
+    public Timestamp getReceivedFromProcessingCenter() {
+        return receivedFromProcessingCenter;
+    }
+
+    public void setReceivedFromProcessingCenter(Timestamp receivedFromProcessingCenter) {
+        this.receivedFromProcessingCenter = receivedFromProcessingCenter;
+    }
 }

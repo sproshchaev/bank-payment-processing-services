@@ -1,7 +1,7 @@
 package com.prosoft.processingcenter.service;
 
 import com.prosoft.processingcenter.model.dto.CardDto;
-import com.prosoft.processingcenter.model.dto.Payment;
+import com.prosoft.processingcenter.model.dto.PaymentDto;
 import com.prosoft.processingcenter.model.entity.*;
 import com.prosoft.processingcenter.repository.CardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -131,20 +131,36 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
-    public double getSumCardCurrency(Card card, Payment payment) {
-        if (card.getAccount().getCurrency().getCurrencyLetterCode().equals(payment.getCurrencyLetterCode())) {
-            return Double.parseDouble(payment.getSum());
+    public double getSumCardCurrency(Card card, PaymentDto paymentDto) {
+        if (card.getAccount().getCurrency().getCurrencyLetterCode().equals(paymentDto.getCurrencyLetterCode())) {
+            return Double.parseDouble(paymentDto.getSum());
         } else {
-            return currencyService.convertSum(Double.parseDouble(payment.getSum()),
-                    payment.getCurrencyLetterCode(),
+            return currencyService.convertSum(Double.parseDouble(paymentDto.getSum()),
+                    paymentDto.getCurrencyLetterCode(),
                     card.getAccount().getCurrency().getCurrencyLetterCode()).get();
         }
     }
 
     @Override
-    public boolean cardBalanceIsSufficient (Card card, Payment payment){
-        return card.getAccount().getBalance() >= Double.parseDouble(payment.getSumCardCurrency());
+    public boolean cardBalanceIsSufficient (Card card, PaymentDto paymentDto){
+        return card.getAccount().getBalance() >= Double.parseDouble(paymentDto.getSumCardCurrency());
 
+    }
+
+    @Override
+    public List<Card> getAllCardsByDateSentToIssuingBank(Timestamp sentToIssuingBank) {
+        return cardRepository.getAllBySentToIssuingBank(sentToIssuingBank);
+    }
+
+    @Override
+    public void setDateSentToIssuingBank(Timestamp sentToIssuingBank, List<String> cardNumberList) {
+        for (String cardNumber : cardNumberList) {
+            Optional<Card> card = cardRepository.getByCardNumber(cardNumber);
+            if (card.isPresent()) {
+                card.get().setSentToIssuingBank(sentToIssuingBank);
+                cardRepository.save(card.get());
+            }
+        }
     }
 
     private boolean verifyByLuhnAlgorithm(String cardNumber) {
@@ -171,7 +187,7 @@ public class CardServiceImpl implements CardService {
                 }
             }
         }
-        return 10 - sum % 10;
+        return sum % 10 == 0 ? 0 : 10 - sum % 10;
     }
 
 }

@@ -1,5 +1,6 @@
 package com.prosoft.issuingbank.service;
 
+import com.prosoft.issuingbank.model.dto.CardDto;
 import com.prosoft.issuingbank.model.entity.*;
 import com.prosoft.issuingbank.repository.CardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,8 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CardServiceImpl implements CardService {
@@ -20,9 +23,7 @@ public class CardServiceImpl implements CardService {
     private final CardNumGeneratorService cardNumGeneratorService;
     private final TransliterationService transliterationService;
     private final CardValidityService cardValidityService;
-
     private final BankSettingService bankSettingService;
-
 
     @Autowired
     public CardServiceImpl(ClientService clientService, AccountService accountService,
@@ -91,5 +92,29 @@ public class CardServiceImpl implements CardService {
             }
         }
     }
+
+    @Override
+    @Transactional
+    public void getCardFromProcessingCenter(CardDto[] cardDtoArray) {
+        System.out.println("\nMessage read from newCardToIssuingBank: \n" + Arrays.stream(cardDtoArray)
+                .map(c -> c.toString()).collect(Collectors.joining(", \n")));
+        Timestamp receivedFromProcessingCenter = new Timestamp(System.currentTimeMillis());
+        List<CardDto> cardDtoList = Arrays.stream(cardDtoArray).collect(Collectors.toList());
+        cardDtoList.forEach(c -> {
+            Optional<CardStatus> cardStatusOptional = cardStatusService.getCardStatusByCardStatusName(c.getCardStatusName());
+            Optional<Card> cardOptional = cardRepository.getByCardNumber(c.getCardNumber());
+            if (cardOptional.isPresent() && cardStatusOptional.isPresent()) {
+                cardOptional.get().setCardStatus(cardStatusOptional.get());
+                cardOptional.get().setReceivedFromProcessingCenter(receivedFromProcessingCenter);
+                cardRepository.save(cardOptional.get());
+            } else {
+                // todo gen. exception
+                System.out.println("Reject: Ошибка в параметрах карты " + c.getCardNumber() + ": "
+                        + "  - card=" + cardOptional.isPresent() + "\n"
+                        + "  - cardStatus=" + cardStatusOptional.isPresent() + "\n");
+            }
+        });
+    }
+
 
 }

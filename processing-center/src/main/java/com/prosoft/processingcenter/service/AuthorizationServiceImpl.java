@@ -2,7 +2,7 @@ package com.prosoft.processingcenter.service;
 
 import com.prosoft.processingcenter.gateway.AuthorizationGateway;
 import com.prosoft.processingcenter.logging.LogThis;
-import com.prosoft.processingcenter.model.dto.Payment;
+import com.prosoft.processingcenter.model.dto.PaymentDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +18,8 @@ public class AuthorizationServiceImpl implements AuthorizationService {
 
     @Override
     @LogThis
-    public Payment paymentAuthorization(Payment payment) {
-        Payment resultPayment = authorizationGateway.process(payment);
-        return resultPayment;
+    public PaymentDto paymentAuthorization(PaymentDto paymentDto) {
+        PaymentDto resultPaymentDto = authorizationGateway.process(paymentDto);
+        return resultPaymentDto;
     }
 }

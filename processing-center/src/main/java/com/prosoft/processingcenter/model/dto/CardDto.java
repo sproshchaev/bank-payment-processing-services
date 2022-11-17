@@ -25,6 +25,11 @@ public class CardDto {
     public CardDto() {
     }
 
+    public CardDto(String cardNumber, String cardStatusName) {
+        this.cardNumber = cardNumber;
+        this.cardStatusName = cardStatusName;
+    }
+
     public CardDto(String cardNumber, Date expirationDate, String holderName, String cardStatusName,
                    String paymentSystemName, String accountNumber, double balance, String currencyLetterCode,
                    long issuingBankId) {

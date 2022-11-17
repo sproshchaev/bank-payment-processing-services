@@ -2,7 +2,7 @@ package com.prosoft.issuingbank.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.prosoft.issuingbank.model.dto.Card;
+import com.prosoft.issuingbank.model.dto.CardDto;
 import com.prosoft.issuingbank.model.dto.TransactionCard;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.stream.Collectors;
+
+// todo + интерфейс
 
 @Service
 public class ProcessingCenterMessageService {
@@ -36,8 +38,8 @@ public class ProcessingCenterMessageService {
     }
 
     public String sendCardMessage() {
-        List<Card> newCardList = cardService.getAllCardsByDateSentToProcessingCenter(null)
-                .stream().map(c -> new Card(c.getCardNumber(),
+        List<CardDto> newCardListDto = cardService.getAllCardsByDateSentToProcessingCenter(null)
+                .stream().map(c -> new CardDto(c.getCardNumber(),
                         c.getExpirationDate(),
                         c.getHolderName(),
                         c.getCardStatus().getCardStatusName(),
@@ -47,16 +49,16 @@ public class ProcessingCenterMessageService {
                         c.getAccount().getCurrency().getCurrencyLetterCode(),
                         ISSUING_BANK_ID))
                 .collect(Collectors.toList());
-        if (!newCardList.isEmpty()) {
+        if (!newCardListDto.isEmpty()) {
             try {
-                rabbitTemplate.convertAndSend("newCardQueue", objectMapper.writeValueAsString(newCardList));
+                rabbitTemplate.convertAndSend("newCardToProcessingCenter", objectMapper.writeValueAsString(newCardListDto));
                 cardService.setDateSentToProcessingCenter(new Timestamp(System.currentTimeMillis()),
-                        newCardList.stream().map(Card::getCardNumber).collect(Collectors.toList()));
+                        newCardListDto.stream().map(CardDto::getCardNumber).collect(Collectors.toList()));
             } catch (JsonProcessingException e) {
                 throw new RuntimeException(e);
             }
         }
-        return "Cards: " + newCardList.size();
+        return "Cards: " + newCardListDto.size();
     }
 
     public String sendTransactionMessage() {
@@ -84,4 +86,6 @@ public class ProcessingCenterMessageService {
         }
         return "Transactions: " + transactionCardList.size();
     }
+
+
 }

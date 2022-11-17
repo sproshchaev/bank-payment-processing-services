@@ -16,8 +16,8 @@
 [![Jasypt](https://img.shields.io/badge/Jasypt-FFFFFF??style=for-the-badge&logo=Jasypt&logoColor=2E64A4)](http://www.jasypt.org/)
 [![gRPC](https://img.shields.io/badge/gRPC-FFFFFF??style=for-the-badge&logo=gRPC&logoColor=2E64A4)](https://grpc.io/)
 
-### "Модуль авторизации банковского платежного процессинга на микросервисной архитектуре" bank-payment-processing-services
-Bank payment processing on microservice architecture (processing-center, issuing-bank, sales-point)
+### "Модуль авторизации банковского платежного процессинга на микросервисной архитектуре" bank-paymentprocessing-services
+Bank paymentDto processing on microservice architecture (processing-center, issuing-bank, sales-point)
 Репозитории:
 1. Проект https://bit.ly/bpps-ms
 2. Конфигурация https://bit.ly/bpps-config

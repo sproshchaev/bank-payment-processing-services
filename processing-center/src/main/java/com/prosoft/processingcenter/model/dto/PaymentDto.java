@@ -1,6 +1,6 @@
 package com.prosoft.processingcenter.model.dto;
 
-public class Payment {
+public class PaymentDto {
     private long id;
     private String terminalId;
     private String transactionDate;
@@ -14,11 +14,11 @@ public class Payment {
     private String description;
     private String authorizationCode;
 
-    public Payment() {
+    public PaymentDto() {
     }
 
-    public Payment(String terminalId, String transactionDate, String cardNumber, String expiryDate, String sum,
-                   String currencyLetterCode) {
+    public PaymentDto(String terminalId, String transactionDate, String cardNumber, String expiryDate, String sum,
+                      String currencyLetterCode) {
         this.terminalId = terminalId;
         this.transactionDate = transactionDate;
         this.cardNumber = cardNumber;
@@ -27,7 +27,7 @@ public class Payment {
         this.currencyLetterCode = currencyLetterCode;
     }
 
-    public Payment(long id, String terminalId, String transactionDate, String cardNumber, String expiryDate, String sum, String currencyLetterCode, String errorCode, String authorizationCode) {
+    public PaymentDto(long id, String terminalId, String transactionDate, String cardNumber, String expiryDate, String sum, String currencyLetterCode, String errorCode, String authorizationCode) {
         this.id = id;
         this.terminalId = terminalId;
         this.transactionDate = transactionDate;
@@ -137,7 +137,7 @@ public class Payment {
 
     @Override
     public String toString() {
-        return "Payment{" +
+        return "PaymentDto{" +
                 "id=" + id +
                 ", terminalId='" + terminalId + '\'' +
                 ", transactionDate='" + transactionDate + '\'' +

@@ -1,6 +1,6 @@
 package com.prosoft.processingcenter.service;
 
-import com.prosoft.processingcenter.model.dto.Payment;
+import com.prosoft.processingcenter.model.dto.PaymentDto;
 import com.prosoft.processingcenter.model.dto.TransactionDto;
 import com.prosoft.processingcenter.model.entity.Account;
 import com.prosoft.processingcenter.model.entity.Card;
@@ -17,6 +17,6 @@ public interface TransactionService {
 
     double getBalanceFromTransactions(Account account);
 
-    Optional<Transaction> createTransaction(Card card, Payment payment, String authorizationCode);
+    Optional<Transaction> createTransaction(Card card, PaymentDto paymentDto, String authorizationCode);
 
 }

@@ -1,6 +1,6 @@
 package com.prosoft.processingcenter.controller;
 
-import com.prosoft.processingcenter.model.dto.Payment;
+import com.prosoft.processingcenter.model.dto.PaymentDto;
 import com.prosoft.processingcenter.service.AuthorizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,10 +20,10 @@ public class AuthorizationController {
     }
 
     @GetMapping(value = "/tid/{tid}/date/{date}/card/{card}/expdate/{expdate}/sum/{sum}/curr/{curr}")
-    public Payment paymentAuthorization(@PathVariable String tid, @PathVariable String date, @PathVariable String card,
-                                        @PathVariable String expdate, @PathVariable String sum,
-                                        @PathVariable String curr) {
-        return authorizationService.paymentAuthorization(new Payment(tid, date, card, expdate, sum, curr));
+    public PaymentDto paymentAuthorization(@PathVariable String tid, @PathVariable String date, @PathVariable String card,
+                                           @PathVariable String expdate, @PathVariable String sum,
+                                           @PathVariable String curr) {
+        return authorizationService.paymentAuthorization(new PaymentDto(tid, date, card, expdate, sum, curr));
     }
 
 }

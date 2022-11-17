@@ -1,9 +1,11 @@
 package com.prosoft.processingcenter.service;
 
 import com.prosoft.processingcenter.model.dto.CardDto;
-import com.prosoft.processingcenter.model.dto.Payment;
+import com.prosoft.processingcenter.model.dto.PaymentDto;
 import com.prosoft.processingcenter.model.entity.Card;
 
+import java.sql.Timestamp;
+import java.util.List;
 import java.util.Optional;
 
 public interface CardService {
@@ -21,8 +23,12 @@ public interface CardService {
 
     String getCardCurrencyLetterCode(Card card);
 
-    double getSumCardCurrency(Card card, Payment payment);
+    double getSumCardCurrency(Card card, PaymentDto paymentDto);
 
-    boolean cardBalanceIsSufficient (Card card, Payment payment);
+    boolean cardBalanceIsSufficient (Card card, PaymentDto paymentDto);
+
+    List<Card> getAllCardsByDateSentToIssuingBank(Timestamp sentToIssuingBank);
+
+    void setDateSentToIssuingBank(Timestamp sentToIssuingBank, List<String> cardNumberList);
 
 }

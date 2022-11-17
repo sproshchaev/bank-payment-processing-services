@@ -1,6 +1,6 @@
 package com.prosoft.processingcenter.service;
 
-import com.prosoft.processingcenter.model.dto.Payment;
+import com.prosoft.processingcenter.model.dto.PaymentDto;
 import com.prosoft.processingcenter.model.dto.TransactionDto;
 import com.prosoft.processingcenter.model.entity.Account;
 import com.prosoft.processingcenter.model.entity.Card;
@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
 import java.sql.Timestamp;
-import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Arrays;
@@ -94,15 +93,15 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     //@Transactional (!)
-    public Optional<Transaction> createTransaction(Card card, Payment payment, String authorizationCode) {
+    public Optional<Transaction> createTransaction(Card card, PaymentDto paymentDto, String authorizationCode) {
         TransactionType transactionTypeDebet = transactionTypeService.getByTransactionTypeName("Списание со счета").get();
-        Transaction transaction = transactionRepository.save(new Transaction(Date.valueOf(payment.getTransactionDate()),
-                Double.parseDouble(payment.getSumCardCurrency()),
-                "Purchase payment TID " + payment.getTerminalId(),
+        Transaction transaction = transactionRepository.save(new Transaction(Date.valueOf(paymentDto.getTransactionDate()),
+                Double.parseDouble(paymentDto.getSumCardCurrency()),
+                "Purchase paymentDto TID " + paymentDto.getTerminalId(),
                 card.getAccount(),
                 transactionTypeDebet,
                 card,
-                terminalRepository.getByTerminalId(payment.getTerminalId()).get(),
+                terminalRepository.getByTerminalId(paymentDto.getTerminalId()).get(),
                 responseCodeService.getByErrorCode("00").get(),
                 authorizationCode));
         accountService.updateBalanceFromTransactions(card.getAccount(),

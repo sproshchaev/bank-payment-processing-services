@@ -2,7 +2,7 @@ package com.prosoft.issuingbank.model.dto;
 
 import java.sql.Date;
 
-public class Card {
+public class CardDto {
 
     private String cardNumber;
 
@@ -22,12 +22,12 @@ public class Card {
 
     private long issuingBankId;
 
-    public Card() {
+    public CardDto() {
     }
 
-    public Card(String cardNumber, Date expirationDate, String holderName, String cardStatusName,
-                String paymentSystemName, String accountNumber, double balance, String currencyLetterCode,
-                long issuingBankId) {
+    public CardDto(String cardNumber, Date expirationDate, String holderName, String cardStatusName,
+                   String paymentSystemName, String accountNumber, double balance, String currencyLetterCode,
+                   long issuingBankId) {
         this.cardNumber = cardNumber;
         this.expirationDate = expirationDate;
         this.holderName = holderName;
@@ -113,7 +113,7 @@ public class Card {
 
     @Override
     public String toString() {
-        return "Card{" +
+        return "CardDto{" +
                 "cardNumber='" + cardNumber + '\'' +
                 ", expirationDate=" + expirationDate +
                 ", holderName='" + holderName + '\'' +

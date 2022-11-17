@@ -62,4 +62,5 @@
 16. Hibernate Tip: Create an EntityGraph with multiple SubGraphs https://thorben-janssen.com/hibernate-tip-entitygraph-multiple-subgraphs/
 17. Введение в Spring Boot Actuator https://habr.com/ru/company/otus/blog/452624/
 18. Обзор работы с опционалами (Optional Java) https://hashnets.com/optional-java-overview/
+19. Введение в AOP в Spring Boot https://sysout.ru/vvedenie-v-aop-v-spring-boot/
 

@@ -1,7 +1,7 @@
 package com.prosoft.processingcenter.service;
 
-import com.prosoft.processingcenter.model.dto.Payment;
+import com.prosoft.processingcenter.model.dto.PaymentDto;
 
 public interface IssuerAuthorizationPhase {
-    Payment checkCardParameters(Payment payment);
+    PaymentDto checkCardParameters(PaymentDto paymentDto);
 }

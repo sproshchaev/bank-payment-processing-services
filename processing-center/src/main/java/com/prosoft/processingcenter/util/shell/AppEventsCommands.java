@@ -1,10 +1,11 @@
 package com.prosoft.processingcenter.util.shell;
 
-import com.prosoft.processingcenter.model.dto.Payment;
+import com.prosoft.processingcenter.model.dto.PaymentDto;
 import com.prosoft.processingcenter.model.entity.Card;
 import com.prosoft.processingcenter.service.AuthorizationService;
 import com.prosoft.processingcenter.service.CardService;
 import com.prosoft.processingcenter.service.CurrencyService;
+import com.prosoft.processingcenter.service.IssuingBankMessageService;
 import org.h2.tools.Console;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
@@ -22,11 +23,16 @@ public class AppEventsCommands {
     private final CurrencyService currencyService;
     private final CardService cardService;
 
+    private final IssuingBankMessageService issuingBankMessageService;
+
     @Autowired
-    public AppEventsCommands(AuthorizationService authorizationService, CurrencyService currencyService, CardService cardService) {
+    public AppEventsCommands(AuthorizationService authorizationService, CurrencyService currencyService,
+                             CardService cardService, IssuingBankMessageService issuingBankMessageService) {
         this.authorizationService = authorizationService;
         this.currencyService = currencyService;
         this.cardService = cardService;
+
+        this.issuingBankMessageService = issuingBankMessageService;
     }
 
     @ShellMethod(value = "Start console H2", key = {"c", "console"})
@@ -47,7 +53,7 @@ public class AppEventsCommands {
                                               @ShellOption(defaultValue = "1225", help = "Exp.date card") String expDate,
                                               @ShellOption(defaultValue = "500.55", help = "Sum") String sum,
                                               @ShellOption(defaultValue = "RUB", help = "Currency") String currency) {
-        return authorizationService.paymentAuthorization(new Payment(tid, date, cardNumber, expDate, sum,
+        return authorizationService.paymentAuthorization(new PaymentDto(tid, date, cardNumber, expDate, sum,
                 currency)).toString();
     }
 
@@ -58,7 +64,7 @@ public class AppEventsCommands {
                                                       help = "Currency to (RUB, USD, EUR)") String currencyLetterCodeTo) {
         return "Курс " + currencyLetterCodeFrom + " " + currencyLetterCodeTo + ": "
                 + currencyService.getCourse(currencyLetterCodeFrom, currencyLetterCodeTo).map(Object::toString)
-                .orElse(" не найден!") ;
+                .orElse(" не найден!");
     }
 
     @ShellMethod(value = "Get a bank card balance", key = {"gcb", "getcardbalance"})
@@ -70,7 +76,7 @@ public class AppEventsCommands {
 
     @ShellMethod(value = "Get a bank card balance in currency", key = {"gcbc", "getcardbalancecurr"})
     public String getCardBalanceInCurrency(@ShellOption(defaultValue = "4123450101654724", help = "Card number")
-                                               String cardNumber,
+                                           String cardNumber,
                                            @ShellOption(defaultValue = "USD", help = "Currency to (RUB, USD, EUR)")
                                            String currencyLetterCode) {
         Optional<Double> balance = cardService.getBalanceByCardNumberAndCurrency(cardNumber, currencyLetterCode);
@@ -85,5 +91,9 @@ public class AppEventsCommands {
                 + c.getCardStatus().getCardStatusName() + " ").orElse("Номер карты не найден!");
     }
 
+    @ShellMethod(value = "Send messages (new cards and transactions) to the issuing-bank", key = {"sm", "sendmessage"})
+    public String sendMessageToIssuingBank() {
+        return issuingBankMessageService.sendAllMessage();
+    }
 
 }

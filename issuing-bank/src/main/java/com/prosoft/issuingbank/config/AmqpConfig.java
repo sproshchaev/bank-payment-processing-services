@@ -7,8 +7,13 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AmqpConfig {
     @Bean
-    public Queue newCardQueue() {
-        return new Queue("newCardQueue", false);
+    public Queue newCardToProcessingCenter() {
+        return new Queue("newCardToProcessingCenter", false);
+    }
+
+    @Bean
+    public Queue newCardToIssuingBank() {
+        return new Queue("newCardToIssuingBank", false);
     }
 
     @Bean
