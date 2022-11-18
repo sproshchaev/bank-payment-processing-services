@@ -5,7 +5,6 @@ import com.prosoft.processingcenter.model.dto.TransactionDto;
 import com.prosoft.processingcenter.model.entity.Account;
 import com.prosoft.processingcenter.model.entity.Card;
 import com.prosoft.processingcenter.model.entity.Transaction;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -15,7 +14,7 @@ public interface TransactionService {
 
     void getTransactionFromIssuingBank(TransactionDto[] transactionDtoArray);
 
-    List<Transaction> getAllTransactionsByAccountId(Account account);
+    List<Transaction> getAllTransactionsByAccount(Account account);
 
     double getBalanceFromTransactions(Account account);
 
@@ -25,4 +24,5 @@ public interface TransactionService {
 
     void setDateSentToIssuingBank(Timestamp sentToProcessingCenter, List<Long> transactionIdList);
 
+    List<Transaction> getAllPaymentTransactionsByCard(Card card);
 }

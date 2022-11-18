@@ -2,10 +2,7 @@ package com.prosoft.processingcenter.util.shell;
 
 import com.prosoft.processingcenter.model.dto.PaymentDto;
 import com.prosoft.processingcenter.model.entity.Card;
-import com.prosoft.processingcenter.service.AuthorizationService;
-import com.prosoft.processingcenter.service.CardService;
-import com.prosoft.processingcenter.service.CurrencyService;
-import com.prosoft.processingcenter.service.IssuingBankMessageService;
+import com.prosoft.processingcenter.service.*;
 import org.h2.tools.Console;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
@@ -14,25 +11,26 @@ import org.springframework.shell.standard.ShellOption;
 
 import java.sql.SQLException;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @ShellComponent
 public class AppEventsCommands {
     private final AuthorizationService authorizationService;
-
     private final CurrencyService currencyService;
     private final CardService cardService;
-
     private final IssuingBankMessageService issuingBankMessageService;
-
+    private final TransactionService transactionService;
     @Autowired
     public AppEventsCommands(AuthorizationService authorizationService, CurrencyService currencyService,
-                             CardService cardService, IssuingBankMessageService issuingBankMessageService) {
+                             CardService cardService, IssuingBankMessageService issuingBankMessageService,
+                             TransactionService transactionService) {
         this.authorizationService = authorizationService;
         this.currencyService = currencyService;
         this.cardService = cardService;
 
         this.issuingBankMessageService = issuingBankMessageService;
+        this.transactionService = transactionService;
     }
 
     @ShellMethod(value = "Start console H2", key = {"c", "console"})
@@ -94,6 +92,30 @@ public class AppEventsCommands {
     @ShellMethod(value = "Send messages (new cards and transactions) to the issuing-bank", key = {"sm", "sendmessage"})
     public String sendMessageToIssuingBank() {
         return issuingBankMessageService.sendAllMessage();
+    }
+
+    @ShellMethod(value = "Get all payment transactions on the card", key = {"gapt", "getallpaymenttransactions"})
+    public String getAllPaymentTransactions(@ShellOption(defaultValue = "4123450000000019", help = "Card number") String cardNumber) {
+        Optional<Card> card = cardService.getCardByCardNumber(cardNumber);
+        return "Платежные транзакции:\n" + transactionService.getAllPaymentTransactionsByCard(card.get()).stream()
+                .map(t -> t.getId() + ") "
+                        + t.getTransactionDate() + " "
+                        + t.getTransactionName() + " "
+                        + t.getSum() + " "
+                        + t.getAccount().getCurrency().getCurrencyLetterCode() + " "
+                ).collect(Collectors.joining("\n"));
+    }
+
+    @ShellMethod(value = "Get all transactions on the card", key = {"gat", "getalltransactions"})
+    public String getAllTransactions(@ShellOption(defaultValue = "4123450000000019", help = "Card number") String cardNumber) {
+        Optional<Card> card = cardService.getCardByCardNumber(cardNumber);
+        return "Транзакции по карте " + cardNumber + ":\n" + transactionService.getAllTransactionsByAccount(card.get().getAccount()).stream()
+                .map(t -> t.getId() + ") "
+                        + t.getTransactionDate() + " "
+                        + t.getTransactionName() + " "
+                        + t.getSum() + " "
+                        + t.getAccount().getCurrency().getCurrencyLetterCode() + " "
+                ).collect(Collectors.joining("\n"));
     }
 
 }

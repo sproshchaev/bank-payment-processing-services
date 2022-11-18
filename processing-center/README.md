@@ -30,6 +30,8 @@
   - Send messages (new cards and transactions) to the issuing-bank: sm
   - Get a course: gc
   - Get card's balance in currency: gcbc --cardNumber <card_number> --currency <currency_letter_code> 
+  - Get all payment transactions on the card: gapt --cardNumber <card_number>
+  - Get all transactions on the card: gat --cardNumber <card_number>
 
 ### Используемые коды ответов (errorCode) (https://wiki.mandarin.io/pages/viewpage.action?pageId=5014410)
 1. "00" - "Approved (Успешная транзакция)"

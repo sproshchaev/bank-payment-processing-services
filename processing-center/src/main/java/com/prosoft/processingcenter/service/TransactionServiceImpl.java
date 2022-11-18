@@ -68,13 +68,13 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Transaction> getAllTransactionsByAccountId(Account account) {
+    public List<Transaction> getAllTransactionsByAccount(Account account) {
         return transactionRepository.getTransactionByAccount(account);
     }
 
     @Override
     public double getBalanceFromTransactions(Account account) {
-        return roundDouble(getAllTransactionsByAccountId(account).stream()
+        return roundDouble(getAllTransactionsByAccount(account).stream()
                 .mapToDouble(t -> {return t.getSum() * (t.getTransactionType().getOperator().equals("-") ? -1 : 1);})
                 .sum(), 2);
     }
@@ -126,5 +126,10 @@ public class TransactionServiceImpl implements TransactionService {
         }
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public List<Transaction> getAllPaymentTransactionsByCard(Card card) {
+        return transactionRepository.getAllByCard(card);
+    }
 
 }
