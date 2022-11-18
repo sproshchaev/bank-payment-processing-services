@@ -70,10 +70,10 @@ values ('Списание со счета', '-'),
        ('Пополнение счета', '+');
 
 insert into card (card_number, expiration_date, holder_name, card_status_id, payment_system_id, account_id, received_from_issuing_bank, sent_to_issuing_bank)
-values ('4123450101654724', '2025-12-31', 'IVAN I. IVANOV', 2, 1, 1, '2022-10-21 15:26:06.175', '2022-10-21 15:27:08.271'),
-       ('5123459858074128', '2025-12-31', 'SEMION E. PETROV', 3, 2, 2, '2022-04-05 10:23:05.372', '2022-04-05 10:24:02.175'),
-       ('3123451333300000', '2025-10-31', 'DMITRY S. SIDOROV', 2, 3, 3, '2022-10-20 12:21:07.273', '2022-10-20 12:22:01.471'),
-       ('4750657776370372', '2025-12-31', 'IVAN I. IVANOV', 2, 1, 4, '2022-10-21 10:21:08.178', '2022-10-21 10:22:08.285');
+values ('4123450000000019', '2025-12-31', 'IVAN I. IVANOV', 2, 1, 1, '2022-10-21 15:26:06.175', '2022-10-21 15:27:08.271'),
+       ('5123450000000024', '2025-12-31', 'SEMION E. PETROV', 3, 2, 2, '2022-04-05 10:23:05.372', '2022-04-05 10:24:02.175'),
+       ('3123450000000037', '2025-10-31', 'DMITRY S. SIDOROV', 2, 3, 3, '2022-10-20 12:21:07.273', '2022-10-20 12:22:01.471'),
+       ('4123450000000043', '2025-12-31', 'IVAN I. IVANOV', 2, 1, 4, '2022-10-21 10:21:08.178', '2022-10-21 10:22:08.285');
 
 insert into transaction (transaction_date, sum, transaction_name, account_id, transaction_type_id, card_id, terminal_id, response_code_id, authorization_code, received_from_issuing_bank)
 values ('2022-10-22', 1000.11, 'Cash deposit', 1, 2, null, null, null, null, '2022-10-22 09:05:23.129'),
