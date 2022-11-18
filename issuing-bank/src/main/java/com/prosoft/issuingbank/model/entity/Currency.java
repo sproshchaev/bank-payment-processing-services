@@ -17,6 +17,9 @@ public class Currency {
     @Column(name = "currency_letter_code")
     private String currencyLetterCode;
 
+    @Column(name = "currency_digital_code_account")
+    private String currencyDigitalCodeAccount;
+
     @Column(name = "currency_name")
     private String currencyName;
 
@@ -47,6 +50,14 @@ public class Currency {
         this.currencyLetterCode = currencyLetterCode;
     }
 
+    public String getCurrencyDigitalCodeAccount() {
+        return currencyDigitalCodeAccount;
+    }
+
+    public void setCurrencyDigitalCodeAccount(String currencyDigitalCodeAccount) {
+        this.currencyDigitalCodeAccount = currencyDigitalCodeAccount;
+    }
+
     public String getCurrencyName() {
         return currencyName;
     }
@@ -56,24 +67,12 @@ public class Currency {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Currency currency = (Currency) o;
-        return id == currency.id && currencyDigitalCode.equals(currency.currencyDigitalCode) && currencyLetterCode.equals(currency.currencyLetterCode) && currencyName.equals(currency.currencyName);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, currencyDigitalCode, currencyLetterCode, currencyName);
-    }
-
-    @Override
     public String toString() {
         return "Currency{" +
                 "id=" + id +
                 ", currencyDigitalCode='" + currencyDigitalCode + '\'' +
                 ", currencyLetterCode='" + currencyLetterCode + '\'' +
+                ", currencyDigitalCodeAccount='" + currencyDigitalCodeAccount + '\'' +
                 ", currencyName='" + currencyName + '\'' +
                 '}';
     }

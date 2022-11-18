@@ -35,6 +35,7 @@
   - Create a transaction: ct --accountId <account_id> --transactionTypeId <transaction_type_id> --sum <sum> --transactionName <transaction_name> 
 
   - Send messages (new cards and transactions) to processing-center: sm
+  - Generating an account number: ga --clientId <client_id> --currencyLetterCode <currency_letter_code>
 
 ### Тестирование
 1. Отключить Spring Shell в тестах в test\java\resources\application.properties: spring.shell.interactive.enabled=false, spring.main.allow-circular-references=true

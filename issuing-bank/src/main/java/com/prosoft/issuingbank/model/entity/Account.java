@@ -41,6 +41,16 @@ public class Account {
     public Account() {
     }
 
+    public Account(double balance, Currency currency, AccountType accountType, Client client, Date accountOpeningDate,
+                   boolean suspendingOperations) {
+        this.balance = balance;
+        this.currency = currency;
+        this.accountType = accountType;
+        this.client = client;
+        this.accountOpeningDate = accountOpeningDate;
+        this.suspendingOperations = suspendingOperations;
+    }
+
     public Account(String accountNumber, double balance, Currency currency, AccountType accountType, Client client,
                    Date accountOpeningDate, boolean suspendingOperations) {
         this.accountNumber = accountNumber;

@@ -32,10 +32,11 @@ create table account_type
 drop table if exists currency;
 create table currency
 (
-    id                    bigint auto_increment primary key,
-    currency_digital_code varchar(3),
-    currency_letter_code  varchar(3),
-    currency_name         varchar(255)
+    id                            bigint auto_increment primary key,
+    currency_digital_code         varchar(3),
+    currency_letter_code          varchar(3),
+    currency_digital_code_account varchar(3),
+    currency_name                 varchar(255)
 );
 
 drop table if exists transaction_type;

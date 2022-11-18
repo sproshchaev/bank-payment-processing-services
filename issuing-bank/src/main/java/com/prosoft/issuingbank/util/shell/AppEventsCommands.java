@@ -1,9 +1,6 @@
 package com.prosoft.issuingbank.util.shell;
 
-import com.prosoft.issuingbank.model.entity.Account;
-import com.prosoft.issuingbank.model.entity.Card;
-import com.prosoft.issuingbank.model.entity.Client;
-import com.prosoft.issuingbank.model.entity.Transaction;
+import com.prosoft.issuingbank.model.entity.*;
 import com.prosoft.issuingbank.service.*;
 import org.h2.tools.Console;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,14 +23,18 @@ public class AppEventsCommands {
     private final CardService cardService;
     private final TransactionService transactionService;
     private final ProcessingCenterMessageService processingCenterMessageService;
+    private final AccountNumGeneratorService accountNumGeneratorService;
+    private final CurrencyService currencyService;
 
     @Autowired
-    public AppEventsCommands(ClientService clientService, AccountService accountService, CardService cardService, TransactionService transactionService, ProcessingCenterMessageService processingCenterMessageService) {
+    public AppEventsCommands(ClientService clientService, AccountService accountService, CardService cardService, TransactionService transactionService, ProcessingCenterMessageService processingCenterMessageService, AccountNumGeneratorService accountNumGeneratorService, CurrencyService currencyService) {
         this.clientService = clientService;
         this.accountService = accountService;
         this.cardService = cardService;
         this.transactionService = transactionService;
         this.processingCenterMessageService = processingCenterMessageService;
+        this.accountNumGeneratorService = accountNumGeneratorService;
+        this.currencyService = currencyService;
     }
 
     @ShellMethod(value = "Start console H2", key = {"c", "console"})
@@ -65,6 +66,15 @@ public class AppEventsCommands {
                                 @ShellOption(defaultValue = "RUB", help = "Currency letter code: RUB, USD, EUR, UAH")
                                 String currencyLetterCode) {
         return "Счет открыт " + accountService.createAccount(clientId, currencyLetterCode).getAccountNumber();
+    }
+
+    @ShellMethod(value = "Generating an account number", key = {"ga", "genaccount"})
+    public String genAccountNumber(@ShellOption(defaultValue = "1", help = "Account's id") long accountId,
+                                   @ShellOption(defaultValue = "RUB", help = "Currency letter code: RUB, USD, EUR, UAH")
+                                   String currencyLetterCode) {
+        Optional<Currency> currencyOptional = currencyService.getCurrencyByCurrencyLetterCode(currencyLetterCode);
+        return "Для id=" + accountId + " сгенерирован номер счета: " + accountNumGeneratorService
+                .genAccountNumber(accountId, currencyOptional.get());
     }
 
     @ShellMethod(value = "Create a bank card", key = {"cbc", "createbankcard"})

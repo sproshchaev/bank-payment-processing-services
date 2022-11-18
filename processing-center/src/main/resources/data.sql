@@ -34,10 +34,10 @@ values ('041234567', 'ПАО Банк-эквайер №1'),
        ('041234569', 'ПАО Банк-эквайер №3');
 
 insert into account (account_number, balance, currency_id, issuing_bank_id)
-values ('40817810123456789012', 649.7, 1, 1),
-       ('40817810234567890123', 48702.07, 1, 1),
-       ('40817810345678901234', 715000.01, 1, 1),
-       ('40817840456789012345', 10000.0, 3, 1);
+values ('40817810800000000001', 649.7, 1, 1),
+       ('40817810100000000002', 48702.07, 1, 1),
+       ('40817810400000000003', 715000.01, 1, 1),
+       ('40817840000000000004', 10000.0, 3, 1);
 
 insert into merchant_category_code (mcc, mcc_name)
 values ('5309', 'Беспошлинные магазины Duty Free'),
@@ -76,10 +76,10 @@ values ('4123450101654724', '2025-12-31', 'IVAN I. IVANOV', 2, 1, 1, '2022-10-21
        ('4750657776370372', '2025-12-31', 'IVAN I. IVANOV', 2, 1, 4, '2022-10-21 10:21:08.178', '2022-10-21 10:22:08.285');
 
 insert into transaction (transaction_date, sum, transaction_name, account_id, transaction_type_id, card_id, terminal_id, response_code_id, authorization_code, received_from_issuing_bank)
-values ('2022-10-22', 1000.11, 'Cash deposit', 1, 2, null, null, null, '', '2022-10-22 09:05:23.129'),
-       ('2022-04-06', 50000.92, 'Cash deposit', 2, 2, null, null, null, '', '2022-04-06 12:03:41.861'),
-       ('2022-10-21', 750000.12, 'Cash deposit', 3, 2, null, null, null, '', '2022-10-21 10:12:47.127'),
-       ('2022-10-23', 350.41, 'Money transfer', 1, 1, null, null, null, '', '2022-10-23 13:24:47.432'),
-       ('2022-06-23', 1298.85, 'Commission', 2, 1, null, null, null, '', '2022-06-23 15:48:47.689'),
-       ('2022-10-22', 35000.11, 'PaymentDto of the invoice', 3, 1, null, null, null, '', '2022-10-22 10:21:47.919'),
-       ('2022-10-22', 10000.0, 'Cash deposit', 4, 2, null, null, null, '', '2022-10-22 09:06:47.269');
+values ('2022-10-22', 1000.11, 'Cash deposit', 1, 2, null, null, null, null, '2022-10-22 09:05:23.129'),
+       ('2022-04-06', 50000.92, 'Cash deposit', 2, 2, null, null, null, null, '2022-04-06 12:03:41.861'),
+       ('2022-10-21', 750000.12, 'Cash deposit', 3, 2, null, null, null, null, '2022-10-21 10:12:47.127'),
+       ('2022-10-23', 350.41, 'Money transfer', 1, 1, null, null, null, null, '2022-10-23 13:24:47.432'),
+       ('2022-06-23', 1298.85, 'Commission', 2, 1, null, null, null, null, '2022-06-23 15:48:47.689'),
+       ('2022-10-22', 35000.11, 'PaymentDto of the invoice', 3, 1, null, null, null, null, '2022-10-22 10:21:47.919'),
+       ('2022-10-22', 10000.0, 'Cash deposit', 4, 2, null, null, null, null, '2022-10-22 09:06:47.269');

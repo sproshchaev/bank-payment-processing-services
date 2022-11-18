@@ -43,14 +43,14 @@ insert into account_type (account_type_name)
 values ('Active account'),
        ('Passive account');
 
-insert into currency (currency_digital_code, currency_letter_code, currency_name)
-values ('643', 'RUB', 'Russian Ruble'),
-       ('980', 'UAH', 'Hryvnia'),
-       ('840', 'USD', 'US Dollar'),
-       ('978', 'EUR', 'Euro'),
-       ('392', 'JPY', 'Yen'),
-       ('156', 'CNY', 'Yuan Renminbi'),
-       ('826', 'GBP', 'Pound Sterling');
+insert into currency (currency_digital_code, currency_letter_code, currency_digital_code_account, currency_name)
+values ('643', 'RUB', '810', 'Russian Ruble'),
+       ('980', 'UAH', '980', 'Hryvnia'),
+       ('840', 'USD', '840', 'US Dollar'),
+       ('978', 'EUR', '978', 'Euro'),
+       ('392', 'JPY', '392', 'Yen'),
+       ('156', 'CNY', '156', 'Yuan Renminbi'),
+       ('826', 'GBP', '826', 'Pound Sterling');
 
 insert into transaction_type (transaction_type_name)
 values ('Debit'),
@@ -62,10 +62,10 @@ values ('Иванов', 'Иван', 'Иванович', '1980-01-30', '1234 1234
        ('Сидоров', 'Дмитрий', 'Степанович', '1976-10-20', '9012 345678 выдан 16.07.2018 УВД г.Тюмени', 'Тюмень, ул.Республики, 21 кв. 12', '+79041234569', 'dmsydorov@mail.ru');
 
 insert into account (account_number, balance, currency_id, account_type_id, client_id, account_opening_date, suspending_operations)
-values ('40817810123456789012', 649.7, 1, 2, 1, '2022-10-21', false),
-       ('40817810234567890123', 48702.07, 1, 2, 2, '2022-04-05', false),
-       ('40817810345678901234', 715000.01, 1, 2, 3, '2022-10-20', false),
-       ('40817840456789012345', 10000.0, 3, 2, 1, '2022-10-21', false);
+values ('40817810800000000001', 649.7, 1, 2, 1, '2022-10-21', false),
+       ('40817810100000000002', 48702.07, 1, 2, 2, '2022-04-05', false),
+       ('40817810400000000003', 715000.01, 1, 2, 3, '2022-10-20', false),
+       ('40817840000000000004', 10000.0, 3, 2, 1, '2022-10-21', false);
 
 insert into card (card_number, expiration_date, holder_name, card_status_id, payment_system_id, account_id, client_id, sent_to_processing_center, received_from_processing_center)
 values ('4123450101654724', '2025-12-31', 'IVAN I. IVANOV', 2, 1, 1, 1, '2022-10-21 12:10:33.695', '2022-10-21 13:12:12.159'),

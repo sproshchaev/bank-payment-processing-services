@@ -32,20 +32,21 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    @Transactional
+    @Transactional // todo внедрить ентити графы!
     public Account createAccount(long clientId, String currencyLetterCode) {
-        // todo внедрить ентити графы!
         Optional<Client> client = clientService.getClientById(clientId);
         Optional<Currency> currency = currencyService.getCurrencyByCurrencyLetterCode(currencyLetterCode);
         if (client.isPresent() && currency.isPresent()) {
-            return accountRepository.save(new Account(
-                    accountNumGeneratorService.getAccountNumber(clientId, currency.get()),
+            Account account = accountRepository.save(new Account(
                     0,
                     currency.get(),
                     accountTypeService.getAccountTypeByName("Passive account"),
                     client.get(),
                     new Date(new java.util.Date().getTime()),
                     false));
+            account.setAccountNumber(accountNumGeneratorService.genAccountNumber(account.getId(), account.getCurrency()));
+            accountRepository.save(account);
+            return account;
         } else {
             return null;
         }
