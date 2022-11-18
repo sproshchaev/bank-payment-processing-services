@@ -23,7 +23,7 @@ public class TransactionIssuingBankServiceImpl implements TransactionIssuingBank
     }
 
     @Override
-    @RabbitListener(queues = "transactionQueue")
+    @RabbitListener(queues = "transactionToProcessingCenter")
     public void listenTransactionQueue(String in) {
         TransactionDto[] transactionDtoArray;
         try {

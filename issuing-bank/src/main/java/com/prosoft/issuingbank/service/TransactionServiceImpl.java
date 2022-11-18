@@ -76,7 +76,7 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     @Transactional
     public void getTransactionFromProcessingCenter(TransactionDto[] transactionDtoArray) {
-        System.out.println("\nMessage read from transactionQueue2: \n" + Arrays.stream(transactionDtoArray)
+        System.out.println("\nMessage read from transactionToIssuingBank: \n" + Arrays.stream(transactionDtoArray)
                 .map(TransactionDto::toString).collect(Collectors.joining(", \n")));
         Timestamp receivedFromProcessingCenter = new Timestamp(System.currentTimeMillis());
         TransactionType transactionTypeDebet = transactionTypeService.getByTransactionTypeName("Debit").get();

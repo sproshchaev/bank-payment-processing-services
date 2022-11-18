@@ -36,6 +36,7 @@
 
   - Send messages (new cards and transactions) to processing-center: sm
   - Generating an account number: ga --clientId <client_id> --currencyLetterCode <currency_letter_code>
+  - Generating a card number: gc --paymentSystemId <payment_system_id> 
 
 ### Тестирование
 1. Отключить Spring Shell в тестах в test\java\resources\application.properties: spring.shell.interactive.enabled=false, spring.main.allow-circular-references=true

@@ -75,7 +75,7 @@ public class ProcessingCenterMessageService {
                 .collect(Collectors.toList());
         if (!transactionDtoList.isEmpty()) {
             try {
-                rabbitTemplate.convertAndSend("transactionQueue",
+                rabbitTemplate.convertAndSend("transactionToProcessingCenter",
                         objectMapper.writeValueAsString(transactionDtoList));
                 transactionService.setDateSentToProcessingCenter(new Timestamp(System.currentTimeMillis()),
                         transactionDtoList.stream().map(TransactionDto::getIssuingBankIdTransaction)

@@ -25,9 +25,11 @@
 ### Shell commands
   - Get a course: gc
   - Make authorization: ma --tid <terminal_id> --date <date_operation> --cardNumber <card_number> --expDate <card_validity_period> --sum <transaction_amount> --currency <operation's currency>
-  - Get card's balance: gcb --cardNumber <card_number>
-  - Get card's balance in currency: gcbc --cardNumber <card_number> --currency <currency_letter_code> 
   - Get card's status: gcs --cardNumber <card_number>
+  - Get card's balance: gcb --cardNumber <card_number>
+  - Send messages (new cards and transactions) to the issuing-bank: sm
+  - Get a course: gc
+  - Get card's balance in currency: gcbc --cardNumber <card_number> --currency <currency_letter_code> 
 
 ### Используемые коды ответов (errorCode) (https://wiki.mandarin.io/pages/viewpage.action?pageId=5014410)
 1. "00" - "Approved (Успешная транзакция)"

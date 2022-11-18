@@ -17,14 +17,14 @@ public class AmqpConfig {
         return new Queue("newCardToIssuingBank", false);
     }
 
-    @Bean // todo rename transactionToProcessingCenter
-    public Queue transactionQueue() {
-        return new Queue("transactionQueue", false);
+    @Bean
+    public Queue transactionToProcessingCenter() {
+        return new Queue("transactionToProcessingCenter", false);
     }
 
-    @Bean // todo rename transactionToIssuingBank
-    public Queue transactionQueue2() {
-        return new Queue("transactionQueue2", false);
+    @Bean
+    public Queue transactionToIssuingBank() {
+        return new Queue("transactionToIssuingBank", false);
     }
 
 }

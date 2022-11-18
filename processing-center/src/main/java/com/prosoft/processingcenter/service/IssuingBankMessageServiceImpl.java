@@ -76,7 +76,7 @@ public class IssuingBankMessageServiceImpl implements IssuingBankMessageService 
                 .collect(Collectors.toList());
         if (!transactionDtoList.isEmpty()) {
             try {
-                rabbitTemplate.convertAndSend("transactionQueue2",
+                rabbitTemplate.convertAndSend("transactionToIssuingBank",
                         objectMapper.writeValueAsString(transactionDtoList));
                 transactionService.setDateSentToIssuingBank(new Timestamp(System.currentTimeMillis()),
                         transactionDtoList.stream().map(TransactionDto::getIssuingBankIdTransaction)
