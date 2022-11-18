@@ -25,14 +25,14 @@
   - Вывести все команды: help
   - Справка по выбранной команде: help сс 
 
-  - Create a new client: сс --lastname <last_name> --firstname <first_name> --middlename <middle_name> --birthdate <birth_date> --document <document> --address <address> --phone <phone>   
+  - Create a new client: cc --lastname <last_name> --firstname <first_name> --middlename <middle_name> --birthdate <birth_date> --document <document> --address <address> --phone <phone>   
   - Create an account: ca --clientId <client_id> --currencyLetterCode <currency_letter_code>
   - Create a bank card: cbc --clientId <client_id> --currencyLetterCode <currency_letter_code> --paymentSystemId <payment_system_id> 
+  - Create a transaction: ct --accountId <account_id> --transactionTypeId <transaction_type_id> --sum <sum> --transactionName <transaction_name>
   - Get account balance: gb --accountId <account_id>
   - Get all client's accounts: gaa --clientId <client_id> 
   - Get all transactions on the account: gat --accountId <account_id>
   - Get all client's cards: gac --clientId <client_id>
-  - Create a transaction: ct --accountId <account_id> --transactionTypeId <transaction_type_id> --sum <sum> --transactionName <transaction_name> 
 
   - Send messages (new cards and transactions) to processing-center: sm
   - Generating an account number: ga --clientId <client_id> --currencyLetterCode <currency_letter_code>
