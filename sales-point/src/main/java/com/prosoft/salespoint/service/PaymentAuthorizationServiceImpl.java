@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
@@ -29,18 +30,17 @@ public class PaymentAuthorizationServiceImpl implements PaymentAuthorizationServ
         this.transactionService = transactionService;
     }
 
+    @Transactional
     public PaymentValueObject makeAuthorization(PaymentValueObject requestPaymentValueObject) {
-        // todo PaymentValueObject вынести
+        PaymentValueObject responsePaymentValueObject;
         if (useFeign) {
-            PaymentValueObject responsePaymentValueObject = authorizationServiceProxy.paymentAuthorization(
+            responsePaymentValueObject = authorizationServiceProxy.paymentAuthorization(
                     requestPaymentValueObject.getTerminalId(),
                     requestPaymentValueObject.getTransactionDate(),
                     requestPaymentValueObject.getCardNumber(),
                     requestPaymentValueObject.getExpiryDate(),
                     requestPaymentValueObject.getSum(),
                     requestPaymentValueObject.getCurrencyLetterCode());
-            transactionService.createPaymentTransaction(responsePaymentValueObject);
-            return responsePaymentValueObject;
         } else {
             Map<String, String> urlPathVariables = new HashMap<>();
             urlPathVariables.put("tid", requestPaymentValueObject.getTerminalId());
@@ -52,9 +52,9 @@ public class PaymentAuthorizationServiceImpl implements PaymentAuthorizationServ
             ResponseEntity<PaymentValueObject> responseEntity = restTemplate.getForEntity(
                     AUTHORIZATION_URL,
                     PaymentValueObject.class, urlPathVariables);
-            PaymentValueObject responsePaymentValueObject = responseEntity.getBody();
-            return responsePaymentValueObject;
+            responsePaymentValueObject = responseEntity.getBody();
         }
-
+        transactionService.createPaymentTransaction(responsePaymentValueObject);
+        return responsePaymentValueObject;
     }
 }

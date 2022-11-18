@@ -10,7 +10,6 @@ import org.springframework.shell.standard.ShellOption;
 
 import java.sql.Date;
 import java.sql.SQLException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -22,7 +21,7 @@ public class AppEventsCommands {
     private final AccountService accountService;
     private final CardService cardService;
     private final TransactionService transactionService;
-    private final ProcessingCenterMessageService processingCenterMessageService;
+    private final ProcessingCenterMessageServiceImpl processingCenterMessageServiceImpl;
     private final AccountNumGeneratorService accountNumGeneratorService;
     private final CardNumGeneratorService cardNumGeneratorService;
     private final CurrencyService currencyService;
@@ -32,7 +31,7 @@ public class AppEventsCommands {
     @Autowired
     public AppEventsCommands(ClientService clientService, AccountService accountService, CardService cardService,
                              TransactionService transactionService,
-                             ProcessingCenterMessageService processingCenterMessageService,
+                             ProcessingCenterMessageServiceImpl processingCenterMessageServiceImpl,
                              AccountNumGeneratorService accountNumGeneratorService,
                              CardNumGeneratorService cardNumGeneratorService, CurrencyService currencyService,
                              PaymentSystemService paymentSystemService, BankSettingService bankSettingService) {
@@ -40,7 +39,7 @@ public class AppEventsCommands {
         this.accountService = accountService;
         this.cardService = cardService;
         this.transactionService = transactionService;
-        this.processingCenterMessageService = processingCenterMessageService;
+        this.processingCenterMessageServiceImpl = processingCenterMessageServiceImpl;
         this.accountNumGeneratorService = accountNumGeneratorService;
         this.cardNumGeneratorService = cardNumGeneratorService;
         this.currencyService = currencyService;
@@ -68,8 +67,8 @@ public class AppEventsCommands {
                                        help = "Address") String address,
                                @ShellOption(defaultValue = "+79031234570", help = "Phone") String phone,
                                @ShellOption(defaultValue = "pronats@inbox.ru", help = "Email") String email) {
-        return "Клиент создан: " + clientService.createClient(new Client(lastName, firstName, middleName, birthDate, document, address,
-                phone, email)).toString();
+        return "Клиент создан: " + clientService.createClient(new Client(lastName, firstName, middleName, birthDate,
+                document, address, phone, email)).toString();
     }
 
     @ShellMethod(value = "Create an account", key = {"ca", "createaccount"})
@@ -101,7 +100,7 @@ public class AppEventsCommands {
 
     @ShellMethod(value = "Generating a card number", key = {"gc", "generatecard"})
     public String genCardNumber(@ShellOption(defaultValue = "1", help = "Card number id") long cardId,
-                                 @ShellOption(defaultValue = "1", help = "Payment system id") long paymentSystemId) {
+                                @ShellOption(defaultValue = "1", help = "Payment system id") long paymentSystemId) {
         return "Номер карты сгенерирован: " + cardNumGeneratorService.getCardNumber(cardId,
                 paymentSystemService.getPaymentSystemById(paymentSystemId).get(),
                 bankSettingService.getBySetting("bin").get().getCurrentValue());
@@ -113,9 +112,8 @@ public class AppEventsCommands {
         if (accountList == null) {
             return "Счета не найдены!";
         } else {
-            // todo вывести построчно с id и номером счета
-            return "Счета клиента: "
-                    + Arrays.toString(accountList.stream().map(Account::getAccountNumber).toArray());
+            return "Счета клиента: \n" + accountList.stream().map((s) -> s.getId() + ") " + s.getAccountNumber())
+                    .collect(Collectors.joining(", \n")) + ".";
         }
     }
 
@@ -133,17 +131,9 @@ public class AppEventsCommands {
         if (transactionList == null) {
             return "Транзакции не найдены!";
         } else {
-            // todo перевести на stream как в getAllCards
-            String transactions = "";
-            for (int i = 0; i < transactionList.size(); i++) {
-                transactions = transactions
-                        + (i + 1) + ") "
-                        + transactionList.get(i).getTransactionDate() + " "
-                        + transactionList.get(i).getTransactionName() + " "
-                        + transactionList.get(i).getSum() + " "
-                        + transactionList.get(i).getAccount().getCurrency().getCurrencyLetterCode() + "\n";
-            }
-            return transactions;
+            return "Транзакции: \n" + transactionList.stream().map((t) -> t.getId() + ") " + t.getTransactionDate() + " "
+                    + t.getTransactionName() + " " + t.getSum() + " "
+                    + t.getAccount().getCurrency().getCurrencyLetterCode()).collect(Collectors.joining(", \n")) + ".";
         }
     }
 
@@ -180,7 +170,7 @@ public class AppEventsCommands {
 
     @ShellMethod(value = "Send messages (new cards and transactions) to the processing-center", key = {"sm", "sendmessage"})
     public String sendMessageToProcessingCenter() {
-        return processingCenterMessageService.sendAllMessage();
+        return processingCenterMessageServiceImpl.sendAllMessage();
     }
 
 }

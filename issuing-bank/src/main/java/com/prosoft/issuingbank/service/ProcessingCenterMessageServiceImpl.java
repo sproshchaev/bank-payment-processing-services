@@ -1,9 +1,9 @@
-package com.prosoft.processingcenter.service;
+package com.prosoft.issuingbank.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.prosoft.processingcenter.model.dto.CardDto;
-import com.prosoft.processingcenter.model.dto.TransactionDto;
+import com.prosoft.issuingbank.model.dto.CardDto;
+import com.prosoft.issuingbank.model.dto.TransactionDto;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,31 +13,30 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class IssuingBankMessageServiceImpl implements IssuingBankMessageService {
+public class ProcessingCenterMessageServiceImpl implements ProcessingCenterMessageService {
+    private final static long ISSUING_BANK_ID = 1;
     private final CardService cardService;
     private final TransactionService transactionService;
-    private final ObjectMapper objectMapper;
     private final RabbitTemplate rabbitTemplate;
+    private final ObjectMapper objectMapper;
 
     @Autowired
-    public IssuingBankMessageServiceImpl(CardService cardService, TransactionService transactionService,
-                                         ObjectMapper objectMapper, RabbitTemplate rabbitTemplate) {
+    public ProcessingCenterMessageServiceImpl(CardService cardService, TransactionService transactionService,
+                                              RabbitTemplate rabbitTemplate, ObjectMapper objectMapper) {
         this.cardService = cardService;
         this.transactionService = transactionService;
-        this.objectMapper = objectMapper;
         this.rabbitTemplate = rabbitTemplate;
+        this.objectMapper = objectMapper;
     }
 
-    @Override
     public String sendAllMessage() {
-        return "Отправлено в Банк "
+        return "Отправлено в ПЦ "
                 + sendCardMessage() + ", "
                 + sendTransactionMessage();
     }
 
-    @Override
     public String sendCardMessage() {
-        List<CardDto> newCardList = cardService.getAllCardsByDateSentToIssuingBank(null)
+        List<CardDto> newCardListDto = cardService.getAllCardsByDateSentToProcessingCenter(null)
                 .stream().map(c -> new CardDto(c.getCardNumber(),
                         c.getExpirationDate(),
                         c.getHolderName(),
@@ -46,24 +45,23 @@ public class IssuingBankMessageServiceImpl implements IssuingBankMessageService 
                         c.getAccount().getAccountNumber(),
                         c.getAccount().getBalance(),
                         c.getAccount().getCurrency().getCurrencyLetterCode(),
-                        c.getAccount().getIssuingBank().getId()))
+                        ISSUING_BANK_ID))
                 .collect(Collectors.toList());
-        if (!newCardList.isEmpty()) {
+        if (!newCardListDto.isEmpty()) {
             try {
-                rabbitTemplate.convertAndSend("newCardToIssuingBank", objectMapper.writeValueAsString(newCardList));
-                cardService.setDateSentToIssuingBank(new Timestamp(System.currentTimeMillis()),
-                        newCardList.stream().map(CardDto::getCardNumber).collect(Collectors.toList()));
+                rabbitTemplate.convertAndSend("newCardToProcessingCenter", objectMapper.writeValueAsString(newCardListDto));
+                cardService.setDateSentToProcessingCenter(new Timestamp(System.currentTimeMillis()),
+                        newCardListDto.stream().map(CardDto::getCardNumber).collect(Collectors.toList()));
             } catch (JsonProcessingException e) {
                 throw new RuntimeException(e);
             }
         }
-        return "Cards: " + newCardList.size();
+        return "Cards: " + newCardListDto.size();
     }
 
-    @Override
     public String sendTransactionMessage() {
         List<TransactionDto> transactionDtoList = transactionService
-                .getAllTransactionsByDateSentToIssuingBank(null)
+                .getAllTransactionsByDateSentToProcessingCenter(null)
                 .stream()
                 .map(t -> new TransactionDto(
                         t.getTransactionDate(),
@@ -75,9 +73,9 @@ public class IssuingBankMessageServiceImpl implements IssuingBankMessageService 
                 .collect(Collectors.toList());
         if (!transactionDtoList.isEmpty()) {
             try {
-                rabbitTemplate.convertAndSend("transactionToIssuingBank",
+                rabbitTemplate.convertAndSend("transactionToProcessingCenter",
                         objectMapper.writeValueAsString(transactionDtoList));
-                transactionService.setDateSentToIssuingBank(new Timestamp(System.currentTimeMillis()),
+                transactionService.setDateSentToProcessingCenter(new Timestamp(System.currentTimeMillis()),
                         transactionDtoList.stream().map(TransactionDto::getIssuingBankIdTransaction)
                                 .collect(Collectors.toList()));
             } catch (JsonProcessingException e) {
@@ -86,5 +84,6 @@ public class IssuingBankMessageServiceImpl implements IssuingBankMessageService 
         }
         return "Transactions: " + transactionDtoList.size();
     }
+
 
 }
