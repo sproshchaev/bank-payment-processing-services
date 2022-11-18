@@ -37,11 +37,14 @@ public class AppEventsCommands {
                                                           @ShellOption(defaultValue = "1225") String expdate,
                                                           @ShellOption(defaultValue = "500.55") String sum,
                                                           @ShellOption(defaultValue = "RUB") String curr) {
-        return paymentAuthorizationService.makeAuthorization(new PaymentValueObject(tid, date, card, expdate, sum,
-                curr)).toString();
+        PaymentValueObject result = paymentAuthorizationService.makeAuthorization(new PaymentValueObject(tid, date, card,
+                expdate, sum, curr));
+        return "\nРезультат: "
+                + (result.getErrorCode().equals("00") ? " Завершено успешно, код авторизации " + result.getAuthorizationCode()
+                : "errorCode " + result.getErrorCode() + " Отказ");
     }
 
-    /** todo - фича
+    /** todo - получить список всех операций (за дату - по умолчанию за сегодня)
      *  list of operations - получить список всех операций (за дату - по умолчанию за сегодня)
      *  @return: "1) 4123***4724 500.55 RUB к.а.: 123456
      *            2) 3123***0000 155.95 RUB к.а.: 123457

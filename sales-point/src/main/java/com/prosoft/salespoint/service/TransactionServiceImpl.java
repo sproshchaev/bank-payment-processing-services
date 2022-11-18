@@ -31,20 +31,24 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     @Transactional
     public Transaction createPaymentTransaction(PaymentValueObject paymentValueObject) {
-        Optional<TransactionType> transactionTypeOptional = transactionTypeService
-                .getTransactionType("Payment");
-        Optional<Terminal> terminalOptional = terminalService.getByTerminalId(paymentValueObject.getTerminalId());
-        Optional<ResponseCode> responseCodeOptional = responseCodeService
-                .getResponseCodeByErrorCode(paymentValueObject.getErrorCode());
-        if (transactionTypeOptional.isPresent() && terminalOptional.isPresent() && responseCodeOptional.isPresent()) {
-            return transactionRepository.save(new Transaction(
-                    stringToDate(paymentValueObject.getTransactionDate()),
-                    Double.parseDouble(paymentValueObject.getSum()),
-                    transactionTypeOptional.get(),
-                    new Card(paymentValueObject.getCardNumber()),
-                    terminalOptional.get(),
-                    responseCodeOptional.get(),
-                    paymentValueObject.getAuthorizationCode()));
+        if (paymentValueObject.getErrorCode().equals("00")) {
+            Optional<TransactionType> transactionTypeOptional = transactionTypeService
+                    .getTransactionType("Payment");
+            Optional<Terminal> terminalOptional = terminalService.getByTerminalId(paymentValueObject.getTerminalId());
+            Optional<ResponseCode> responseCodeOptional = responseCodeService
+                    .getResponseCodeByErrorCode(paymentValueObject.getErrorCode());
+            if (transactionTypeOptional.isPresent() && terminalOptional.isPresent() && responseCodeOptional.isPresent()) {
+                return transactionRepository.save(new Transaction(
+                        stringToDate(paymentValueObject.getTransactionDate()),
+                        Double.parseDouble(paymentValueObject.getSum()),
+                        transactionTypeOptional.get(),
+                        new Card(paymentValueObject.getCardNumber()),
+                        terminalOptional.get(),
+                        responseCodeOptional.get(),
+                        paymentValueObject.getAuthorizationCode()));
+            } else {
+                return null;
+            }
         } else {
             return null;
         }
