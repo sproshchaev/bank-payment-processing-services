@@ -68,7 +68,6 @@ public class CardServiceImpl implements CardService {
                             account.orElseGet(() -> new Account(c.getAccountNumber(), c.getBalance(), currency.get(),
                                     issuingBank.get())),
                             receivedFromIssuingBank));
-                    // todo Отправить сообщение Банку об обработке карты: сохранить номер карты в листе обработанных и через класс CardIssuingBankServiceImpl (или другой отправить эмитенту)
                 } else {
                     // todo gen. exception
                     System.out.println("Reject: Ошибка в параметрах карты " + c.getCardNumber() + ": "
@@ -110,9 +109,7 @@ public class CardServiceImpl implements CardService {
     }
 
     public boolean cardNumberVerified(String cardNumber) {
-        // todo включить проверку контрольной цифры карты getLuhnDigit (пересчитать номера тестовых карт в data.sql)
-        // return verifyByLuhnAlgorithm(cardNumber);
-        return cardNumber.length() == 16;
+        return verifyByLuhnAlgorithm(cardNumber);
     }
 
     public boolean cardExpired(Card card) {
