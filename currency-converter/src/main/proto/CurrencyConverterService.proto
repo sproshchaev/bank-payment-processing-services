@@ -1,0 +1,18 @@
+syntax = "proto3";
+package com.prosoft.grpc;
+
+message RequestCurrencyExchangeRate {
+  string currencyLetterCodeFrom = 1;
+  string currencyLetterCodeTo = 2;
+}
+
+message ResponseCurrencyExchangeRate {
+  string responseDate = 1;
+  string currencyLetterCodeFrom = 2;
+  string currencyLetterCodeTo = 3;
+  double rate = 4;
+}
+
+service CurrencyExchangeRateService {
+    rpc getCurrencyExchangeRate(RequestCurrencyExchangeRate) returns (ResponseCurrencyExchangeRate);
+}
