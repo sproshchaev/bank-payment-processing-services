@@ -48,7 +48,7 @@ public class AppEventsCommands {
     public String paymentAuthorizationService(@ShellOption(defaultValue = "000000001", help = "Terminal Id") String tid,
                                               @ShellOption(defaultValue = "2022-10-26", help = "Date operation")
                                               String date,
-                                              @ShellOption(defaultValue = "4123450101654724", help = "Card number")
+                                              @ShellOption(defaultValue = "4123450000000019", help = "Card number")
                                               String cardNumber,
                                               @ShellOption(defaultValue = "1225", help = "Exp.date card") String expDate,
                                               @ShellOption(defaultValue = "500.55", help = "Sum") String sum,
@@ -68,14 +68,14 @@ public class AppEventsCommands {
     }
 
     @ShellMethod(value = "Get a bank card balance", key = {"gcb", "getcardbalance"})
-    public String getCardBalance(@ShellOption(defaultValue = "4123450101654724", help = "Card number") String cardNumber) {
+    public String getCardBalance(@ShellOption(defaultValue = "4123450000000019", help = "Card number") String cardNumber) {
         Optional<Card> card = cardService.getCardByCardNumber(cardNumber);
         return card.map(c -> "Card " + cardNumber + " balance: " + c.getAccount().getBalance() + " "
                 + c.getAccount().getCurrency().getCurrencyLetterCode()).orElse("Номер карты не найден!");
     }
 
     @ShellMethod(value = "Get a bank card balance in currency", key = {"gcbc", "getcardbalancecurr"})
-    public String getCardBalanceInCurrency(@ShellOption(defaultValue = "4123450101654724", help = "Card number")
+    public String getCardBalanceInCurrency(@ShellOption(defaultValue = "4123450000000019", help = "Card number")
                                            String cardNumber,
                                            @ShellOption(defaultValue = "USD", help = "Currency to (RUB, USD, EUR)")
                                            String currencyLetterCode) {
@@ -85,7 +85,7 @@ public class AppEventsCommands {
     }
 
     @ShellMethod(value = "Get a bank card status", key = {"gcs", "getcardstatus"})
-    public String getCardStatus(@ShellOption(defaultValue = "4123450101654724", help = "Card number") String cardNumber) {
+    public String getCardStatus(@ShellOption(defaultValue = "4123450000000019", help = "Card number") String cardNumber) {
         Optional<Card> card = cardService.getCardByCardNumber(cardNumber);
         return card.map(c -> "Card " + cardNumber + " status: (" + c.getCardStatus().getId() + ") "
                 + c.getCardStatus().getCardStatusName() + " ").orElse("Номер карты не найден!");

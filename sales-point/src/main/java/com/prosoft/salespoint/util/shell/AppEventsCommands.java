@@ -33,7 +33,7 @@ public class AppEventsCommands {
     @ShellMethod(value = "Make authorization", key = {"ma", "makeauthorization"})
     public String paymentAuthorizationService(@ShellOption(defaultValue = "000000001") String tid,
                                                           @ShellOption(defaultValue = "2022-10-26") String date,
-                                                          @ShellOption(defaultValue = "4123450101654724") String card,
+                                                          @ShellOption(defaultValue = "4123450000000019") String card,
                                                           @ShellOption(defaultValue = "1225") String expdate,
                                                           @ShellOption(defaultValue = "500.55") String sum,
                                                           @ShellOption(defaultValue = "RUB") String curr) {

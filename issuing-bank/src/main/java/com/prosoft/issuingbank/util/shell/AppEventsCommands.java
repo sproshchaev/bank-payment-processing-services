@@ -24,17 +24,28 @@ public class AppEventsCommands {
     private final TransactionService transactionService;
     private final ProcessingCenterMessageService processingCenterMessageService;
     private final AccountNumGeneratorService accountNumGeneratorService;
+    private final CardNumGeneratorService cardNumGeneratorService;
     private final CurrencyService currencyService;
+    private final PaymentSystemService paymentSystemService;
+    private final BankSettingService bankSettingService;
 
     @Autowired
-    public AppEventsCommands(ClientService clientService, AccountService accountService, CardService cardService, TransactionService transactionService, ProcessingCenterMessageService processingCenterMessageService, AccountNumGeneratorService accountNumGeneratorService, CurrencyService currencyService) {
+    public AppEventsCommands(ClientService clientService, AccountService accountService, CardService cardService,
+                             TransactionService transactionService,
+                             ProcessingCenterMessageService processingCenterMessageService,
+                             AccountNumGeneratorService accountNumGeneratorService,
+                             CardNumGeneratorService cardNumGeneratorService, CurrencyService currencyService,
+                             PaymentSystemService paymentSystemService, BankSettingService bankSettingService) {
         this.clientService = clientService;
         this.accountService = accountService;
         this.cardService = cardService;
         this.transactionService = transactionService;
         this.processingCenterMessageService = processingCenterMessageService;
         this.accountNumGeneratorService = accountNumGeneratorService;
+        this.cardNumGeneratorService = cardNumGeneratorService;
         this.currencyService = currencyService;
+        this.paymentSystemService = paymentSystemService;
+        this.bankSettingService = bankSettingService;
     }
 
     @ShellMethod(value = "Start console H2", key = {"c", "console"})
@@ -86,6 +97,14 @@ public class AppEventsCommands {
         Card cardCreated = cardService.createCard(clientId, account.getId(), paymentSystemId);
         return "Карта открыта: " + cardCreated.getCardNumber() + " " + cardCreated.getExpirationDate() + " "
                 + cardCreated.getHolderName();
+    }
+
+    @ShellMethod(value = "Generating a card number", key = {"gc", "generatecard"})
+    public String genCardNumber(@ShellOption(defaultValue = "1", help = "Card number id") long cardId,
+                                 @ShellOption(defaultValue = "1", help = "Payment system id") long paymentSystemId) {
+        return "Номер карты сгенерирован: " + cardNumGeneratorService.getCardNumber(cardId,
+                paymentSystemService.getPaymentSystemById(paymentSystemId).get(),
+                bankSettingService.getBySetting("bin").get().getCurrentValue());
     }
 
     @ShellMethod(value = "Get all client's accounts", key = {"gaa", "getallaccounts"})

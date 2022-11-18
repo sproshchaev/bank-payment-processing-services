@@ -1,19 +1,5 @@
 package com.prosoft.salespoint.model.vo;
 
-/**
- * todo del
- * make authorization - провести авторизацию новой покупки по банковской карте:
- * - terminal_id
- * - дата операции
- * - номер карты '4123450101654724'
- * - срок действия '2025-12-31'
- * - сумма операции '500.55'
- * - валюта операции 'RUB'
- * - код ответа
- * - код авторизации
- *
- * @return: "операция одобрена, код авторизации: 123456"
- */
 public class PaymentValueObject {
     private String terminalId;
     private String transactionDate;
